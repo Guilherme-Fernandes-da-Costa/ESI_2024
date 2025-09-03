@@ -14,9 +14,9 @@ Fora isso, usaremos tecnologias como Ruby, Excel, e outras (citaremos depois)
 - Passo a Passo
 
 Falta ser implementado:
-   *"CodeClimate badge" mostrando o GPA do projeto
-   *"Github Actions badge" mostrando o status workflow referente a branch master (deve ser: passing)
-   *"Coveralls badge" mostrando a cobertura de teste do código desenvolvido
-   *Link para a app implantada no Heroku
-   *Link para o projeto no Pivotal Tracker (não crie um projeto agora, o link será fornecido por mim, o projeto no Pivotal será criado assim que o e-mail com o repositório for enviado)
-   *Integrantes do projeto e uma pequena descrição de qual problema o software de vocês resolverá
+   [ ] "CodeClimate badge" mostrando o GPA do projeto
+   [ ] "Github Actions badge" mostrando o status workflow referente a branch master (deve ser: passing)
+   [ ] "Coveralls badge" mostrando a cobertura de teste do código desenvolvido
+   [ ] Link para a app implantada no Heroku
+   [ ] Link para o projeto no Pivotal Tracker (não crie um projeto agora, o link será fornecido por mim, o projeto no Pivotal será criado assim que o e-mail com o repositório for enviado)
+   [ ] Integrantes do projeto e uma pequena descrição de qual problema o software de vocês resolverá
