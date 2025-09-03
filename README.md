@@ -2,7 +2,7 @@
 
 ## Motivacao
 Esse repositório foi criado com o objetivo de organizar e expor o processo de planejamento do trabalho semestral da disciplina Engenharia de Sistemas de Informação I (ACH2006).
-Dessa forma, os componentes desse grupo são:
+<br> Dessa forma, os componentes desse grupo são:
 <br> Guilherme Fernandes da Costa (NUSP 14677300)
 <br> Mateus da Cruz Esposte (NUSP)
 <br> Navizon Santos do Nascimento (NUSP)
