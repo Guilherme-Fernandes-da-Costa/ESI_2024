@@ -19,4 +19,4 @@ Falta ser implementado:
    <br>- [ ] "Coveralls badge" mostrando a cobertura de teste do código desenvolvido
    <br>- [ ] Link para a app implantada no Heroku
    <br>- [ ] Link para o projeto no Pivotal Tracker (não crie um projeto agora, o link será fornecido por mim, o projeto no Pivotal será criado assim que o e-mail com o repositório for enviado)
-   <br>- [ ] Integrantes do projeto e uma pequena descrição de qual problema o software de vocês resolverá
+   <br>- [X] Integrantes do projeto e uma pequena descrição de qual problema o software de vocês resolverá
