@@ -3,10 +3,12 @@
 ## Motivacao
 Esse repositório foi criado com o objetivo de organizar e expor o processo de planejamento do trabalho semestral da disciplina Engenharia de Sistemas de Informação I (ACH2006).
 <br> Dessa forma, os componentes desse grupo são: <br>
+<br>- Daniel Ye (NUSP )
 <br>- Guilherme Fernandes da Costa (NUSP 14677300)
 <br>- Mateus da Cruz Esposte (NUSP)
 <br>- Navizon Santos do Nascimento (NUSP)
-<br> 
+<br>-  Marcos
+<br>
 
 ## O que estamos fazendo aqui?
 A ideia de SaaS que tivemos veio da necessidade da organização e modernização das finanças de pequenos e médios empreendimentos no cenário brasileiro.
