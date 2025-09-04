@@ -6,7 +6,7 @@ Esse repositório foi criado com o objetivo de organizar e expor o processo de p
 <br>- Daniel Ye (NUSP )
 <br>- Guilherme Fernandes da Costa (NUSP 14677300)
 <br>- Mateus da Cruz Esposte (NUSP 13862650)
-<br>- Navizon Santos do Nascimento (NUSP)
+<br>- Nazivon Santos do Nascimento (NUSP 10266548)
 <br>-  Marcos
 <br>
 
