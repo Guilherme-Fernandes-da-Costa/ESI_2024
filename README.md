@@ -5,7 +5,7 @@ Esse repositório foi criado com o objetivo de organizar e expor o processo de p
 <br> Dessa forma, os componentes desse grupo são: <br>
 <br>- Daniel Ye (NUSP )
 <br>- Guilherme Fernandes da Costa (NUSP 14677300)
-<br>- Mateus da Cruz Esposte (NUSP)
+<br>- Mateus da Cruz Esposte (NUSP 13862650)
 <br>- Navizon Santos do Nascimento (NUSP)
 <br>-  Marcos
 <br>
