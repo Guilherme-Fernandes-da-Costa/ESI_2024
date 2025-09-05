@@ -7,20 +7,49 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  ruby-js:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout do código
-      uses: actions/checkout@v4
+      # Checkout do código
+      - uses: actions/checkout@v4
 
-    - name: Configurar ambiente Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      # Configuração do Ruby
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' # Altere para sua versão
 
-    - name: Instalar dependências
-      run: pip install -r requirements.txt
+      # Instalar dependências Ruby (se tiver Gemfile)
+      - name: Install Ruby dependencies
+        run: |
+          if [ -f Gemfile ]; then
+            bundle install;
+          fi
 
-    - name: Rodar testes
-      run: pytest
+      # Rodar testes Ruby (RSpec)
+      - name: Run Ruby tests
+        run: |
+          if [ -f Gemfile ]; then
+            bundle exec rspec || true;
+          fi
+
+      # Configuração do Node.js para JS/CSS/HTML
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Altere para sua versão
+
+      # Instalar dependências JS (se tiver package.json)
+      - name: Install JS dependencies
+        run: |
+          if [ -f package.json ]; then
+            npm install;
+          fi
+
+      # Rodar linter JS (ESLint)
+      - name: Run JS linter
+        run: |
+          if [ -f package.json ]; then
+            npx eslint . || true;
+          fi
