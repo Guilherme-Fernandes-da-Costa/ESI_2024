@@ -32,6 +32,7 @@ Falta ser implementado:
 [![Code Climate](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024/badges/gpa.svg)](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024)
 <br>
 ![Git Actions](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/blank.yml/badge.svg)
+<br>
 ![License](https://img.shields.io/github/license/Guilherme-Fernandes-da-Costa/ESI_2024)
 ![Open Issues](https://img.shields.io/github/last-commit/Guilherme-Fernandes-da-Costa/ESI_2024)
 ![Open Issues](https://img.shields.io/github/issues/Guilherme-Fernandes-da-Costa/ESI_2024)
