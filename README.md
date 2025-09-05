@@ -26,8 +26,12 @@ Falta ser implementado:
    <br>- [ ] "Coveralls badge" mostrando a cobertura de teste do código desenvolvido (https://www.youtube.com/watch?v=bNVRxb-MKGo)
    <br>- [ ] Link para a app implantada no Heroku (https://www.heroku.com/students/)
    <br>- [X] Integrantes do projeto e uma pequena descrição de qual problema o software de vocês resolverá
-   <br>
 
+###Badges  
+<br>
 [![Code Climate](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024/badges/gpa.svg)](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024)
 <br>
 ![Git Actions](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/blank.yml/badge.svg)
+![License](https://img.shields.io/github/license/Guilherme-Fernandes-da-Costa/ESI_2024)
+![Open Issues](https://img.shields.io/github/last-commit/Guilherme-Fernandes-da-Costa/ESI_2024)
+![Open Issues](https://img.shields.io/github/issues/Guilherme-Fernandes-da-Costa/ESI_2024)
