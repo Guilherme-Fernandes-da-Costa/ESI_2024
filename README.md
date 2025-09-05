@@ -28,7 +28,6 @@ Falta ser implementado:
    <br>- [X] Integrantes do projeto e uma pequena descrição de qual problema o software de vocês resolverá
 
 ### Badges  
-<br>
 [![Code Climate](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024/badges/gpa.svg)](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024)
 <br>
 ![Git Actions](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/blank.yml/badge.svg)
