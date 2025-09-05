@@ -29,4 +29,4 @@ Falta ser implementado:
    <br>
 [![Code Climate](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024/badges/gpa.svg)](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024)
 <br>
-![CI](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/blank.yml/badge.svg)
