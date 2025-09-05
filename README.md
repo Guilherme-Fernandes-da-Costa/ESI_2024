@@ -7,7 +7,7 @@ Esse repositório foi criado com o objetivo de organizar e expor o processo de p
 <br>- Guilherme Fernandes da Costa (NUSP 14677300)
 <br>- Mateus da Cruz Esposte (NUSP 13862650)
 <br>- Nazivon Santos do Nascimento (NUSP 10266548)
-<br>-  Marcos
+<br>-  Marcos Medeiros da Silva Filho (NUSP )
 <br>
 
 ## O que estamos fazendo aqui?
