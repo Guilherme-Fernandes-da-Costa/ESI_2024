@@ -3,7 +3,7 @@
 ## Motivacao
 Esse repositório foi criado com o objetivo de organizar e expor o processo de planejamento do trabalho semestral da disciplina Engenharia de Sistemas de Informação I (ACH2006).
 <br> Dessa forma, os componentes deste grupo são: <br>
-<br>- Daniel Ye (NUSP )
+<br>- Daniel Ye (NUSP 14668540)
 <br>- Guilherme Fernandes da Costa (NUSP 14677300)
 <br>- Mateus da Cruz Esposte (NUSP 13862650)
 <br>- Nazivon Santos do Nascimento (NUSP 10266548)
