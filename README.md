@@ -27,7 +27,7 @@ Falta ser implementado:
    <br>- [ ] Link para a app implantada no Heroku (https://www.heroku.com/students/)
    <br>- [X] Integrantes do projeto e uma pequena descrição de qual problema o software de vocês resolverá
 
-##Badges  
+### Badges  
 <br>
 [![Code Climate](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024/badges/gpa.svg)](https://codeclimate.com/github/Guilherme-Fernandes-da-Costa/ESI_2024)
 <br>
