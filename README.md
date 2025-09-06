@@ -34,6 +34,7 @@ Falta ser implementado:
 [![Maintainability](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/maintainability.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
 <br>
 **Git Actions**
+<br>
 ![Git Actions](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/blank.yml/badge.svg)
 <br>
 **Licença**
