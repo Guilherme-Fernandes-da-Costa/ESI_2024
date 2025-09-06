@@ -38,7 +38,10 @@ Falta ser implementado:
 ![Git Actions](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/blank.yml/badge.svg)
 <br>
 **Licença**
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)![Open Issues](https://img.shields.io/github/last-commit/Guilherme-Fernandes-da-Costa/ESI_2024)
+<br>
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 <br>
 **Issues**
+<br>
+![Open Issues](https://img.shields.io/github/last-commit/Guilherme-Fernandes-da-Costa/ESI_2024)
 ![Open Issues](https://img.shields.io/github/issues/Guilherme-Fernandes-da-Costa/ESI_2024)
