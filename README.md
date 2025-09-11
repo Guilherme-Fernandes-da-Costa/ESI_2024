@@ -31,8 +31,7 @@ Verifique se vc tem todas as dependencias necessarias, execute o seguinte comand
   Adicionar o código final aqui
   ```
   
-**- Passo a Passo
-**
+**- Passo a Passo**
 <br>
 
 <br>
