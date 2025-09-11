@@ -14,7 +14,7 @@ Esse repositório foi criado com o objetivo de organizar e expor o processo de p
 A ideia de SaaS que tivemos veio da necessidade da organização e modernização das finanças de pequenos e médios empreendimentos no cenário brasileiro.
 Através do WhatsApp conseguiremos analizar, separar e contabilizar comprovantes de pagamento, suprimindo o valor de  
 
-Atualmente, pensamos em utilizarmos que bibliotecas já existentes para formular esse artefato (como ), mas também conceitos como _Regular Expressions_ (https://dl.ebooksworld.ir/motoman/OReilly.Mastering.Regular.Expressions.3rd.Edition.www.EBooksWorld.ir.pdf).
+Atualmente, pensamos em utilizarmos que bibliotecas já existentes para formular esse artefato (como bibliontacas de leitura de imagem), mas também conceitos como _Regular Expressions_ (https://dl.ebooksworld.ir/motoman/OReilly.Mastering.Regular.Expressions.3rd.Edition.www.EBooksWorld.ir.pdf).
 Fora isso, usaremos tecnologias como Ruby, Excel, e outras (citaremos depois)
 ## Como executar?
 - Dependencias
