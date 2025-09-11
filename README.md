@@ -18,6 +18,10 @@ Atualmente, pensamos em utilizarmos que bibliotecas já existentes para formular
 Fora isso, usaremos tecnologias como Ruby, Excel, e outras (citaremos depois)
 ## Como executar?
 - Dependencias
+   Verifique se vc tem todas as dependencias necessarias, execute o seguinte comando no diretorio raiz do seu repositório clone:
+  ```
+  Adicionar o código final aqui
+  ```
 - Passo a Passo
 
 Falta ser implementado:
