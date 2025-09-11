@@ -20,6 +20,7 @@ Fora isso, usaremos tecnologias como Ruby, Excel, e outras (citaremos depois)
 Esse projeto foi pensado para ser executado em uma máquina Linux.
 <br><br>
 **Caso não esteja no Linux, o que eu faço?** 
+<br>
 **Resposta:** Delete o sistema operacional anterior e começe a usar Linux (recomendamos Ubuntu/Debian).
 <br>
 - Dependencias
