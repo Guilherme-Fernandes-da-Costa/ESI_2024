@@ -17,11 +17,16 @@ Através do WhatsApp conseguiremos analizar, separar e contabilizar comprovantes
 Atualmente, pensamos em utilizarmos que bibliotecas já existentes para formular esse artefato (como bibliontacas de leitura de imagem), mas também conceitos como _Regular Expressions_ (https://dl.ebooksworld.ir/motoman/OReilly.Mastering.Regular.Expressions.3rd.Edition.www.EBooksWorld.ir.pdf).
 Fora isso, usaremos tecnologias como Ruby, Excel, e outras (citaremos depois)
 ## Como executar?
+Esse projeto foi pensado para ser executado em uma máquina Linux.
+**Caso não esteja no Linux, o que eu faço?** 
+**Resposta:** Delete o sistema operacional anterior e começe a usar Linux (recomendamos Ubuntu/Debian).
+<br>
 - Dependencias
    Verifique se vc tem todas as dependencias necessarias, execute o seguinte comando no diretorio raiz do seu repositório clone:
   ```
   Adicionar o código final aqui
   ```
+  
 - Passo a Passo
 
 Falta ser implementado:
