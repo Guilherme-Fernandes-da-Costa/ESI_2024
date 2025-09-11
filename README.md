@@ -18,6 +18,7 @@ Atualmente, pensamos em utilizarmos que bibliotecas já existentes para formular
 Fora isso, usaremos tecnologias como Ruby, Excel, e outras (citaremos depois)
 ## Como executar?
 Esse projeto foi pensado para ser executado em uma máquina Linux.
+<br>
 **Caso não esteja no Linux, o que eu faço?** 
 **Resposta:** Delete o sistema operacional anterior e começe a usar Linux (recomendamos Ubuntu/Debian).
 <br>
