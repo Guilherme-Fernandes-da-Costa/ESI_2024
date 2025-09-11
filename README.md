@@ -22,15 +22,20 @@ Esse projeto foi pensado para ser executado em uma máquina Linux.
 **Caso não esteja no Linux, o que eu faço?** 
 <br>
 **Resposta:** Delete o sistema operacional anterior e começe a usar Linux (recomendamos Ubuntu/Debian).
+<br><br>
+
+**- Dependencias**
 <br>
-- Dependencias
-   Verifique se vc tem todas as dependencias necessarias, execute o seguinte comando no diretorio raiz do seu repositório clone:
+Verifique se vc tem todas as dependencias necessarias, execute o seguinte comando no diretorio raiz do seu repositório clone:
   ```
   Adicionar o código final aqui
   ```
   
-- Passo a Passo
+**- Passo a Passo
+**
+<br>
 
+<br>
 Falta ser implementado:
    <br>- [X] "CodeClimate badge" mostrando o GPA do projeto (https://codeclimate.com/changelog/54c68737e30ba069630010cc/)
    <br>- [X] "Github Actions badge" mostrando o status workflow referente a branch master (deve ser: passing) (https://docs.github.com/pt/actions/get-started/quickstart)
