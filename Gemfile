@@ -11,6 +11,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Gems para seu projeto: ex. para parsing de proofs
 gem 'nokogiri'         # Para Regex/HTML parsing
 gem 'sidekiq'          # Para jobs assíncronos (ex: processamento WhatsApp)
+gem 'sprockets-rails' # Sistema de assets
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
