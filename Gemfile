@@ -24,7 +24,8 @@ group :development, :test do
   gem "rspec-rails"
   gem "cucumber-rails", require: false
   gem "database_cleaner-active_record"
-  gem "brakeman" # A partir daqui, gems que os 'checks' do GitHub julgaram necessarias
+  gem "brakeman" # A partir daqui, gems que os 'checks' julgaram necessarias
   gem "rubocop", require: false
   gem "rubocop-rails-omakase", require: false
+  gem "importmap-rails"
 end
