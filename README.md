@@ -6,8 +6,8 @@ Esse repositório foi criado com o objetivo de organizar e expor o processo de p
 <br>- Daniel Ye ***(NUSP 14668540)***
 <br>- Guilherme Fernandes da Costa ***(NUSP 14677300)***
 <br>- Mateus da Cruz Esposte ***(NUSP 13862650)***
+<br>- Marcos Medeiros da Silva Filho ***(NUSP 14594271)***
 <br>- Nazivon Santos do Nascimento ***(NUSP 10266548)***
-<br>-  Marcos Medeiros da Silva Filho ***(NUSP 14594271)***
 <br>- Sara Letícia de Sousa Silva ***(NUSP )***
 <br>
 
