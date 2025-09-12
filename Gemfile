@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.0'  # Ou a versão que você usa
+ruby '3.4.1'  # Ou a versão que você usa
 
 gem 'rails', '~> 7.0'  # Versão Rails
 gem 'pg', '~> 1.1'     # Para PostgreSQL (banco recomendado para SaaS)
@@ -18,4 +18,10 @@ end
 
 group :production do
   gem 'rails_12factor'  # Para deploy em PaaS como DO
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner-active_record'
 end
