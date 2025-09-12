@@ -26,4 +26,5 @@ group :development, :test do
   gem 'database_cleaner-active_record'
   gem 'brakeman' # A partir daqui, gems que os 'checks' do GitHub julgaram necessarias
   gem 'rubocop', require: false
+  gem 'rubocop-rails-omakase', require: false
 end
