@@ -36,13 +36,6 @@ Verifique se vc tem todas as dependencias necessarias, execute o seguinte comand
 <br>
 
 <br>
-Falta ser implementado:
-   <br>- [X] "CodeClimate badge" mostrando o GPA do projeto (https://codeclimate.com/changelog/54c68737e30ba069630010cc/)
-   <br>- [X] "Github Actions badge" mostrando o status workflow referente a branch master (deve ser: passing) (https://docs.github.com/pt/actions/get-started/quickstart)
-   <br>- [X] "Coveralls badge" mostrando a cobertura de teste do código desenvolvido (https://www.youtube.com/watch?v=bNVRxb-MKGo)
-   <br>- [ ] Link para a app implantada no Heroku (https://www.heroku.com/students/)
-   <br>- [X] Integrantes do projeto e uma pequena descrição de qual problema o software de vocês resolverá
-
 ## Badges  
 **Code Climate**
 <br>
