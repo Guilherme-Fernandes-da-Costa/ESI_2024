@@ -205,7 +205,7 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (5.6.9)
+    puma (6.6.1)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.16)
@@ -283,6 +283,14 @@ GEM
       logger (>= 1.6.2)
       rack (>= 3.1.0)
       redis-client (>= 0.23.2)
+    sprockets (4.2.2)
+      concurrent-ruby (~> 1.0)
+      logger
+      rack (>= 2.2.4, < 4)
+    sprockets-rails (3.5.2)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      sprockets (>= 3.0.0)
     stringio (3.1.7)
     sys-uname (1.4.1)
       ffi (~> 1.1)
@@ -308,6 +316,7 @@ PLATFORMS
   arm-linux-musl
   arm64-darwin
   x86_64-darwin
+  x86_64-linux
   x86_64-linux-gnu
   x86_64-linux-musl
 
@@ -318,11 +327,12 @@ DEPENDENCIES
   database_cleaner-active_record
   nokogiri
   pg (~> 1.1)
-  puma (~> 5.0)
+  puma (~> 6.0)
   rails (~> 7.0)
   rails_12factor
   rspec-rails
   sidekiq
+  sprockets-rails
 
 RUBY VERSION
    ruby 3.4.1p0
