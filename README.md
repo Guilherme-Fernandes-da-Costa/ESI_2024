@@ -8,7 +8,7 @@ Esse repositório foi criado com o objetivo de organizar e expor o processo de p
 <br>- Mateus da Cruz Esposte ***(NUSP 13862650)***
 <br>- Nazivon Santos do Nascimento ***(NUSP 10266548)***
 <br>-  Marcos Medeiros da Silva Filho ***(NUSP 14594271)***
-<br>- Sara Letícia de Sousa e Silva ***(NUSP )***
+<br>- Sara Letícia de Sousa Silva ***(NUSP )***
 <br>
 
 ## O que estamos fazendo aqui?
