@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.4.1"  # Ou a versão que você usa
 
-gem "rails", "~> 7.0"  # Versão Rails
+gem "rails", "~> 8.0"  # Versão Rails
 gem "pg", "~> 1.1"     # Para PostgreSQL (banco recomendado para SaaS)
 gem "puma", "~> 6.0"   # Servidor web
 gem "bootsnap", ">= 1.4.4", require: false
