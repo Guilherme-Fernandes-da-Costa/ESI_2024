@@ -6,7 +6,7 @@ ruby '3.4.1'  # Ou a versão que você usa
 
 gem 'rails', '~> 7.0'  # Versão Rails
 gem 'pg', '~> 1.1'     # Para PostgreSQL (banco recomendado para SaaS)
-gem 'puma', '~> 5.0'   # Servidor web
+gem 'puma', '~> 6.0'   # Servidor web
 gem 'bootsnap', '>= 1.4.4', require: false
 # Gems para seu projeto: ex. para parsing de proofs
 gem 'nokogiri'         # Para Regex/HTML parsing
