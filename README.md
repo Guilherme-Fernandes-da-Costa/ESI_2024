@@ -23,18 +23,17 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 
 ## Links Úteis 🔗
 
-* **Aplicação no Heroku:**[`[LINK PARA APLICAÇÃO NO HEROKU]`](https://taskhub-grupo-2025-c2fd856b0fb6.herokuapp.com/)
+* **Aplicação no Heroku:**[`[LINK PARA APLICAÇÃO NO HEROKU]`]()
 * **Projeto no Pivotal Tracker:** `[LINK SERÁ FORNECIDO EM BREVE]`
 
 ---
 
-## Integrantes do Grupo 5
+## Integrantes do Grupo 1
 
 | Nome do Integrante | Nº USP |
 | :--- | :---: |
-| Gustavo Henriques Vieira | 14713982 |
-| João Pedro Ribeiro Barbosa | 14677248 |
-| Kaique de Jesus Pessoa Santos | 14677144 |
-| Renan Bezerra Guimarães | 14605640 |
-| Lucca Ishikawa Ribeiro | 14760172 |
-| João Ricardo Paiva Camargo | 14747274 |
+| Guilherme Fernandes | 14677300 |
+| DAniel Ye | 14677248 |
+| Mateus da Cruz Esposte | 14677144 |
+| Marcos | 14605640 |
+| Sara Letícia  | 14760172 |
