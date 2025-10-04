@@ -5,15 +5,7 @@ Um aplicativo de lista de compras compartilhada, feito para simplificar a vida d
 ---
 
 ## Status do Projeto
-
-[![Ruby on Rails CI Badge](https://github.com/kaique321123/taskhub/actions/workflows/main.yml/badge.svg)](https://github.com/kaique321123/taskhub/actions/workflows/main.yml)
-
-[![Coverage Status Badge](https://coveralls.io/repos/github/kaique321123/taskhub/badge.svg?branch=main)](https://coveralls.io/github/kaique321123/taskhub?branch=main)
-
-![Code Climate Badge](https://api.codeclimate.com/v1/badges/SEU_BADGE_ID/maintainability)
-
-
-
+<br>
 **Code Climate**
 <br>
 [![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
