@@ -5,7 +5,7 @@ Um aplicativo de lista de compras compartilhada, feito para simplificar a vida d
 ---
 
 ## Status do Projeto
-<br>
+
 **Code Climate**
 <br>
 [![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
