@@ -32,8 +32,9 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 
 | Nome do Integrante | Nº USP |
 | :--- | :---: |
-| Guilherme Fernandes | 14677300 |
-| DAniel Ye | 14677248 |
-| Mateus da Cruz Esposte | 14677144 |
-| Marcos | 14605640 |
-| Sara Letícia  | 14760172 |
+| Daniel Ye | 14668540 |
+| Guilherme Fernandes da Costa | 14677300 |
+| Mateus da Cruz Esposte | 13862650 |
+| Marcos |  |
+| Nazivon Santos do Nascimento | 10266548 | 
+| Sara Letícia  |  |
