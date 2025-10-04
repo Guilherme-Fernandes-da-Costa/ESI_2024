@@ -12,6 +12,18 @@ Um aplicativo de lista de compras compartilhada, feito para simplificar a vida d
 
 ![Code Climate Badge](https://api.codeclimate.com/v1/badges/SEU_BADGE_ID/maintainability)
 
+
+
+**Code Climate**
+<br>
+[![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
+[![Maintainability](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/maintainability.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
+<br>
+**Git Actions**
+<br>
+![Git Actions](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/blank.yml/badge.svg)
+<br>
+
 ---
 
 ## Descrição do Problema
