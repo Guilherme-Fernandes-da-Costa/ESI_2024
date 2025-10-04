@@ -1,57 +1,40 @@
-# ESI_2024
+# We Shop 🛒
 
-## Motivacao
-Esse repositório foi criado com o objetivo de organizar e expor o processo de planejamento do trabalho semestral da disciplina Engenharia de Sistemas de Informação I (ACH2006).
-<br> Dessa forma, os componentes deste grupo são: <br>
-<br>- Daniel Ye ***(NUSP 14668540)***
-<br>- Guilherme Fernandes da Costa ***(NUSP 14677300)***
-<br>- Mateus da Cruz Esposte ***(NUSP 13862650)***
-<br>- Marcos Medeiros da Silva Filho ***(NUSP 14594271)***
-<br>- Nazivon Santos do Nascimento ***(NUSP 10266548)***
-<br>- Sara Letícia de Sousa Silva ***(NUSP )***
-<br>
+Um aplicativo de lista de compras compartilhada, feito para simplificar a vida de amigos e famílias.
 
-## O que estamos fazendo aqui?
-A ideia de SaaS que tivemos veio da necessidade da organização e modernização das finanças de pequenos e médios empreendimentos no cenário brasileiro.
-Através do WhatsApp conseguiremos analizar, separar e contabilizar comprovantes de pagamento, suprimindo a quantidade de tempo despendido para essas tarefas.  
+---
 
-Atualmente, pensamos em utilizarmos que bibliotecas já existentes para formular esse artefato (como bibliontacas de leitura de imagem), mas também conceitos como _Regular Expressions_ (https://dl.ebooksworld.ir/motoman/OReilly.Mastering.Regular.Expressions.3rd.Edition.www.EBooksWorld.ir.pdf).
-Fora isso, usaremos tecnologias como Ruby, Excel, e outras (citaremos depois)
-## Como executar?
-Esse projeto foi pensado para ser executado em uma máquina Linux.
-<br><br>
-**Caso não esteja no Linux, o que eu faço?** 
-<br>
-**Resposta:** Delete o sistema operacional anterior e começe a usar Linux (recomendamos Ubuntu/Debian).
-<br><br>
+## Status do Projeto
 
-**- Dependencias**
-<br>
-Verifique se vc tem todas as dependencias necessarias, execute o seguinte comando no diretorio raiz do seu repositório clone:
-  ```
-  Adicionar o código final aqui
-  ```
-  
-**- Passo a Passo**
-<br>
+[![Ruby on Rails CI Badge](https://github.com/kaique321123/taskhub/actions/workflows/main.yml/badge.svg)](https://github.com/kaique321123/taskhub/actions/workflows/main.yml)
 
-<br>
+[![Coverage Status Badge](https://coveralls.io/repos/github/kaique321123/taskhub/badge.svg?branch=main)](https://coveralls.io/github/kaique321123/taskhub?branch=main)
 
-## Badges  
-**Code Climate**
-<br>
-[![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
-[![Maintainability](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/maintainability.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
-<br>
-**Git Actions**
-<br>
-![Git Actions](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/blank.yml/badge.svg)
-<br>
-**Licence**
-<br>
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-<br>
-**Issues**
-<br>
-![Open Issues](https://img.shields.io/github/last-commit/Guilherme-Fernandes-da-Costa/ESI_2024)
-![Open Issues](https://img.shields.io/github/issues/Guilherme-Fernandes-da-Costa/ESI_2024)
+![Code Climate Badge](https://api.codeclimate.com/v1/badges/SEU_BADGE_ID/maintainability)
+
+---
+
+## Descrição do Problema
+
+Organizar as compras do dia a dia pode ser um desafio, especialmente quando várias pessoas precisam colaborar. As listas de papel se perdem, as mensagens de texto geram confusão, e os itens acabam sendo comprados em duplicidade.
+O **We Shop** pretende resolver este problema ao oferecer uma plataforma centralizada e em tempo real, onde grupos de amigos, famílias ou colegas de casa podem criar e gerenciar listas de compras de forma conjunta, garantindo que todos estejam na mesma página.
+
+---
+
+## Links Úteis 🔗
+
+* **Aplicação no Heroku:**[`[LINK PARA APLICAÇÃO NO HEROKU]`](https://taskhub-grupo-2025-c2fd856b0fb6.herokuapp.com/)
+* **Projeto no Pivotal Tracker:** `[LINK SERÁ FORNECIDO EM BREVE]`
+
+---
+
+## Integrantes do Grupo 5
+
+| Nome do Integrante | Nº USP |
+| :--- | :---: |
+| Gustavo Henriques Vieira | 14713982 |
+| João Pedro Ribeiro Barbosa | 14677248 |
+| Kaique de Jesus Pessoa Santos | 14677144 |
+| Renan Bezerra Guimarães | 14605640 |
+| Lucca Ishikawa Ribeiro | 14760172 |
+| João Ricardo Paiva Camargo | 14747274 |

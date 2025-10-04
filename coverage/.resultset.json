@@ -1,0 +1,57 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/guifends/Documentos/we-shop-main/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/guifends/Documentos/we-shop-main/app/helpers/home_helper.rb": [
+        1,
+        null
+      ],
+      "/home/guifends/Documentos/we-shop-main/app/controllers/home_controller.rb": [
+        1,
+        1,
+        null,
+        null
+      ],
+      "/home/guifends/Documentos/we-shop-main/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/home/guifends/Documentos/we-shop-main/app/channels/application_cable/channel.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/guifends/Documentos/we-shop-main/app/channels/application_cable/connection.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/guifends/Documentos/we-shop-main/app/jobs/application_job.rb": [
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0
+      ],
+      "/home/guifends/Documentos/we-shop-main/app/mailers/application_mailer.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/guifends/Documentos/we-shop-main/app/models/application_record.rb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "timestamp": 1758421012
+  }
+}

@@ -1,31 +1,63 @@
 source "https://rubygems.org"
 
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+ruby "~> 3.3.3"
 
-ruby "3.4.1"  # Ou a versão que você usa
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 7.1.3"
 
-gem "rails", "~> 7.0"  # Versão Rails
-gem "pg", "~> 1.1"     # Para PostgreSQL (banco recomendado para SaaS)
-gem "puma", "~> 6.0"   # Servidor web
-gem "bootsnap", ">= 1.4.4", require: false
-# Gems para seu projeto: ex. para parsing de proofs
-gem "nokogiri"         # Para Regex/HTML parsing
-gem "sidekiq"          # Para jobs assíncronos (ex: processamento WhatsApp)
+# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem "sprockets-rails"
 
-group :development, :test do
-  gem "byebug", platforms: [ :mri, :mingw, :x64_mingw ]
-end
+# Use sqlite3 as the database for Active Record
+gem "sqlite3", "~> 1.4"
 
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", ">= 5.0"
+
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "importmap-rails"
+
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
+
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "stimulus-rails"
+
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+# Reduces boot times through caching; required in config/boot.rb
+gem "bootsnap", require: false
+
+# GRUPO DE PRODUÇÃO (PARA O HEROKU)
 group :production do
-  gem "rails_12factor"  # Para deploy em PaaS como DO
+  gem "pg"
 end
 
 group :development, :test do
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ]
+
+  # GEMS ADICIONADAS PARA O PROJETO DE ENGENHARIA DE SOFTWARE
   gem "rspec-rails"
+  gem "factory_bot_rails"
   gem "cucumber-rails", require: false
+  gem "capybara"
   gem "database_cleaner-active_record"
-  gem "brakeman" # A partir daqui, gems que os 'checks' julgaram necessarias
-  gem "rubocop", require: false
-  gem "rubocop-rails-omakase", require: false
-  gem "importmap-rails"
+  gem "simplecov", require: false
+  gem "coveralls", require: false
 end
+
+group :development do
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
+end
+
+# O grupo de teste padrão foi movido para o grupo :development, :test
+# group :test do
+#   gem "capybara"
+#   gem "selenium-webdriver"
+# end
