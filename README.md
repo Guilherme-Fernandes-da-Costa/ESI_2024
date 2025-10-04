@@ -51,7 +51,9 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 | Nazivon Santos do Nascimento | 10266548 | 
 | Sara Letícia  |  |
 
-## Integrantes do Grupo 5
+---
+
+## Stakeholder (Grupo 5)
 
 | Nome do Integrante | Nº USP |
 | :--- | :---: |
