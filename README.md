@@ -38,7 +38,7 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 
 ---
 
-## Integrantes do Grupo 1
+## Integrantes do Grupo 1 (Developer Team)
 
 | Nome do Integrante | Nº USP |
 | :--- | :---: |
@@ -48,3 +48,14 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 | Marcos |  |
 | Nazivon Santos do Nascimento | 10266548 | 
 | Sara Letícia  |  |
+
+## Integrantes do Grupo 5
+
+| Nome do Integrante | Nº USP |
+| :--- | :---: |
+| Gustavo Henriques Vieira | 14713982 |
+| João Pedro Ribeiro Barbosa | 14677248 |
+| Kaique de Jesus Pessoa Santos | 14677144 |
+| Renan Bezerra Guimarães | 14605640 |
+| Lucca Ishikawa Ribeiro | 14760172 |
+| João Ricardo Paiva Camargo | 14747274 |
