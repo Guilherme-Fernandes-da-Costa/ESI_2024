@@ -21,6 +21,8 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 
 ---
 
+## Como executar esse programa
+
 ## Links Úteis 🔗
 
 * **Aplicação no Heroku:**[`[LINK PARA APLICAÇÃO NO HEROKU]`]()
