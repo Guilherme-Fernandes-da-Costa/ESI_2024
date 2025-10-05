@@ -1,6 +1,7 @@
 # features/prioridade_itens.feature
 #language: pt
 
+@JIRA-PRIORIDADE
 Funcionalidade: Definir prioridade nos itens
   Para organizar a compra de acordo com a importância
   Como um ambulante
