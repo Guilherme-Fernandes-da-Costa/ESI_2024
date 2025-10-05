@@ -47,7 +47,7 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 | Daniel Ye | 14668540 |
 | Guilherme Fernandes da Costa | 14677300 |
 | Mateus da Cruz Esposte | 13862650 |
-| Marcos | 14594271 |
+| Marcos Medeiros da Silva Filho | 14594271 |
 | Nazivon Santos do Nascimento | 10266548 | 
 | Sara Leticia Santos Silva  | 14677190 |
 
