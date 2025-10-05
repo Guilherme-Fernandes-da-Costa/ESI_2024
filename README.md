@@ -35,8 +35,8 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 
 ## Links Úteis 🔗
 
-* **Aplicação no Heroku:**[`[LINK PARA APLICAÇÃO NO HEROKU]`]()
-* **Projeto no Pivotal Tracker:** `[LINK SERÁ FORNECIDO EM BREVE]`
+`* **Aplicação no Heroku:**[LINK PARA APLICAÇÃO NO HEROKU]()
+* **Projeto no Jira:** [LINK SERÁ FORNECIDO EM BREVE](https://matesp8624.atlassian.net/jira/software/projects/ESI/boards/2?atlOrigin=eyJpIjoiYzNmMDY2MDAyZTEyNGE3YmJlMjgyY2U0NzExY2E3MWIiLCJwIjoiaiJ9)
 
 ---
 
