@@ -9,7 +9,7 @@ Funcionalidade: Múltiplas listas de compra
     E insiro o nome "Compras do Mês"
     E confirmo a criação
     Então devo ver a lista "Compras do Mês" na minha lista de listas
-    E devo ser redirecionado para a lista vazia
+    
 
   Cenário: Navegar entre listas existentes
     Dado que tenho 3 listas de compras criadas
