@@ -1,4 +1,4 @@
-# features/lista_itens.feature
+# features/edicao_itens.feature
 #language: pt
 
 @JIRA-ADDITENS
