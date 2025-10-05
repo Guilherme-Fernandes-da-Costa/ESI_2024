@@ -3,7 +3,7 @@
 
 @JIRA-ADICIONARPESSOAS
 Funcionalidade: Adição de pessoas à lista
-  Para que mais pessoas possam contribuir
+  Para que mais pessoas possam contribuir com suas necessidades
   Como um organizador
   Eu quero adicionar participantes à lista
 
