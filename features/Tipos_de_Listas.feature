@@ -11,3 +11,12 @@ Feature: Criar Diferentes Tipos de Lista
     And I click "Salvar Lista"
     Then I should see message "Lista criada com sucesso"
     And I should see "Compras da Semana" in my "Mercado" lists
+
+  Scenario: Criar lista de compras para viagem
+    Given I am on the "Criar Lista" page
+    When I select list type "Viagem"
+    And I enter list name "Férias na Praia"
+    And I add categories "Roupas", "Documentos", "Higiene"
+    And I click "Salvar Lista"
+    Then I should see message "Lista criada com sucesso"
+    And I should see "Férias na Praia" in my "Viagem" lists

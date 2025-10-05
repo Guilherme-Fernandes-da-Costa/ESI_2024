@@ -5,6 +5,11 @@ Given("I am on the {string} page for {string}") do |page_name, list_name|
   expect(page).to have_content(list_name)
 end
 
+Given("I am on the {string} page") do |page_name|
+  visit share_lists_path
+  expect(page).to have_content(page_name)
+end
+
 When("I fill name with {string}") do |name|
     fill_in 'Nome completo', with: name
     @invited_name = name
@@ -31,11 +36,6 @@ Then("I should see name {string} in the shared people list") do |name|
   within '.lista-convidados' do
     expect(page).to have_content(name)
   end
-end
-
-Given("I am on the {string} page") do |page_name|
-  visit new_list_path
-  expect(page).to have_content(page_name)
 end
 
 Then("I should not see name {string} in the shared people list") do |name|

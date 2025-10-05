@@ -13,20 +13,17 @@ When("I enter list name {string}") do |list_name|
 end
 
 When("I add categories {string}") do |categories|
-  categories_array = categories.split(', ')
+  
+  categories_array = categories.split(',').map(&:strip)
   categories_array.each do |category|
-    fill_in 'Nova Categoria', with: category.strip
+    fill_in 'Nova Categoria', with: category
     click_button 'Adicionar Categoria'
   end
 end
 
-When("I click {string}") do |button_text|
-  click_button button_text
-end
+# "When I click" - já definido no outro arquivo "Compartilhar_Lista_steps.rb"
 
-Then("I should see message {string}") do |message|
-  expect(page).to have_content(message)
-end
+# "Then I should see message" - já definido no outro arquivo "Compartilhar_Lista_steps.rb"
 
 Then("I should see {string} in my {string} lists") do |list_name, list_type|
   within "##{list_type.downcase}-lists" do
