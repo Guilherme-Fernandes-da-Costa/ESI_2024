@@ -35,7 +35,7 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 
 ## Links Úteis 🔗
 
-* **Projeto no Jira:**[ clique aqui.](https://matesp8624.atlassian.net/jira/software/projects/ESI/boards/2?atlOrigin=eyJpIjoiYzNmMDY2MDAyZTEyNGE3YmJlMjgyY2U0NzExY2E3MWIiLCJwIjoiaiJ9)
+* **Projeto no Jira: **[clique aqui.](https://matesp8624.atlassian.net/jira/software/projects/ESI/boards/2?atlOrigin=eyJpIjoiYzNmMDY2MDAyZTEyNGE3YmJlMjgyY2U0NzExY2E3MWIiLCJwIjoiaiJ9)
 
 ---
 
