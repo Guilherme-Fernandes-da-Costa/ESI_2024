@@ -1,4 +1,4 @@
-# features/permissao_edicao.feature
+# features/permissao_controle.feature
 #language:pt
 
 @JIRA-PERMISSAO
