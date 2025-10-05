@@ -9,14 +9,14 @@ Funcionalidade: Adição de pessoas à lista
 
   Cenário: Organizador adiciona uma nova pessoa à lista
     Dado que "Maria" é um organizador
-    Quando "Maria" adiciona "João" à lista na unidade "Caixa 1"
-    Então "João" deve aparecer como participante da lista na unidade "Caixa 1"
+    Quando "Maria" adiciona "João" à lista na unidade
+    Então "João" deve aparecer como participante da lista
 
   Cenário: Adicionar várias pessoas
     Dado que "Maria" é um organizador
-    Quando "Maria" adiciona "Ana" à lista na unidade "Caixa 2"
-      E "Maria" adiciona "Carlos" à lista na unidade "Caixa 2"
-    Então "Ana" e "Carlos" devem aparecer como participantes da lista na unidade "Caixa 2"
+    Quando "Maria" adiciona "Ana" à lista
+      E "Maria" adiciona "Carlos" à lista
+    Então "Ana" e "Carlos" devem aparecer como participantes da lista
 
   Cenário: Pessoa não autorizada tenta adicionar participantes
     Dado que "Pedro" não é um organizador
