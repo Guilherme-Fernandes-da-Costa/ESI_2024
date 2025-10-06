@@ -8,7 +8,7 @@ Um aplicativo de lista de compras compartilhada, feito para simplificar a vida d
 
 **Code Climate**
 <br>
-[![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024?t=123)
+[![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg?t=123)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024?t=123)
 [![Maintainability](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/maintainability.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
 <br>
 
