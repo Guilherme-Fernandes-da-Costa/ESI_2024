@@ -56,11 +56,6 @@ group :development do
   gem "web-console"
 end
 
-group :test do
-  gem 'rspec-rails'  # Ou minitest se preferir
-  gem 'simplecov', require: false  # Pra gerar reports de coverage
-end
-
 # O grupo de teste padrão foi movido para o grupo :development, :test
 # group :test do
 #   gem "capybara"
