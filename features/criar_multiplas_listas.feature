@@ -10,7 +10,7 @@ Cenário: criar uma nova lista
     E eu vejo um botão "Criar nova lista" abaixo da ultima lista
     Quando eu clicar nesse botão
     Então será reservado um novo slot para essa lista
-    E poderia dar o seu respectivo novo
+    E poderia dar o seu respectivo nome
 
 Cenário: adicionar itens a lista
     Dado que eu estou na tela de exibição das listas
