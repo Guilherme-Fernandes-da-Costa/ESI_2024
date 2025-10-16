@@ -6,8 +6,7 @@ Funcionalidade: Agrupar itens por categoria
     De forma que possa organizar meus carrinhos de compra
 
 Cenário: aplicar tags aos itens da lista
-    Dado que um novo item "Leite" será adicionado a minha lista
-    E eu estiver na tela de fase de cadastro de novos itens 
+    Dado que um novo item "Leite" será adicionado a minha lista 
     Quando eu clicar na opção opcional "Categoria"
     Então aparecerá uma lista de "tags" pré-cadastradas
     Mas se não selecionar o campo "Categoria" o cadastro prossegue normalmente
