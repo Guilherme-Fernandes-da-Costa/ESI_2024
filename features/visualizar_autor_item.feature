@@ -1,7 +1,7 @@
-# features/visao_contribuinte.feature
+# features/visualizar_autor_item.feature
 #language:pt
 
-@JIRA-VIEWCONTRIBUTOR
+@JIRA-VISUALIZAR_AUTOR
 Funcionalidade: Visualizar quem adicionou cada item
   Como alguém organizado
   Quero poder ver quem adicionou cada item
