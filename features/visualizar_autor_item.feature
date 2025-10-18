@@ -7,12 +7,16 @@ Funcionalidade: Visualizar quem adicionou cada item
   Quero poder ver quem adicionou cada item
   Para que eu possa ponderar se aquele item faz sentido na lista
 
-  Contexto:
-    Dado que existe uma lista chamada "Compras da Semana"
-    E que o usuário "Alice" adicionou o item "Bananas" na lista "Compras da Semana"
-    E que o usuário "Bob" adicionou o item "Chocolate" na lista "Compras da Semana"
+  Cenário: Exibir o nome do autor ao lado de cada item na lista
+    Dado que existe uma lista de compras chamada "Compras da Semana"
+    E que "Alice" adicionou o item "Bananas" à lista
+    E que "Bob" adicionou o item "Chocolate" à lista
+    Quando eu visualizar a lista "Compras da Semana"
+    Então devo ver o item "Bananas" com o autor "Alice"
+    E devo ver o item "Chocolate" com o autor "Bob"
 
-  Cenário: Visualizar a lista com os nomes de quem adicionou
-    Quando eu acesso a página da lista "Compras da Semana"
-    Então eu devo ver o item "Bananas" com o nome "Alice"
-    E eu devo ver o item "Chocolate" com o nome "Bob"
+  Cenário: Indicar quando não há autor registrado
+    Dado que existe uma lista de compras chamada "Lista da Feira"
+    E que há um item "Uvas" sem autor definido
+    Quando eu visualizar a lista "Lista da Feira"
+    Então devo ver o item "Uvas" com o texto "Autor desconhecido"
