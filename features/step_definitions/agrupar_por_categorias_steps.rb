@@ -41,6 +41,7 @@ E("eu deveria poder ver essa tags sendo exibida na lista ao lado do nome do item
     end
 end
 
+
 #cenario 2
 Dado("que eu estou na página de exibição da minha lista") do
     visit "/lista"
