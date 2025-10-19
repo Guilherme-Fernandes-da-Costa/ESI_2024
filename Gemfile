@@ -62,3 +62,7 @@ end
 #   gem "selenium-webdriver"
 # end
 gem 'brakeman', require: false
+
+group :development, :test do
+  gem 'rubocop', require: false
+end
