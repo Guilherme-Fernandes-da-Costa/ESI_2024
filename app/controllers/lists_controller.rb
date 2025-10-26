@@ -25,6 +25,8 @@ class ListsController < ApplicationController
   # GET /lists/:id
   def show
     @list = List.find(params[:id])
+
+    @total_estimado = @list.items.sum(:preco)
     
     # Lógica de ordenação (Cenário 2)
     @items = @list.items
