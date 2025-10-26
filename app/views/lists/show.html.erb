@@ -23,6 +23,13 @@
   <% end %>
 </ul>
 
+<div class="area-total">
+  <h2>Total</h2>
+  <p class="valor-total">
+    <%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %>
+  </p>
+</div>
+
 <%= link_to "Adicionar Novo Item", new_list_item_path(@list) %>
 
 <script>
