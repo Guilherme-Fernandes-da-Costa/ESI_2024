@@ -20,7 +20,7 @@ class ListsController < ApplicationController
       if params[:tag_ids].present?
         @item.tags << Tag.where(id: params[:tag_ids])
       end
-      redirect_to lista_path, notice: 'Item adicionado com sucesso.'
+      redirect_to list_path, notice: 'Item adicionado com sucesso.'
     else
       @itens = Item.includes(:tags)
       render :index
