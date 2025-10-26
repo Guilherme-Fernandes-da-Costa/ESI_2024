@@ -1,6 +1,6 @@
 # app/controllers/lists_controller.rb
 class ListsController < ApplicationController
-  before_action :set_tags, only: [:index, :create, :ordenar]
+  before_action :set_tags, only: [:index, :create]
 
   def index
     @itens = Item.includes(:tags)
