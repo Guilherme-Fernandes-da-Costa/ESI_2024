@@ -28,6 +28,11 @@
 <script>
   document.getElementById('ordenar-lista-button').addEventListener('click', function() {
     var opcoes = document.querySelector('.opcoes-tags');
-    opcoes.style.display = opcoes.style.display === 'none' ? 'block' : 'none';
+    // Mude a lógica para remover o display:none, ou usar uma classe 'visible'
+    if (opcoes.style.display === 'none') {
+        opcoes.style.display = 'block';
+    } else {
+        opcoes.style.display = 'none';
+    }
   });
 </script>
