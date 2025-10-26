@@ -7,6 +7,8 @@ class ItemsController < ApplicationController
   # Como a rota :index existe, você pode querer implementar esta action
   def index
     @items = @list.items.all
+    # O cálculo do total deve somar o preço de todos os itens
+    @total_estimado = @itens.sum(:preco)
   end
 
   # GET /lists/:list_id/items/new
