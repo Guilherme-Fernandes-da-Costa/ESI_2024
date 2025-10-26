@@ -20,9 +20,9 @@ Mas("se não selecionar o campo {string} o cadastro prossegue normalmente") do |
     expect(page).to have_content(@coisa)
 end
 
-Quando("eu clicar em uma dessas {string}") do |tags|
-    click_button tags
-    @tag_selecionada = tags
+Quando("eu clicar em uma dessas {string}") do |tag|
+  check(tag)
+  @tag_selecionada = tag
 end
 
 Então("ela será aplicada ao item") do
@@ -32,7 +32,7 @@ Então("ela será aplicada ao item") do
 end
 
 Mas("se não selecionar uma tag o cadastro prossegue normalmente") do
-    visit "/list"
+    visit "/lista"
     expect(page).to have_content(@coisa)
 end
 
