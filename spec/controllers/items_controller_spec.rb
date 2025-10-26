@@ -5,7 +5,7 @@ RSpec.describe ItemsController, type: :controller do
   # Assumimos que o modelo User e List precisam apenas de email e nome, respectivamente.
   # Se o seu User precisar de outros atributos (e.g., username), ajuste aqui.
   let!(:user) { User.create!(email: "teste@exemplo.com") }
-  let!(:list) { List.create!(name: "Lista de Compras", user: user) }
+  let!(:list) { List.create!(name: "Lista de Compras") }
   let!(:tag) { Tag.create!(name: "Frios") }
 
   let(:valid_attributes) do
