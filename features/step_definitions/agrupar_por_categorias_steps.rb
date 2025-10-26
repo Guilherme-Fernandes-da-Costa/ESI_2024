@@ -8,7 +8,8 @@ Dado("que um novo item {string} será adicionado a minha lista") do |item_name|
 end
 
 Quando('eu clicar na opção opcional {string}') do |label|
-  @tag_select = find_field(label)
+  expect(page).to have_select('item_tag', visible: true)
+  @tag_select = find_field("Categoria")
   expect(@tag_select).to be_present
 end
 
