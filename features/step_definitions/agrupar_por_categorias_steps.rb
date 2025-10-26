@@ -5,8 +5,8 @@ Dado("que um novo item {string} será adicionado a minha lista") do |item|
     @coisa = item
 end
 
-Quando('eu clicar na opção opcional {string}') do |rotulo|
-  @tag_select = find_field(rotulo)
+Quando('eu clicar na opção opcional {string}') do |label|
+  @tag_select = find_field(label)
   expect(@tag_select).to be_present
 end
 
