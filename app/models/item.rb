@@ -1,6 +1,6 @@
 # app/models/item.rb
 class Item < ApplicationRecord
-  belongs_to :lista
+  belongs_to :list
   belongs_to :added_by, class_name: 'User'
   
   has_many :taggings
