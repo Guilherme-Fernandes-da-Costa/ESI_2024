@@ -7,7 +7,7 @@
   </div>
 
   <div class="opcional-categoria">
-    <%= form.label :tag, "Categoria (Opcional)" %>
+    <%= form.label :tag, "Categoria", id: 'categoria-opcional-label' %> 
     
     <%= form.select :tag, 
                      options_for_select(@available_tags, @item.tag), 
