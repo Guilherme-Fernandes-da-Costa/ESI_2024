@@ -19,11 +19,10 @@ RSpec.describe ItemsController, type: :controller do
   # Atributos válidos incluem as dependências obrigatórias
   let(:valid_attributes) { { item: { name: "Leite", list_id: list.id, added_by_id: user.id } } }
   let(:invalid_attributes) { { item: { name: "", list_id: list.id, added_by_id: user.id } } }
-  let(:valid_attributes_with_tag) { { item: { name: "Iogurte", list_id: list.id, added_by_id: user.id, tag_id: tag.id } } }
+  
+  # CORREÇÃO CRÍTICA (1): Alterado de `tag_id` para `tag_ids: []` para suportar has_many :tags
+  let(:valid_attributes_with_tag) { { item: { name: "Iogurte", list_id: list.id, added_by_id: user.id, tag_ids: [tag.id] } } }
 
-  # ATENÇÃO: Se seu formulário envia `tag_id` (belongs_to), use a linha acima.
-  # Se seu formulário envia `tag_ids: []` (has_many), ajuste o valid_attributes_with_tag
-  # para: { item: { name: "Iogurte", ..., tag_ids: [tag.id] } }
 
   describe "POST #create" do
     context "com parâmetros válidos" do
@@ -44,16 +43,13 @@ RSpec.describe ItemsController, type: :controller do
 
     context "com tags selecionadas" do
       # 3) Resolve o NoMethodError: undefined method `tags'
-      # Assumindo que o Item tem belongs_to :tag e envia 'tag_id'
+      # CORREÇÃO CRÍTICA (2): Asserção alterada para usar `created_item.tags` (has_many) em vez de `created_item.tag` (belongs_to)
       it "cria o Item com a tag associada" do
         post :create, params: valid_attributes_with_tag
         created_item = Item.last
         
-        # O teste deve ser `Item.last.tag` se você usa belongs_to
-        expect(created_item.tag).to eq(tag) 
-        
-        # Se você usa has_many :tags, use:
-        # expect(created_item.tags).to include(tag) 
+        # Como o modelo usa `has_many :tags`, verificamos se a coleção inclui a tag
+        expect(created_item.tags).to include(tag) 
       end
     end
     
