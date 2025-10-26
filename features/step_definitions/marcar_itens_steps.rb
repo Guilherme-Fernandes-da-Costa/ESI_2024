@@ -1,8 +1,15 @@
 #cenario 1
-Dado("que exista um item {string} na minha lista") do |item|
-    visit "/lista"
-    expect(page).to have_content(item)
-    @item = item
+Dado("que exista um item {string} na minha lista") do |item_nome|
+    # Criar uma lista (se ainda não existir uma no cenário)
+    @list = FactoryBot.create(:list, name: "Lista BDD")
+    # Criar o item ANINHADO (associado à lista)
+    @item = FactoryBot.create(:item, name: item_nome, list: @list)
+    # Armazena o nome para uso posterior
+    @item_nome = item_nome
+    
+    visit list_items_path(@list)
+    # Verificação de Conteúdo
+    expect(page).to have_content(item_nome)
 end
 
 Quando("eu clicar em cima do item desejado") do
