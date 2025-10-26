@@ -10,6 +10,8 @@ end
 Então("eu devo poder adicionar o valor desejado àquele item") do
     @produto_preco = 10
     fill_in "Preço", with: @produto_preco
+    fill_in "item_name", with: "Maçã"
+    click_button "Adicionar"
 end
 
 E("eu devo poder ver esse valor na lista ao lado do item cadastrado") do
