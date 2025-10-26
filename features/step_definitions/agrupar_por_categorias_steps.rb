@@ -49,7 +49,7 @@ end
 
 #cenario 2
 Dado("que eu estou na página de exibição da minha lista") do
-   @lista ||= Lista.first || Lista.create!(nome: "Minha Lista") 
+   @lista ||= Lista.first || Lista.create!(name: "Minha Lista") 
    visit "/lista"
 end
 
