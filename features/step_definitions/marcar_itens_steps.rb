@@ -1,9 +1,9 @@
 #cenario 1
 Dado("que exista um item {string} na minha lista") do |item_nome|
     # Criar uma lista (se ainda não existir uma no cenário)
-    @list = FactoryBot.create(:list, name: "Lista BDD")
+    @list = List.create!(name: "Lista de Teste")
     # Criar o item ANINHADO (associado à lista)
-    @item = FactoryBot.create(:item, name: item_nome, list: @list)
+    @item = Item.create!(name: item_nome, list_id: @list.id)
     # Armazena o nome para uso posterior
     @item_nome = item_nome
     
