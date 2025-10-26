@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
   private
 
   def set_lista
-    @lista = List.find(params[:lista_id])
+    @lista = Lista.find(params[:lista_id])
   end
 
   def set_item
