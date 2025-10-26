@@ -8,13 +8,12 @@ Dado("que um novo item {string} será adicionado a minha lista") do |item_name|
 end
 
 Quando('eu clicar na opção opcional {string}') do |label|
-  expect(page).to have_select('item_tag', visible: true)
-  @tag_select = find_field("Categoria")
-  expect(@tag_select).to be_present
+  expect(page).to have_select(label)
 end
 
 Então("aparecerá uma lista de {string} pré-cadastradas") do |tags|
-    expect(page).to have_content(tags)
+  expect(page).to have_select('Categoria', options: ["Selecione uma tag (Opcional)", "frios", "horti-fruit", "carne", "padaria", "limpeza"])
+  # expect(page).to have_content(tags)
 end
 
 Mas("se não selecionar o campo {string} o cadastro prossegue normalmente") do |categorias|
