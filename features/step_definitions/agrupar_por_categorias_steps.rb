@@ -49,7 +49,8 @@ end
 
 #cenario 2
 Dado("que eu estou na página de exibição da minha lista") do
-    visit "/lista"
+   @lista ||= Lista.first || Lista.create!(nome: "Minha Lista") 
+   visit "/lista"
 end
 
 Quando("eu clicar no campo botão {string}") do |ord_list|
