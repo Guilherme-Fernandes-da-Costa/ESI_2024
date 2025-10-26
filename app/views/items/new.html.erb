@@ -6,17 +6,27 @@
     <%= form.text_field :name %>
   </div>
 
+  <div>
+    <%# O label é "Preço", conforme o step do Cucumber %>
+    <%= form.label :preco, "Preço" %> 
+    
+    <%# Usamos number_field com step para garantir a precisão decimal %>
+    <%# Pode ser útil adicionar um placeholder "0.00" %>
+    <%= form.number_field :preco, step: '0.01', placeholder: '0.00' %> 
+  </div>
+
   <div class="opcional-categoria">
     <%= form.label :tag, "Categoria" %> 
     
     <%= form.select :tag, 
-                     options_for_select(@available_tags, @item.tag), 
-                     { include_blank: 'Selecione uma tag (Opcional)' },
-                     # O ID padrão do Rails (item_tag) deve ser suficiente
-                     { } %> 
+                      options_for_select(@available_tags, @item.tag), 
+                      { include_blank: 'Selecione uma tag (Opcional)' },
+                      # O ID padrão do Rails (item_tag) deve ser suficiente
+                      { } %> 
   </div>
 
   <div>
+    <%# O botão de submit ("Adicionar") será o acionador para o Cucumber. %>
     <%= form.submit "Adicionar" %>
   </div>
 <% end %>
