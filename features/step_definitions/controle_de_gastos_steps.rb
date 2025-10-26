@@ -15,8 +15,9 @@ Então("eu devo poder adicionar o valor desejado àquele item") do
 end
 
 E("eu devo poder ver esse valor na lista ao lado do item cadastrado") do
-    visit "/lista"
-    expect(page).to have_content(@produto_preco)
+    visit list_path(@list)
+    # Garante que o valor formatado em BRL é exibido (R$ 10,00)
+    expect(page).to have_content("R$ 10,00")
 end
 
 #cenario 2
