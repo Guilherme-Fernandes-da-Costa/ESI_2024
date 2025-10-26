@@ -6,6 +6,11 @@ class ListaController < ApplicationController
     @itens = Item.includes(:tags)
   end
 
+  def show
+    @lista = Lista.find(params[:id])
+    @itens = @lista.items
+  end
+
   def create
     @item = Item.new(item_params)
     @item.list = current_list   # supondo que a lista vem do contexto do usuário
