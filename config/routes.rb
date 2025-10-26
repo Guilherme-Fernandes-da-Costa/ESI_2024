@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :items, path: 'lista' do
     # Rota para a ação de ordenação/filtragem
     collection do
-      get :sort
+      get 'sort'
     end
   end
 
