@@ -13,7 +13,7 @@ Dado("que exista um item {string} na minha lista") do |item_nome|
 end
 
 Quando("eu clicar em cima do item desejado") do
-    click_on(@item)
+    click_on(@item.name)
 end
 
 Então("aparecerá uma janela com título {string} com as opções: {string} e {string}") do |titulo, tag1, tahg2|
