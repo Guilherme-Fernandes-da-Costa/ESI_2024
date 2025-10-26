@@ -10,9 +10,16 @@
         data-item-id="<%= item.id %>" 
         data-list-id="<%= @list.id %>"
         data-item-nome="<%= item.name %>"
-        data-item-comprado="<%= item.comprado %>">
+        data-item-comprado="<%= item.comprado %>"
+        data-item-preco="<%= item.preco %>">
       
       <%= item.name %>
+      
+      <% if item.preco.present? && item.preco > 0 %>
+        <span class="item-preco">
+          - R$ <%= number_to_currency(item.preco, unit: "", separator: ",", delimiter: ".") %>
+        </span>
+      <% end %>
       
     </li>
   <% end %>
@@ -36,6 +43,13 @@
   <% end %>
 
   <button id="btn-fechar">Fechar</button>
+</div>
+
+<div class="area-total">
+  <h2>Total Estimado</h2>
+  <p class="valor-total">
+    <%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %>
+  </p>
 </div>
 
 <script>
