@@ -1,64 +1,36 @@
 class ItemsController < ApplicationController
   before_action :set_list
-  before_action :set_item, only: %i[edit update destroy]
 
-  def index
-    @items = @list.items.includes(:tags)
-  end
-
+  # GET /lists/:list_id/items/new
   def new
-    @item = @list.items.build
+    @item = @list.items.new
+    # Tags pré-cadastradas:
+    @available_tags = ["frios", "horti-fruit", "carne", "padaria", "limpeza"] 
   end
 
+  # POST /lists/:list_id/items
   def create
-    @item = @list.items.build(item_params)
-    @item.added_by = current_user
+    @item = @list.items.new(item_params)
+    
     if @item.save
-      redirect_to list_items_path(@lista), notice: 'Item criado com sucesso.'
+      # Redireciona para a página de visualização da lista para ver o item recém-adicionado
+      redirect_to list_path(@list), notice: 'Item adicionado com sucesso.'
     else
+      # Re-renderiza o formulário em caso de erro
+      @available_tags = ["frios", "horti-fruit", "carne", "padaria", "limpeza"]
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit; end
-
-  def update
-    if @item.update(item_params)
-      redirect_to list_items_path(@lista), notice: 'Item atualizado com sucesso.'
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @item.destroy
-    redirect_to list_items_path(@lista), notice: 'Item removido.'
-  end
-
-  # Filtrar por tag
-  def filter
-    tag_name = params[:tag_name]
-    @items = @lista.items.with_tag(tag_name)
-    render :index
-  end
-
-  # Agrupar por tag
-  def group
-    @items = @lista.items.includes(:tags).order('tags.name ASC')
-    render :index
   end
 
   private
 
   def set_list
-    @lista = List.find(params[:lista_id])
-  end
-
-  def set_item
-    @item = @lista.items.find(params[:id])
+    # Note: O find_by_id pode ser mais seguro se a lista puder ser nula, mas find é padrão.
+    @list = List.find(params[:list_id])
   end
 
   def item_params
-    params.require(:item).permit(:name, tag_ids: [])
+    # Adicionamos :tag como parâmetro permitido
+    params.require(:item).permit(:name, :tag)
   end
 end
