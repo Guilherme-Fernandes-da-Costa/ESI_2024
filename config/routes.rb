@@ -18,8 +18,11 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # Rota para o formulário de cadastro (ou tela de edição)
+  get 'cadastro', to: 'itens#new', as: :cadastro
   
-  # NOVO: Adicione esta linha para o BDD
+  # Adicione esta linha para o BDD
   # Mapeia /lista para a action index do ListsController
   get 'lista', to: 'lists#index' 
   
