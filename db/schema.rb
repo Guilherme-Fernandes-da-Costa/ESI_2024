@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_26_213340) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_26_222212) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_26_213340) do
     t.integer "lists_id", default: 1, null: false
     t.string "tag"
     t.boolean "comprado"
+    t.decimal "preco"
     t.index ["added_by_id"], name: "index_items_on_added_by_id"
     t.index ["list_id"], name: "index_items_on_list_id"
     t.index ["lists_id"], name: "index_items_on_lists_id"
