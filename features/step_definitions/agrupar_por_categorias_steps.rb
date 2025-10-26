@@ -1,7 +1,7 @@
 #cenario 1
 Dado("que um novo item {string} será adicionado a minha lista") do |item_name|
   @list = List.first || List.create!(name: "Lista de teste")
-  visit new_list_item_path(@lista)
+  visit new_list_item_path(@list)
   fill_in "Novo item", with: item_name
   click_button "Adicionar"
   @coisa = item_name
@@ -47,8 +47,8 @@ end
 
 #cenario 2
 Dado("que eu estou na página de exibição da minha lista") do
-  @lista ||= List.first || List.create!(name: "Minha Lista")
-  visit list_path(@lista)
+  @list ||= List.first || List.create!(name: "Minha Lista")
+  visit list_path(@list)
 end
 
 Quando("eu clicar no campo botão {string}") do |ord_list|
