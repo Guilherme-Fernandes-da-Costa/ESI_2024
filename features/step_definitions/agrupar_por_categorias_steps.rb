@@ -1,6 +1,6 @@
 #cenario 1
 Dado("que um novo item {string} será adicionado a minha lista") do |item|
-   @lista ||= Lista.first || Lista.create!(nome: "Minha Lista")
+   @lista ||= Lista.first || Lista.create!(name: "Minha Lista")
 
   visit new_lista_item_path(@lista)
   fill_in "Novo item", with: item_name
