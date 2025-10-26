@@ -1,20 +1,20 @@
 class ItemsController < ApplicationController
-  before_action :set_lista
+  before_action :set_list
   before_action :set_item, only: %i[edit update destroy]
 
   def index
-    @items = @lista.items.includes(:tags)
+    @items = @list.items.includes(:tags)
   end
 
   def new
-    @item = @lista.items.build
+    @item = @list.items.build
   end
 
   def create
-    @item = @lista.items.build(item_params)
+    @item = @list.items.build(item_params)
     @item.added_by = current_user
     if @item.save
-      redirect_to lista_items_path(@lista), notice: 'Item criado com sucesso.'
+      redirect_to list_items_path(@lista), notice: 'Item criado com sucesso.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to lista_items_path(@lista), notice: 'Item atualizado com sucesso.'
+      redirect_to list_items_path(@lista), notice: 'Item atualizado com sucesso.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    redirect_to lista_items_path(@lista), notice: 'Item removido.'
+    redirect_to list_items_path(@lista), notice: 'Item removido.'
   end
 
   # Filtrar por tag
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
   private
 
   def set_lista
-    @lista = Lista.find(params[:lista_id])
+    @lista = List.find(params[:lista_id])
   end
 
   def set_item
