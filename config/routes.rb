@@ -12,6 +12,4 @@ Rails.application.routes.draw do
   resources :lists do
     resources :items, only: [:new, :create, :index]
   end
-  # Adicione uma rota para a raiz se necessário (ex: root to: 'lists#index')
-  get 'list/:id', to: 'lists#show', as: :list # Acesso direto à lista, conforme a step definition
 end
