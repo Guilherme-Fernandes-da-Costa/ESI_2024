@@ -5,7 +5,7 @@ RSpec.describe ItemsController, type: :controller do
   # Configuração inicial (FactoryBot ou instâncias para dependências)
   # ATENÇÃO: Substitua pelos métodos de criação de suas factories, se aplicável
   let!(:list) { List.create!(name: "Lista de Compras") }
-  let!(:user) { User.create!(email: "teste@exemplo.com", password: "password123") }
+  let!(:user) { User.create!(email: "teste@exemplo.com") }
   let!(:tag) { Tag.create!(name: "Laticínios") }
   
   # Simula um usuário logado (necessário se o controller usa before_action para autenticação)
