@@ -6,8 +6,9 @@ Dado("que um novo item {string} será adicionado a minha lista") do |item|
     @coisa = item
 end
 
-Quando("eu clicar na opção opcional categoria") do
-    click_button "categoria"
+Quando('eu clicar na opção opcional {string}') do |rotulo|
+  @tag_select = find_field(rotulo)
+  expect(@tag_select).to be_present
 end
 
 Então("aparecerá uma lista de {string} pré-cadastradas") do |tags|
