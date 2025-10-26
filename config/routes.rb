@@ -17,7 +17,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  # Rota amigável para /lista
-  get '/lista', to: 'lista#index', as: 'lista'
 end
