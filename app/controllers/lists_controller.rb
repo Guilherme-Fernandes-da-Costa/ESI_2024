@@ -1,5 +1,5 @@
 # app/controllers/lista_controller.rb
-class ListaController < ApplicationController
+class ListsController < ApplicationController
   before_action :set_tags, only: [:index, :create, :ordenar]
 
   def index
@@ -7,7 +7,7 @@ class ListaController < ApplicationController
   end
 
   def show
-    @lista = Lista.find(params[:id])
+    @lista = List.find(params[:id])
     @itens = @lista.items
   end
 
