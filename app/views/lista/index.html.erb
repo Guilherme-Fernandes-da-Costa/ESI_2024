@@ -1,44 +1,41 @@
 <h1>Minha Lista</h1>
 
-<%= form_with(model: Item.new, url: lista_path, method: :post) do |f| %>
-  <div>
-    <%= f.label :name, "Novo item" %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div>
-    <%= label_tag "Categorias (opcional)" %><br>
-    <% @tags.each do |tag| %>
-      <%= check_box_tag "tag_ids[]", tag.id %>
-      <%= tag.name %><br>
-    <% end %>
-  </div>
-
-  <%= f.submit "Adicionar" %>
-<% end %>
+<p>
+  <%= link_to 'Adicionar novo item', new_lista_item_path(@lista), class: "btn btn-primary" %>
+</p>
 
 <hr>
 
-<h2>Itens</h2>
+<!-- Botão para ordenar/filtrar -->
+<div class="ordenar-filtrar">
+  <%= button_to 'Ordenar/Filtrar por Tag', '#', method: :get, id: "ordenar_lista", class: "btn btn-secondary" %>
+
+  <div class="opcoes-tags" style="margin-top:10px;">
+    <h3>Filtrar por Tag:</h3>
+    <% Tag.all.each do |tag| %>
+      <%= button_to tag.name, filter_lista_items_path(@lista, tag_name: tag.name), method: :get, class: "btn btn-light" %>
+    <% end %>
+
+    <h3>Outras opções:</h3>
+    <%= button_to "Agrupar", group_lista_items_path(@lista), method: :get, class: "btn btn-info" %>
+    <%= button_to "Desagrupar", lista_items_path(@lista), method: :get, class: "btn btn-warning" %>
+  </div>
+</div>
+
+<hr>
+
 <ul>
   <% @itens.each do |item| %>
     <li>
-      <%= item.name %>
+      <strong><%= item.name %></strong>
       <% if item.tags.any? %>
-        <span class="item-tag">[<%= item.tags.map(&:name).join(", ") %>]</span>
+        <span class="item-tag">
+          (<%= item.tags.map(&:name).join(', ') %>)
+        </span>
       <% end %>
+
+      <%= link_to 'Editar', edit_lista_item_path(@lista, item), class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to 'Excluir', lista_item_path(@lista, item), data: { turbo_method: :delete, confirm: "Tem certeza?" }, class: "btn btn-sm btn-outline-danger" %>
     </li>
   <% end %>
 </ul>
-
-<hr>
-
-<h3>Ordenar/Filtrar</h3>
-<div class="opcoes-tags">
-  <% @tags.each do |tag| %>
-    <%= button_to tag.name, ordenar_lista_path(tag_id: tag.id), method: :get %>
-  <% end %>
-
-  <%= button_to "Agrupar", ordenar_lista_path(ordem: 'agrupar'), method: :get %>
-  <%= button_to "Desagrupar", ordenar_lista_path(ordem: 'desagrupar'), method: :get %>
-</div>
