@@ -15,6 +15,22 @@ class ItemsController < ApplicationController
     # A lógica complexa de filtro/agrupamento foi movida para a action #sort
   end
 
+  # GET /items/new - Necessário para new_item_path
+  def new
+    @item = Item.new
+    @tags = Tag.all
+  end
+
+  # GET /items/:id - Ação show (requer set_item)
+  def show
+    # @item é definido por set_item
+  end
+
+  # GET /items/:id/edit - Ação edit (requer set_item)
+  def edit
+    # @item é definido por set_item
+  end
+
   # POST /items
   def create
     @item = Item.new(item_params)
@@ -29,6 +45,21 @@ class ItemsController < ApplicationController
       @tags = Tag.all # Assumindo Tag.all ou Tag.pre_registered existe
       render :index, status: :unprocessable_entity
     end
+  end
+
+  # PATCH/PUT /items/:id - Ação update (requer set_item)
+  def update
+    if @item.update(item_params)
+      redirect_to @item, notice: "Item foi atualizado com sucesso."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+  
+  # DELETE /items/:id - Ação destroy (requer set_item)
+  def destroy
+    @item.destroy
+    redirect_to items_url, notice: "Item foi excluído com sucesso."
   end
 
   # GET /items/sort
