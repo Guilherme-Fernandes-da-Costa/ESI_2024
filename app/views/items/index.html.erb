@@ -1,105 +1,44 @@
 <h1>Minha Lista</h1>
 
-<%# 1. Formulário para adicionar item %>
-<%= form_with(model: @item, url: items_path, local: true) do |form| %>
+<%= form_with(model: Item.new, url: items_path, method: :post) do |f| %>
   <div>
-    <%= form.label :name, "Novo item" %>
-    <%# O campo 'novo item' do seu step: fill_in "novo item" %>
-    <%= form.text_field :name, placeholder: "Digite o novo item", required: true %>
+    <%= f.label :name, "Novo item" %>
+    <%= f.text_field :name %>
   </div>
 
-  <%# 2. Seção Opcional de Categorias (Tagging) %>
   <div>
-    <%# Botão 'categoria' do seu step: click_button "categoria" %>
-    <button type="button" id="toggle-categorias">Categoria Opcional</button>
-
-    <div id="categorias-opcionais" style="display: none;">
-      <p>Tags pré-cadastradas:</p>
-      <%# 3. Lista de tags pré-cadastradas: expect(page).to have_content(tags) %>
-      <div class="tag-options">
-        <% @tags.each do |tag| %>
-          <label>
-            <%# Use checkbox para permitir múltiplas tags, ou radio/button se for uma só %>
-            <%= form.check_box :tag_ids, { multiple: true, checked: @item.tag_ids.include?(tag.id) }, tag.id, nil %>
-            <%# O botão/opção de tag do seu step: click_button tags %>
-            <%= tag.name %>
-          </label>
-        <% end %>
-      </div>
-    </div>
+    <%= label_tag "Categorias (opcional)" %><br>
+    <% @tags.each do |tag| %>
+      <%= check_box_tag "tag_ids[]", tag.id %>
+      <%= tag.name %><br>
+    <% end %>
   </div>
 
-  <%# 4. Botão Adicionar: click_button "adicionar" %>
-  <div>
-    <%= form.submit "Adicionar", id: "adicionar-item-button" %>
-  </div>
+  <%= f.submit "Adicionar" %>
 <% end %>
 
-<script>
-  // JS Simples para mostrar/esconder o campo de categorias
-  document.getElementById('toggle-categorias').addEventListener('click', function() {
-    var categorias = document.getElementById('categorias-opcionais');
-    if (categorias.style.display === 'none') {
-      categorias.style.display = 'block';
-    } else {
-      categorias.style.display = 'none';
-    }
-  });
-</script>
-
 <hr>
-<%# 5. Lista de Itens (Para Cenário 1 - Então/E/Mas) %>
-<h2>Itens da Lista</h2>
-<ul id="lista-de-itens">
-  <% @items.each do |item| %>
-    <%# O xpath //li[contains(.,'#{@coisa}')] do step vai buscar aqui %>
+
+<h2>Itens</h2>
+<ul>
+  <% @itens.each do |item| %>
     <li>
       <%= item.name %>
-      <%# Tags sendo exibidas: expect(page).to have_content(@tag_selecionada) %>
-      <% unless item.tags.empty? %>
-        (Tags:
-        <%= item.tags.map { |t| content_tag(:span, t.name, class: 'item-tag') }.join(', ').html_safe %>
-        )
+      <% if item.tags.any? %>
+        <span class="item-tag">[<%= item.tags.map(&:name).join(", ") %>]</span>
       <% end %>
     </li>
   <% end %>
 </ul>
 
-<%# 6. Botão de Ordenação/Filtro (Cenário 2 - Quando) %>
-<div class="ordenacao-opcoes">
-  <%= button_to "Ordenar Lista", '#', method: :get, id: "ordenar-lista-button", remote: true, form_class: 'd-inline' %>
+<hr>
 
-  <div id="opcoes-tags-dropdown" class="opcoes-tags" style="display:none;">
-    <h4>Opções de Filtro/Ordenação por Tag</h4>
-    
-    <%# 7. Opções referentes às tags (Cenário 2 - Então/E) %>
-    <p>Filtrar por:</p>
-    <ul>
-      <% @tags.each do |tag| %>
-        <%# Filtrar por tag: Quando("clicar em uma das opções de {string}") %>
-        <li><%= link_to tag.name, items_path(tag: tag.name) %></li>
-      <% end %>
-    </ul>
+<h3>Ordenar/Filtrar</h3>
+<div class="opcoes-tags">
+  <% @tags.each do |tag| %>
+    <%= button_to tag.name, ordenar_lista_path(tag_id: tag.id), method: :get %>
+  <% end %>
 
-    <p>Opções de Exibição:</p>
-    <ul>
-      <%# Agrupar: E("mais as opções {string} e {string}") %>
-      <li><%= link_to "Agrupar", items_path(group_by_tag: 'true') %></li>
-      <%# Desagrupar: E("mais as opções {string} e {string}") %>
-      <li><%= link_to "Desagrupar", items_path %></li>
-    </ul>
-  </div>
+  <%= button_to "Agrupar", ordenar_lista_path(ordem: 'agrupar'), method: :get %>
+  <%= button_to "Desagrupar", ordenar_lista_path(ordem: 'desagrupar'), method: :get %>
 </div>
-
-<script>
-  // JS Simples para mostrar/esconder o dropdown de ordenação/filtro
-  document.getElementById('ordenar-lista-button').addEventListener('click', function(e) {
-    e.preventDefault();
-    var opcoes = document.getElementById('opcoes-tags-dropdown');
-    if (opcoes.style.display === 'none') {
-      opcoes.style.display = 'block';
-    } else {
-      opcoes.style.display = 'none';
-    }
-  });
-</script>
