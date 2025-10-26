@@ -43,12 +43,6 @@ end
 
 
 #cenario 2
-Dado("que exista um item {string} na minha lista") do |item|
-    visit "/lista"
-    expect(page).to have_content(item)
-    @item = item
-end
-
 E("eu ver que este item está sobre sobreposto por uma linha") do
     item_element = find('li', text: @item)
     expect(item_element[:class]).to include("comprado")
