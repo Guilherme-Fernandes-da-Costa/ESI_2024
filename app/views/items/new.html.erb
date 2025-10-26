@@ -1,7 +1,23 @@
-<h1>Adicionar novo item</h1>
+<h1>Adicionar novo item à <%= @list.name %></h1>
 
-<%= render "form", lista: @lista, item: @item %>
+<%= form_with(model: [@list, @item], local: true) do |form| %>
+  <div>
+    <%= form.label :name, "Novo item" %>
+    <%= form.text_field :name %>
+  </div>
 
-<p>
-  <%= link_to "Voltar à lista", lista_path(@lista), class: "btn btn-outline-primary" %>
-</p>
+  <div class="opcional-categoria">
+    <%= form.label :tag, "Categoria (Opcional)" %>
+    
+    <%= form.select :tag, 
+                     options_for_select(@available_tags, @item.tag), 
+                     { include_blank: 'Selecione uma tag (Opcional)' },
+                     { id: 'item_tag' } %> 
+  </div>
+
+  <div>
+    <%= form.submit "Adicionar" %>
+  </div>
+<% end %>
+
+<%= link_to 'Voltar para a Lista', list_path(@list) %>
