@@ -1,7 +1,7 @@
 <h1>Minha Lista</h1>
 
 <%# 1. Formulário para adicionar item %>
-<%= form_with(model: @item, url: lista_path, local: true) do |form| %>
+<%= form_with(model: @item, url: items_path, local: true) do |form| %>
   <div>
     <%= form.label :name, "Novo item" %>
     <%# O campo 'novo item' do seu step: fill_in "novo item" %>
@@ -77,16 +77,16 @@
     <ul>
       <% @tags.each do |tag| %>
         <%# Filtrar por tag: Quando("clicar em uma das opções de {string}") %>
-        <li><%= link_to tag.name, lista_path(tag: tag.name) %></li>
+        <li><%= link_to tag.name, items_path(tag: tag.name) %></li>
       <% end %>
     </ul>
 
     <p>Opções de Exibição:</p>
     <ul>
       <%# Agrupar: E("mais as opções {string} e {string}") %>
-      <li><%= link_to "Agrupar", lista_path(group_by_tag: 'true') %></li>
+      <li><%= link_to "Agrupar", items_path(group_by_tag: 'true') %></li>
       <%# Desagrupar: E("mais as opções {string} e {string}") %>
-      <li><%= link_to "Desagrupar", lista_path %></li>
+      <li><%= link_to "Desagrupar", items_path %></li>
     </ul>
   </div>
 </div>
