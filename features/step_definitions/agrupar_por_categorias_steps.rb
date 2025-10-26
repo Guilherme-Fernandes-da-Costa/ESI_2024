@@ -2,7 +2,6 @@
 Dado("que um novo item {string} será adicionado a minha lista") do |item|
     visit "/lista"
     fill_in "novo item", with: item
-    click_button "adicionar"
     @coisa = item
 end
 
@@ -16,7 +15,8 @@ Então("aparecerá uma lista de {string} pré-cadastradas") do |tags|
 end
 
 Mas("se não selecionar o campo {string} o cadastro prossegue normalmente") do |categorias|
-    visit "/lista"
+    click_button 'adicionar'
+    expect(Item.last.tag).to be_nil
     expect(page).to have_content(@coisa)
 end
 
