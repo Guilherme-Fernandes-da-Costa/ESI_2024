@@ -1,7 +1,7 @@
 #cenario 1
 Dado("que um novo item {string} será adicionado a minha lista") do |item|
     visit "/lista"
-    fill_in "novo item", with: item
+    fill_in "Novo item", with: item
     @coisa = item
 end
 
@@ -15,7 +15,7 @@ Então("aparecerá uma lista de {string} pré-cadastradas") do |tags|
 end
 
 Mas("se não selecionar o campo {string} o cadastro prossegue normalmente") do |categorias|
-    click_button 'adicionar'
+    click_button 'Adicionar'
     expect(Item.last.tag).to be_nil
     expect(page).to have_content(@coisa)
 end
@@ -49,7 +49,7 @@ Dado("que eu estou na página de exibição da minha lista") do
 end
 
 Quando("eu clicar no campo botão {string}") do |ord_list|
-    click_button ordenar_lista
+    click_button ord_list
     @botao_ord = ord_list
 end
 
@@ -88,5 +88,5 @@ Mas("se eu clicar na opção {string}") do |desagrupar|
 end
 
 Então("os itens voltam para suas posições originais anteriores a qualquer ordenação") do
-    expect(page).to have_content(@item_atual)
+    expect(page).to have_content(@coisa)
 end
