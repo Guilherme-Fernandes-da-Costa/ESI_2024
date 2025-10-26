@@ -9,16 +9,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index" # <-- ESSA É A ÚNICA LINHA QUE VOCÊ PRECISA PARA A PÁGINA INICIAL
 
-  # Lista de itens
   resources :listas, controller: "lista", only: [:index, :show] do
     resources :items do
       collection do
-        get :filter    # /listas/:lista_id/items/filter
-        get :group     # /listas/:lista_id/items/group
+        get :filter
+        get :group
       end
     end
   end
 
-  get '/lista', to: 'lista#index'
-  post '/lista', to: 'lista#create'
+  # Rota amigável para /lista
+  get '/lista', to: 'lista#index', as: 'lista'
 end
