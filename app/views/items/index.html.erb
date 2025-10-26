@@ -1,0 +1,84 @@
+<% # app/views/items/index.html.erb %>
+
+<h1>Itens da Lista: <%= @list.name %></h1>
+
+<ul id="lista-de-compras">
+  <% @items.each do |item| %>
+    
+    <li id="item_<%= item.id %>" 
+        class="item-lista <%= 'comprado' if item.comprado %>" 
+        data-item-id="<%= item.id %>" 
+        data-list-id="<%= @list.id %>"
+        data-item-nome="<%= item.name %>"
+        data-item-comprado="<%= item.comprado %>">
+      
+      <%= item.name %>
+      
+    </li>
+  <% end %>
+</ul>
+
+<div id="janela-comprado" class="janela-comprado" style="display: none;">
+  <h2>Comprado</h2>
+  <p>Item selecionado: <strong id="nome-item-selecionado"></strong></p>
+
+  <%= form_with url: '#', method: :patch, data: { turbo: true }, id: 'form-toggle-comprado' do |f| %>
+    
+    <%= f.button "Marcar", 
+                 type: :submit, 
+                 class: "btn-marcar",
+                 data: { action: "marcar" } %>
+
+    <%= f.button "Desmarcar", 
+                 type: :submit, 
+                 class: "btn-desmarcar",
+                 data: { action: "desmarcar" } %>
+  <% end %>
+
+  <button id="btn-fechar">Fechar</button>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const items = document.querySelectorAll('.item-lista');
+    const modal = document.getElementById('janela-comprado');
+    const itemNameDisplay = document.getElementById('nome-item-selecionado');
+    const form = document.getElementById('form-toggle-comprado');
+    const btnFechar = document.getElementById('btn-fechar');
+    const btnMarcar = document.querySelector('.btn-marcar');
+    const btnDesmarcar = document.querySelector('.btn-desmarcar');
+
+    items.forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const itemId = this.dataset.itemId;
+        const listId = this.dataset.listId;
+        const itemName = this.dataset.itemNome;
+        const isComprado = this.dataset.itemComprado === 'true';
+        
+        // 1. Atualizar o conteúdo do modal
+        itemNameDisplay.textContent = itemName;
+        
+        // 2. Montar a URL correta e atualizar o action do formulário (que vai para o ItemsController#toggle_comprado)
+        const url = `/lists/${listId}/items/${itemId}/toggle_comprado`;
+        form.action = url;
+        
+        // 3. Lógica BDD: Desabilitar a opção que já está selecionada
+        btnMarcar.disabled = isComprado;
+        btnDesmarcar.disabled = !isComprado;
+
+        // 4. Mostrar o modal
+        modal.style.display = 'block';
+      });
+    });
+    
+    // Ocultar o modal
+    btnFechar.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    // O formulário submete a mesma rota, e o controller alterna o status.
+    // O Capybara (em seus steps) deve ser capaz de interagir com esses elementos.
+  });
+</script>
