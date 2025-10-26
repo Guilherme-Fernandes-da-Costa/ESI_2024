@@ -7,12 +7,13 @@
   </div>
 
   <div class="opcional-categoria">
-    <%= form.label :tag, "Categoria", id: 'categoria-opcional-label' %> 
+    <%= form.label :tag, "Categoria" %> 
     
     <%= form.select :tag, 
                      options_for_select(@available_tags, @item.tag), 
                      { include_blank: 'Selecione uma tag (Opcional)' },
-                     { id: 'item_tag' } %> 
+                     # O ID padrão do Rails (item_tag) deve ser suficiente
+                     { } %> 
   </div>
 
   <div>
