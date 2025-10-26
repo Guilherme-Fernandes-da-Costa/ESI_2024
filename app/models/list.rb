@@ -1,4 +1,8 @@
+# app/models/list.rb
 class List < ApplicationRecord
-  self.table_name = "lists"
-  has_many :items
+  # Associações:
+  has_many :items, dependent: :destroy
+
+  # Validações (mínimas):
+  validates :name, presence: true
 end
