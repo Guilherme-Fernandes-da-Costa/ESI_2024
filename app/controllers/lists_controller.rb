@@ -1,4 +1,4 @@
-# app/controllers/lista_controller.rb
+# app/controllers/lists_controller.rb
 class ListsController < ApplicationController
   before_action :set_tags, only: [:index, :create, :ordenar]
 
