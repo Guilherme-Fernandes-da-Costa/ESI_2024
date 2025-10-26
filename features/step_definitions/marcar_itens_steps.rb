@@ -16,7 +16,7 @@ Quando("eu clicar em cima do item desejado") do
     click_on(@item)
 end
 
-Então("aparecerá uma janela com título {string} com as opções: {string} e {dtring}") do |titulo, tag1, tahg2|
+Então("aparecerá uma janela com título {string} com as opções: {string} e {string}") do |titulo, tag1, tahg2|
     visit "/item selecionado"
     expect(page).to have_content(titulo)
     expect(page).to have_button(tag1)
@@ -53,17 +53,6 @@ end
 E("eu ver que este item está sobre sobreposto por uma linha") do
     item_element = find('li', text: @item)
     expect(item_element[:class]).to include("comprado")
-end
-
-Quando("eu clicar em cima do item desejado") do
-    click_button(@item)
-end
-
-Então("aparecerá uma janela com título {string} com as opções: {string} e {string}") do |titulo, tag1, tahg2|
-    visit "/item selecionado"
-    expect(page).to have_content(titulo)
-    expect(page).to have_button(tag1)
-    expect(page).to have_button(tag2)
 end
 
 Quando("apertar o botão correspondente a opção {string}") do |tag2|
