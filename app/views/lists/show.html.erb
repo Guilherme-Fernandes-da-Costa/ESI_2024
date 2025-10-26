@@ -1,14 +1,33 @@
-<h1><%= @lista.name %></h1>
+<h1><%= @list.name %></h1>
+
+<div class="sorting-options">
+  <button id="ordenar-lista-button">Ordenar Lista</button>
+  <div class="opcoes-tags" style="display:none;">
+    <% @available_tags.each do |tag| %>
+      <%= link_to tag, list_path(@list, order: tag) %>
+    <% end %>
+    
+    <%= link_to "Agrupar", list_path(@list, order: 'agrupar') %>
+    <%= link_to "Desagrupar", list_path(@list, order: 'desagrupar') %>
+  </div>
+</div>
 
 <ul>
-  <% @lista.items.each do |item| %>
+  <% @items.each do |item| %>
     <li>
-      <%= item.name %>
-      <% item.tags.each do |tag| %>
-        <span class="item-tag"><%= tag.name %></span>
+      <%= item.name %> 
+      <% if item.tag.present? %>
+        <span class="item-tag">(<%= item.tag %>)</span>
       <% end %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "Novo Item", new_lista_item_path(@lista) %>
+<%= link_to "Adicionar Novo Item", new_list_item_path(@list) %>
+
+<script>
+  document.getElementById('ordenar-lista-button').addEventListener('click', function() {
+    var opcoes = document.querySelector('.opcoes-tags');
+    opcoes.style.display = opcoes.style.display === 'none' ? 'block' : 'none';
+  });
+</script>
