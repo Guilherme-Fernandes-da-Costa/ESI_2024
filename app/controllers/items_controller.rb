@@ -50,7 +50,7 @@ class ItemsController < ApplicationController
 
   private
 
-  def set_lista
+  def set_list
     @lista = List.find(params[:lista_id])
   end
 
