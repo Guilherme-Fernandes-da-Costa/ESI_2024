@@ -5,12 +5,7 @@ class ListsController < ApplicationController
   def index
     @itens = Item.includes(:tags)
   end
-
-  def show
-    @lista = List.find(params[:id])
-    @itens = @lista.items
-  end
-
+  
   def create
     @item = Item.new(item_params)
     @item.list = current_list   # supondo que a lista vem do contexto do usuário
@@ -27,15 +22,33 @@ class ListsController < ApplicationController
     end
   end
 
-  def ordenar
-    if params[:tag_id].present?
-      @itens = Item.filter_by_tag(params[:tag_id])
-    elsif params[:ordem] == 'agrupar'
-      @itens = Item.sorted_by_tag
+  class ListsController < ApplicationController
+  # ... outros métodos como index, new, create, etc.
+
+  # GET /lists/:id
+  def show
+    @list = List.find(params[:id])
+    
+    # Lógica de ordenação (Cenário 2)
+    @items = @list.items
+    
+    case params[:order]
+    when 'agrupar'
+      @items = @items.grouped_by_tag # Usa o scope definido no Model
+    when 'desagrupar'
+      # Implementação "Desagrupar": Reverte para a ordem original (padrão)
+      # Se você usou `default_scope { order(created_at: :asc) }` no model, 
+      # essa seria a ordem, caso contrário, será a ordem padrão do DB (ID).
+      @items = @items.order(created_at: :asc) # Assumindo que a ordem original é a de criação
+    when *@items.pluck(:tag).compact.uniq
+      # Filtra por uma tag específica
+      @items = @items.where(tag: params[:order])
     else
-      @itens = Item.includes(:tags).order(:created_at)
+      @items = @items.order(created_at: :asc) # Ordem padrão, se não houver parâmetro
     end
-    render :index
+
+    # Coleta tags únicas para o botão "Ordenar Lista"
+    @available_tags = @list.items.pluck(:tag).compact.uniq
   end
 
   private
