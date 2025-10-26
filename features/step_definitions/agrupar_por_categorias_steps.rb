@@ -1,8 +1,12 @@
 #cenario 1
 Dado("que um novo item {string} será adicionado a minha lista") do |item|
-    visit "/lista"
-    fill_in "Novo item", with: item
-    @coisa = item
+   @lista ||= Lista.first || Lista.create!(nome: "Minha Lista")
+
+  visit new_lista_item_path(@lista)
+  fill_in "Novo item", with: item_name
+  click_button "Adicionar"
+
+  @coisa = item_name
 end
 
 Quando('eu clicar na opção opcional {string}') do |label|
