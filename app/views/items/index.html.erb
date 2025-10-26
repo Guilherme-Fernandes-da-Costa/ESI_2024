@@ -1,6 +1,6 @@
 <h1>Minha Lista</h1>
 
-<%= form_with(model: Item.new, url: items_path, method: :post) do |f| %>
+<%= form_with(model: Item.new, url: lista_path, method: :post) do |f| %>
   <div>
     <%= f.label :name, "Novo item" %>
     <%= f.text_field :name %>
