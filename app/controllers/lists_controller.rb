@@ -22,9 +22,6 @@ class ListsController < ApplicationController
     end
   end
 
-  class ListsController < ApplicationController
-  # ... outros métodos como index, new, create, etc.
-
   # GET /lists/:id
   def show
     @list = List.find(params[:id])
