@@ -1,37 +1,37 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/guifends/Documentos/ESI/ESI_2024/app/helpers/application_helper.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/helpers/home_helper.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/helpers/home_helper.rb": [
         1,
         null
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/controllers/home_controller.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/controllers/home_controller.rb": [
         1,
         1,
         null,
         null
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/controllers/application_controller.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/controllers/application_controller.rb": [
         1,
         null
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/channels/application_cable/channel.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/channels/application_cable/connection.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/jobs/application_job.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/jobs/application_job.rb": [
         0,
         null,
         null,
@@ -40,18 +40,36 @@
         null,
         0
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/mailers/application_mailer.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/models/application_record.rb": [
+      "/home/mateus/Documentos/Github/ESI_2024/app/models/application_record.rb": [
+        0,
+        0,
+        0
+      ],
+      "/home/mateus/Documentos/Github/ESI_2024/app/models/item.rb": [
+        null,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/mateus/Documentos/Github/ESI_2024/app/models/list.rb": [
+        null,
+        0,
+        0,
+        0
+      ],
+      "/home/mateus/Documentos/Github/ESI_2024/app/models/user.rb": [
         0,
         0,
         0
       ]
     },
-    "timestamp": 1759690784
+    "timestamp": 1761869355
   }
 }

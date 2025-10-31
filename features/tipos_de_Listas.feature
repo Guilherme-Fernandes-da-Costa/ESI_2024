@@ -1,3 +1,5 @@
+#language: pt
+
 Funcionalidade: Criar Diferentes Tipos de Lista
   Como um usuário com várias atividades
   Eu quero poder criar listas de diferentes tipos como mercado, viagem
