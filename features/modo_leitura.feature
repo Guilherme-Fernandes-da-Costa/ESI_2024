@@ -1,3 +1,5 @@
+#language: pt
+
 Funcionalidade: Modo de leitura
   Como um usuário geral
   Eu quero uma opção de 'modo leitura'
