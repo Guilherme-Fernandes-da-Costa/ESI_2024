@@ -1,37 +1,117 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/guifends/Documentos/ESI/ESI_2024/app/helpers/application_helper.rb": [
+      "/rails/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/helpers/home_helper.rb": [
+      "/rails/app/helpers/home_helper.rb": [
         1,
         null
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/controllers/home_controller.rb": [
+      "/rails/app/models/list.rb": [
+        null,
         1,
         1,
         null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        0,
+        null,
         null
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/controllers/application_controller.rb": [
+      "/rails/app/models/application_record.rb": [
+        1,
         1,
         null
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/channels/application_cable/channel.rb": [
+      "/rails/app/models/user.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/rails/app/models/item.rb": [
+        null,
+        1,
+        1,
+        1,
+        null
+      ],
+      "/rails/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/channels/application_cable/connection.rb": [
+      "/rails/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/jobs/application_job.rb": [
+      "/rails/app/controllers/application_controller.rb": [
+        0,
+        0
+      ],
+      "/rails/app/controllers/home_controller.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/rails/app/controllers/lists_controller.rb": [
+        0,
+        0,
+        null,
+        null,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        null,
+        null,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/rails/app/jobs/application_job.rb": [
         0,
         null,
         null,
@@ -40,18 +120,20 @@
         null,
         0
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/mailers/application_mailer.rb": [
+      "/rails/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/guifends/Documentos/ESI/ESI_2024/app/models/application_record.rb": [
+      "/rails/app/models/list_share.rb": [
+        0,
+        0,
         0,
         0,
         0
       ]
     },
-    "timestamp": 1759690784
+    "timestamp": 1761932100
   }
 }
