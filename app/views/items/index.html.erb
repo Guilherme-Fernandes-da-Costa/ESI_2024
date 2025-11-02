@@ -20,6 +20,8 @@
           - R$ <%= number_to_currency(item.preco, unit: "", separator: ",", delimiter: ".") %>
         </span>
       <% end %>
+
+    <td><%= item.tag.presence || "Sem categoria" %></td>
       
     </li>
   <% end %>
