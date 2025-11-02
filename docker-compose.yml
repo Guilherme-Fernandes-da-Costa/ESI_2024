@@ -1,12 +1,13 @@
-version: '3.8'
-
 services:
   web:
-    build: . # Usa o seu Dockerfile
-    # Inicia o servidor Rails, ignorando o banco de dados por enquanto
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    build: .
+    #command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/app # Mapeia sua pasta de código
+      - .:/app
     ports:
       - "3000:3000"
-    # Remova a seção 'depends_on: - db'
+    environment: # <-- Adicione esta seção
+      RAILS_ENV: test
+      # Chave falsa para testes, o Rails exige para inicializar
+      SECRET_KEY_BASE: 'dummy_secret_for_tests'
+      BUNDLE_WITHOUT: 'production'
