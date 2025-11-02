@@ -1,6 +1,5 @@
 class Tag < ApplicationRecord
-  has_many :taggings
-  has_many :items, through: :taggings
+  has_many :items, dependent: :nullify
   validates :name, presence: true, uniqueness: true
 
   # Lógica para obter tags pré-cadastradas
