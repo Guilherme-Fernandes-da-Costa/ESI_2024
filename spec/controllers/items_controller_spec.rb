@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ItemsController, type: :controller do
-  let!(:list) { List.create!(nome: "Minha Lista") }
+  let!(:list) { List.create!(name: "Minha Lista") }
   let!(:tag1) { Tag.create!(name: "Urgente") }
   let!(:tag2) { Tag.create!(name: "Opcional") }
 
