@@ -1,34 +1,27 @@
 <h1>Adicionar novo item à <%= @list.name %></h1>
 
-<%= form_with(model: [@list, @item], local: true) do |form| %>
+<%= form_with(model: [@list, @item]) do |form| %>
   <div>
-    <%= form.label :name, "Novo item" %>
+    <%= form.label :name, "Nome do Item" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%# O label é "Preço", conforme o step do Cucumber %>
-    <%= form.label :preco, "Preço" %> 
-    
-    <%# Usamos number_field com step para garantir a precisão decimal %>
-    <%# Pode ser útil adicionar um placeholder "0.00" %>
-    <%= form.number_field :preco, step: '0.01', placeholder: '0.00' %> 
-  </div>
-
-  <div class="opcional-categoria">
-    <%= form.label :tag, "Categoria" %> 
-    
-    <%= form.select :tag, 
-                      options_for_select(@available_tags, @item.tag), 
-                      { include_blank: 'Selecione uma tag (Opcional)' },
-                      # O ID padrão do Rails (item_tag) deve ser suficiente
-                      { } %> 
+    <%= form.label :quantidade %>
+    <%= form.number_field :quantidade %>
   </div>
 
   <div>
-    <%# O botão de submit ("Adicionar") será o acionador para o Cucumber. %>
-    <%= form.submit "Adicionar" %>
+    <%= form.label :preco %>
+    <%= form.number_field :preco, step: 0.01 %>
   </div>
+
+  <div>
+    <%= form.label :tag, "Categoria" %>
+    <%= form.select :tag, @available_tags, include_blank: "Selecione uma categoria" %>
+  </div>
+
+  <%= form.submit %>
 <% end %>
 
 <%= link_to 'Voltar para a Lista', list_path(@list) %>
