@@ -15,8 +15,8 @@ end
 
 
     before do
-        list.items.create!(name: 'Leite', quantity: 1)
-        list.items.create!(name: 'Pão', quantity: 2)
+        list.items.create!(name: 'Leite', quantity: 1, added_by: owner)
+        list.items.create!(name: 'Pão', quantity: 2, added_by: owner)
     end
 
 

@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_31_165312) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_02_204902) do
   create_table "items", force: :cascade do |t|
     t.integer "list_id", null: false
     t.string "name"
     t.integer "quantity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "added_by_id", null: false
+    t.index ["added_by_id"], name: "index_items_on_added_by_id"
     t.index ["list_id"], name: "index_items_on_list_id"
   end
 
@@ -47,6 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_31_165312) do
   end
 
   add_foreign_key "items", "lists"
+  add_foreign_key "items", "users", column: "added_by_id"
   add_foreign_key "list_shares", "lists"
   add_foreign_key "list_shares", "users"
   add_foreign_key "lists", "users", column: "owner_id"
