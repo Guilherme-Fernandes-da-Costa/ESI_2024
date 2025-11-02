@@ -63,7 +63,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    # Adicionamos :tag como parâmetro permitido
-    params.require(:item).permit(:name, :quantidade, :comprado, :preco)
+    params.require(:item).permit(:name, :quantidade, :comprado, :preco, :tag)
   end
 end
