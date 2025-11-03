@@ -1,0 +1,27 @@
+<h1>Adicionar novo item à <%= @list.name %></h1>
+
+<%= form_with(model: [@list, @item]) do |form| %>
+  <div>
+    <%= form.label :name, "Nome do Item" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :quantidade %>
+    <%= form.number_field :quantidade %>
+  </div>
+
+  <div>
+    <%= form.label :preco %>
+    <%= form.number_field :preco, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.label :tag, "Categoria" %>
+    <%= form.select :tag, @available_tags, include_blank: "Selecione uma categoria" %>
+  </div>
+
+  <%= form.submit %>
+<% end %>
+
+<%= link_to 'Voltar para a Lista', list_path(@list) %>
