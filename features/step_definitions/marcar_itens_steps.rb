@@ -1,15 +1,22 @@
 #cenario 1
-Dado("que exista um item {string} na minha lista") do |item|
-    visit "/lista"
-    expect(page).to have_content(item)
-    @item = item
+Dado("que exista um item {string} na minha lista") do |item_nome|
+    # Criar uma lista (se ainda não existir uma no cenário)
+    @list = List.create!(name: "Lista de Teste")
+    # Criar o item ANINHADO (associado à lista)
+    @item = Item.create!(name: item_nome, list_id: @list.id)
+    # Armazena o nome para uso posterior
+    @item_nome = item_nome
+    
+    visit list_items_path(@list)
+    # Verificação de Conteúdo
+    expect(page).to have_content(item_nome)
 end
 
 Quando("eu clicar em cima do item desejado") do
-    click_on(@item)
+    click_on(@item.name)
 end
 
-Então("aparecerá uma janela com título {string} com as opções: {string} e {dtring}") do |titulo, tag1, tahg2|
+Então("aparecerá uma janela com título {string} com as opções: {string} e {string}") do |titulo, tag1, tahg2|
     visit "/item selecionado"
     expect(page).to have_content(titulo)
     expect(page).to have_button(tag1)
@@ -43,26 +50,9 @@ end
 
 
 #cenario 2
-Dado("que exista um item {string} na minha lista") do |item|
-    visit "/lista"
-    expect(page).to have_content(item)
-    @item = item
-end
-
 E("eu ver que este item está sobre sobreposto por uma linha") do
     item_element = find('li', text: @item)
     expect(item_element[:class]).to include("comprado")
-end
-
-Quando("eu clicar em cima do item desejado") do
-    click_button(@item)
-end
-
-Então("aparecerá uma janela com título {string} com as opções: {string} e {string}") do |titulo, tag1, tahg2|
-    visit "/item selecionado"
-    expect(page).to have_content(titulo)
-    expect(page).to have_button(tag1)
-    expect(page).to have_button(tag2)
 end
 
 Quando("apertar o botão correspondente a opção {string}") do |tag2|

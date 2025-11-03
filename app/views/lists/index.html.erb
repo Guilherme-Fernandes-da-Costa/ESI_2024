@@ -1,0 +1,41 @@
+<h1>Minha Lista</h1>
+
+<p>
+  <%= link_to 'Adicionar novo item', new_list_item_path(@lista), class: "btn btn-primary" %>
+</p>
+
+<hr>
+
+<!-- Botão para ordenar/filtrar -->
+<div class="ordenar-filtrar">
+  <%= button_to 'Ordenar/Filtrar por Tag', '#', method: :get, id: "ordenar_lista", class: "btn btn-secondary" %>
+
+  <div class="opcoes-tags" style="margin-top:10px;">
+    <h3>Filtrar por Tag:</h3>
+    <% Tag.all.each do |tag| %>
+      <%= button_to tag.name, filter_list_items_path(@lista, tag_name: tag.name), method: :get, class: "btn btn-light" %>
+    <% end %>
+
+    <h3>Outras opções:</h3>
+    <%= button_to "Agrupar", group_list_items_path(@lista), method: :get, class: "btn btn-info" %>
+    <%= button_to "Desagrupar", list_items_path(@lista), method: :get, class: "btn btn-warning" %>
+  </div>
+</div>
+
+<hr>
+
+<ul>
+  <% @itens.each do |item| %>
+    <li>
+      <strong><%= item.name %></strong>
+      <% if item.tags.any? %>
+        <span class="item-tag">
+          (<%= item.tags.map(&:name).join(', ') %>)
+        </span>
+      <% end %>
+
+      <%= link_to 'Editar', edit_list_item_path(@lista, item), class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to 'Excluir', list_item_path(@lista, item), data: { turbo_method: :delete, confirm: "Tem certeza?" }, class: "btn btn-sm btn-outline-danger" %>
+    </li>
+  <% end %>
+</ul>

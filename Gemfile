@@ -50,6 +50,7 @@ group :development, :test do
   gem "database_cleaner-active_record"
   gem "simplecov", require: false
   gem "coveralls", require: false
+  gem 'shoulda-matchers', '~> 5.0' 
 end
 
 group :development do

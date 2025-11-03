@@ -1,27 +1,30 @@
 #cenario 1
-Dado("que um novo item {string} será adicionado a minha lista") do |item|
-    visit "/lista"
-    fill_in "novo item", with: item
-    click_button "adicionar"
-    @coisa = item
+Dado("que um novo item {string} será adicionado a minha lista") do |item_name|
+  @list = List.first || List.create!(name: "Lista de teste")
+  visit new_list_item_path(@list)
+  fill_in "Novo item", with: item_name
+  click_button "Adicionar"
+  @coisa = item_name
 end
 
-Quando("eu clicar na opção opcional categoria") do
-    click_button "categoria"
+Quando('eu clicar na opção opcional {string}') do |label|
+  expect(page).to have_select(label)
 end
 
 Então("aparecerá uma lista de {string} pré-cadastradas") do |tags|
-    expect(page).to have_content(tags)
+  expect(page).to have_select('Categoria', options: ["Selecione uma tag (Opcional)", "frios", "horti-fruit", "carne", "padaria", "limpeza"])
+  # expect(page).to have_content(tags)
 end
 
 Mas("se não selecionar o campo {string} o cadastro prossegue normalmente") do |categorias|
-    visit "/lista"
+    click_button 'Adicionar'
+    expect(Item.last.tag).to be_nil
     expect(page).to have_content(@coisa)
 end
 
-Quando("eu clicar em uma dessas {string}") do |tags|
-    click_button tags
-    @tag_selecionada = tags
+Quando("eu clicar em uma dessas {string}") do |tag|
+  check(tag)
+  @tag_selecionada = tag
 end
 
 Então("ela será aplicada ao item") do
@@ -31,7 +34,7 @@ Então("ela será aplicada ao item") do
 end
 
 Mas("se não selecionar uma tag o cadastro prossegue normalmente") do
-    visit "/list"
+    visit "/lista"
     expect(page).to have_content(@coisa)
 end
 
@@ -44,11 +47,12 @@ end
 
 #cenario 2
 Dado("que eu estou na página de exibição da minha lista") do
-    visit "/lista"
+  @list ||= List.first || List.create!(name: "Minha Lista")
+  visit list_path(@list)
 end
 
 Quando("eu clicar no campo botão {string}") do |ord_list|
-    click_button ordenar_lista
+    click_button ord_list
     @botao_ord = ord_list
 end
 
@@ -87,5 +91,5 @@ Mas("se eu clicar na opção {string}") do |desagrupar|
 end
 
 Então("os itens voltam para suas posições originais anteriores a qualquer ordenação") do
-    expect(page).to have_content(@item_atual)
+    expect(page).to have_content(@coisa)
 end
