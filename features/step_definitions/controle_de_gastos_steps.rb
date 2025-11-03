@@ -17,17 +17,14 @@ end
 
 E("eu devo poder ver esse valor na lista ao lado do item cadastrado") do
     visit list_path(@list)
-    # Garante que o valor formatado em BRL é exibido (R$ 10,00)
     expect(page).to have_content("R$ 10,00")
 end
 
 #cenario 2
 Dado("que eu estou na tela exibição da minha lista") do
-    # SETUP DO CONTEXTO: Garante que uma lista e itens com preços existam para o cálculo.
     @list = List.create!(name: "Lista de Gastos")
     @list.items.create!(name: "Produto 1", preco: 5.00)
     @list.items.create!(name: "Produto 2", preco: 15.50)
-    # Visita a rota de exibição da lista
     visit list_path(@list)
 end
 
@@ -36,13 +33,11 @@ Então("eu devo poder ver um campo chamado {string} em uma área separada da lis
 end
 
 E("eu devo poder ver o valor total da soma dos itens cadastrados na lista") do
-    # Verifica o valor formatado.
     total_esperado = "R$ 20,50" 
     
     expect(page).to have_selector(".valor-total")
     total_texto = find(".valor-total").text
     
-    # Garante que a formatação está correta E que o valor é o esperado (20,50)
     expect(total_texto).to match(/R\$ \d+,\d{2}/)
     expect(total_texto).to have_content(total_esperado)
 end

@@ -1,3 +1,5 @@
+#language: pt
+
 Funcionalidade: Múltiplas listas de compra
   Como uma pessoa organizada
   Eu quero ter múltiplas listas de compra

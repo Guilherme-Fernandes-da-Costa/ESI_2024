@@ -1,3 +1,5 @@
+#language: pt
+
 Funcionalidade: Compartilhar Lista
   Como um membro de uma república
   Eu quero convidar outras pessoas

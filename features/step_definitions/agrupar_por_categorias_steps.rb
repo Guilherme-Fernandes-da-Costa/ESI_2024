@@ -1,19 +1,19 @@
 #cenario 1
 Dado("que um novo item {string} será adicionado a minha lista") do |item_name|
-  @list = List.first || List.create!(name: "Lista de teste")
-  visit new_list_item_path(@list)
-  fill_in "Novo item", with: item_name
-  click_button "Adicionar"
-  @coisa = item_name
+    @list = List.first || List.create!(name: "Lista de teste")
+    visit new_list_item_path(@list)
+    fill_in "Novo item", with: item_name
+    click_button "Adicionar"
+    @coisa = item_name
 end
 
 Quando('eu clicar na opção opcional {string}') do |label|
-  expect(page).to have_select(label)
+    expect(page).to have_select(label)
 end
 
 Então("aparecerá uma lista de {string} pré-cadastradas") do |tags|
-  expect(page).to have_select('Categoria', options: ["Selecione uma tag (Opcional)", "frios", "horti-fruit", "carne", "padaria", "limpeza"])
-  # expect(page).to have_content(tags)
+    expect(page).to have_select('Categoria', options: ["Selecione uma tag (Opcional)", "frios", "horti-fruit", "carne", "padaria", "limpeza"])
+    expect(page).to have_content(tags)
 end
 
 Mas("se não selecionar o campo {string} o cadastro prossegue normalmente") do |categorias|
@@ -23,8 +23,8 @@ Mas("se não selecionar o campo {string} o cadastro prossegue normalmente") do |
 end
 
 Quando("eu clicar em uma dessas {string}") do |tag|
-  check(tag)
-  @tag_selecionada = tag
+    check(tag)
+    @tag_selecionada = tag
 end
 
 Então("ela será aplicada ao item") do
@@ -47,8 +47,8 @@ end
 
 #cenario 2
 Dado("que eu estou na página de exibição da minha lista") do
-  @list ||= List.first || List.create!(name: "Minha Lista")
-  visit list_path(@list)
+    @list ||= List.first || List.create!(name: "Minha Lista")
+    visit list_path(@list)
 end
 
 Quando("eu clicar no campo botão {string}") do |ord_list|
