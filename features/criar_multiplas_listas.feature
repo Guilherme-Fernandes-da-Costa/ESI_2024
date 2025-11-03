@@ -22,3 +22,4 @@ Cenário: adicionar itens a lista
     Quando preencher esses campos com as informções do novo item
     E clicar no botão "Concluir"
     Então poderei ver o novo item adicionado a minha lista
+    
