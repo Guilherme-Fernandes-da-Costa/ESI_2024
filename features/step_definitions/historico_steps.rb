@@ -1,3 +1,4 @@
+#cenário 1
 Dado('que estou na tela de exibição das listas') do
   	visit '/listas' 
   	expect(page).to have_content('Minhas Listas')

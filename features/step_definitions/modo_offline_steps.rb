@@ -1,3 +1,4 @@
+#cenário 1
 Dado('que estou na página inicial do aplicativo') do
     @app = App.new
     @app.abrir_pagina_inicial
