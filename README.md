@@ -23,6 +23,7 @@ Um aplicativo de lista de compras compartilhada, feito para simplificar a vida d
 ![Open Issues](https://img.shields.io/github/issues/Guilherme-Fernandes-da-Costa/ESI_2024)
 
 **Tests**
+<br>
 [![Tests](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/test.yml/badge.svg)](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/test.yml)
 
 ---
