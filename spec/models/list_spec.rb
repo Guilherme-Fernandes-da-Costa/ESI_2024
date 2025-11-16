@@ -5,9 +5,9 @@ require 'rails_helper'
 
 RSpec.describe List, type: :model do
     describe '#reset!' do
-        let(:owner) { User.create!(email: 'maria@example.com', name: 'Maria') }
+        let!(:owner) { User.create!(email: 'maria@example.com', name: 'Maria') }
         let(:other) { User.create!(email: 'joao@example.com', name: 'Joao') }
-        let(:list) { List.create!(name: 'Lista do Mercado', owner: owner) }
+        let!(:list) { List.create!(name: 'Lista do Mercado', owner: owner) }
 
 
     before do
