@@ -52,14 +52,14 @@ require 'rails_helper'
 
 RSpec.describe List, type: :model do
     describe '#reset!' do
-        let(:owner) { User.create!(email: 'maria@example.com', name: 'Maria') }
+        let!(:owner) { User.create!(email: 'maria@example.com', name: 'Maria') }
         let(:other) { User.create!(email: 'joao@example.com', name: 'Joao') }
-        let(:list) { List.create!(name: 'Lista do Mercado', owner: owner) }
+        let!(:list) { List.create!(name: 'Lista do Mercado', owner: owner) }
 
 
     before do
-        list.items.create!(name: 'Arroz', quantity: 2)
-        list.items.create!(name: 'Feijão', quantity: 1)
+        list.items.create!(name: 'Arroz', quantity: 2, added_by: owner)
+        list.items.create!(name: 'Feijão', quantity: 1, added_by: owner)
     end
 
 

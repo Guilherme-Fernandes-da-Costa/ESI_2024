@@ -6,7 +6,7 @@ services:
     # Inicia o servidor Rails, ignorando o banco de dados por enquanto
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/app # Mapeia sua pasta de código
+      - .:/rails # Mapeia sua pasta de código para /rails (coerente com Dockerfile)
     ports:
       - "3000:3000"
-    # Remova a seção 'depends_on: - db'
+    # Remova a seção 'depends_on: - db' se quiser
