@@ -18,6 +18,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_204902) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "added_by_id", null: false
+    t.string "tag"
+    t.boolean "comprado"
+    t.decimal "preco"
     t.index ["added_by_id"], name: "index_items_on_added_by_id"
     t.index ["list_id"], name: "index_items_on_list_id"
   end
@@ -40,6 +43,21 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_204902) do
     t.index ["owner_id"], name: "index_lists_on_owner_id"
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_taggings_on_item_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "name"
@@ -53,4 +71,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_204902) do
   add_foreign_key "list_shares", "lists"
   add_foreign_key "list_shares", "users"
   add_foreign_key "lists", "users", column: "owner_id"
+  add_foreign_key "taggings", "items"
+  add_foreign_key "taggings", "tags"
 end

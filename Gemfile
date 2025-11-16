@@ -49,6 +49,7 @@ group :development, :test do
   gem "database_cleaner-active_record"
   gem "simplecov", require: false
   gem "coveralls", require: false
+  gem 'shoulda-matchers', '~> 5.0' 
 end
 
 group :development do
@@ -61,3 +62,8 @@ end
 #   gem "capybara"
 #   gem "selenium-webdriver"
 # end
+gem 'brakeman', require: false
+
+group :development, :test do
+  gem 'rubocop', require: false
+end
