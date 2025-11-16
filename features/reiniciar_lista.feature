@@ -2,7 +2,7 @@
 #language:pt
 
 @JIRA-REINICIARLISTA
-Funcionalidade
+Funcionalidade: reiniciar lista
     Para que a lista tenha os itens desejados e na quantidade certa ou 
     Como um organizador
     Eu quero reiniciar a lista

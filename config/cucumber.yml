@@ -6,3 +6,6 @@ std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict --tags 'not 
 %>
 default: <%= std_opts %> features
 rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags 'not @wip'
+
+default: --format pretty --publish-quiet
+pt: --language pt --format pretty
