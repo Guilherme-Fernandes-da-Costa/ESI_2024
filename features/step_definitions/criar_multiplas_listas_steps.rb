@@ -1,3 +1,5 @@
+require_relative '../../app/services/criar_multiplas_listas'
+
 #cenario 1
 Dado("que eu estou na tela de exibição das listas")do
     visit "/lista"
