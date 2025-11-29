@@ -1,14 +1,35 @@
 # app/controllers/lists_controller.rb
 class ListsController < ApplicationController
-  before_action :set_tags, only: [:index, :create]
+  before_action :set_list, only: %i[show reset]
+  before_action :set_tags, only: %i[index create]
 
   def index
     @itens = Item.includes(:tags)
   end
-  
+
+  def show
+    @total_estimado = @list.items.sum(:preco)
+    
+    # Lógica de ordenação (Cenário 2)
+    @items = @list.items
+    
+    case params[:order]
+    when 'agrupar'
+      @items = @items.grouped_by_tag # Usa o scope definido no Model
+    when 'desagrupar'
+      @items = @items.order(created_at: :asc)
+    when *@items.pluck(:tag).compact.uniq
+      @items = @items.where(tag: params[:order])
+    else
+      @items = @items.order(created_at: :asc)
+    end
+
+    @available_tags = @list.items.pluck(:tag).compact.uniq
+  end
+
   def create
     @item = Item.new(item_params)
-    @item.list = current_list   # supondo que a lista vem do contexto do usuário
+    @item.list = current_list
     @item.added_by = current_user
 
     if @item.save
@@ -22,35 +43,26 @@ class ListsController < ApplicationController
     end
   end
 
-  # GET /lists/:id
-  def show
-    @list = List.find(params[:id])
-
-    @total_estimado = @list.items.sum(:preco)
-    
-    # Lógica de ordenação (Cenário 2)
-    @items = @list.items
-    
-    case params[:order]
-    when 'agrupar'
-      @items = @items.grouped_by_tag # Usa o scope definido no Model
-    when 'desagrupar'
-      # Implementação "Desagrupar": Reverte para a ordem original (padrão)
-      # Se você usou `default_scope { order(created_at: :asc) }` no model, 
-      # essa seria a ordem, caso contrário, será a ordem padrão do DB (ID).
-      @items = @items.order(created_at: :asc) # Assumindo que a ordem original é a de criação
-    when *@items.pluck(:tag).compact.uniq
-      # Filtra por uma tag específica
-      @items = @items.where(tag: params[:order])
-    else
-      @items = @items.order(created_at: :asc) # Ordem padrão, se não houver parâmetro
+  def reset
+    begin
+      @list.reset!(by: current_user)
+      respond_to do |format|
+        format.html { redirect_to @list, notice: 'Lista reiniciada com sucesso.' }
+        format.json { render json: { success: true }, status: :ok }
+      end
+    rescue List::PermissionDenied
+      respond_to do |format|
+        format.html { head :forbidden }
+        format.json { render json: { error: 'Falta de permissão' }, status: :forbidden }
+      end
     end
-
-    # Coleta tags únicas para o botão "Ordenar Lista"
-    @available_tags = @list.items.pluck(:tag).compact.uniq
   end
 
   private
+
+  def set_list
+    @list = List.find(params[:id])
+  end
 
   def item_params
     params.require(:item).permit(:name)
