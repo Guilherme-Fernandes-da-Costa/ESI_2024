@@ -2,7 +2,7 @@
 #language:pt
 
 @JIRA-SAIRLISTA
-Funcionalidade
+Funcionalidade: sair da lista
     Para voltar a tela principal, estando com a lista aberta 
     Como um usuário
     Eu quero ao apertar o botão "Sair" sair da lista à tela principal

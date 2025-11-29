@@ -43,6 +43,7 @@ group :development, :test do
 
   # GEMS ADICIONADAS PARA O PROJETO DE ENGENHARIA DE SOFTWARE
   gem "rspec-rails"
+  gem "rspec"
   gem "factory_bot_rails"
   gem "cucumber-rails", require: false
   gem "capybara"
