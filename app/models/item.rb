@@ -2,6 +2,7 @@
 class Item < ApplicationRecord
   # Associações:
   belongs_to :list
+  belongs_to :added_by, class_name: 'User'
   belongs_to :tag, optional: true
 
   # Validações:
