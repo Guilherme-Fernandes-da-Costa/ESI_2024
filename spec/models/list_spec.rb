@@ -1,6 +1,4 @@
 # --- Spec: spec/models/list_spec.rb ---
-=======
-# spec/models/list_spec.rb
 # RSpec unit tests for List#reset!
 require 'rails_helper'
 
