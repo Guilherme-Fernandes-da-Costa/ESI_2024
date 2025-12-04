@@ -1,25 +1,53 @@
 <h1>Minha Lista</h1>
 
 <p>
-  <%= link_to 'Adicionar novo item', new_list_item_path(@lista), class: "btn btn-primary" %>
+  <% if @lista.present? %>
+    <%= link_to 'Adicionar novo item', new_list_item_path(@lista), class: "btn btn-primary" %>
+  <% end %>
+  <%= button_to 'Criar nova lista', lista_path(new: 1), method: :get, class: "btn btn-primary" %>
 </p>
+
+<div class="listas">
+  <% if params[:new].present? %>
+    <div class="lista">
+      <%= form_with url: lists_path, method: :post, local: true do |f| %>
+        <%= label_tag 'list[nome]', 'Nome da lista' %>
+        <%= text_field_tag 'list[nome]' %>
+        <%= f.submit 'Salvar', class: 'btn btn-sm btn-primary' %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% List.all.each do |l| %>
+    <div class="lista">
+      <%= form_with model: l, url: list_path(l), method: :patch, local: true do |f| %>
+        <%= f.label :nome, 'Nome da lista' %>
+        <%= f.text_field :nome %>
+        <%= f.submit 'Salvar', class: 'btn btn-sm btn-primary' %>
+      <% end %>
+      <%= link_to (l.nome.presence || 'Sem nome'), lista_show_path(l), class: 'd-block' %>
+    </div>
+  <% end %>
+</div>
 
 <hr>
 
 <!-- Botão para ordenar/filtrar -->
 <div class="ordenar-filtrar">
-  <%= button_to 'Ordenar/Filtrar por Tag', '#', method: :get, id: "ordenar_lista", class: "btn btn-secondary" %>
+  <% if @lista.present? %>
+    <%= button_to 'Ordenar/Filtrar por Tag', '#', method: :get, id: "ordenar_lista", class: "btn btn-secondary" %>
 
-  <div class="opcoes-tags" style="margin-top:10px;">
-    <h3>Filtrar por Tag:</h3>
-    <% Tag.all.each do |tag| %>
-      <%= button_to tag.name, filter_list_items_path(@lista, tag_name: tag.name), method: :get, class: "btn btn-light" %>
-    <% end %>
+    <div class="opcoes-tags" style="margin-top:10px;">
+      <h3>Filtrar por Tag:</h3>
+      <% Tag.all.each do |tag| %>
+          <%= button_to tag.name, list_items_path(@lista, tag_name: tag.name), method: :get, class: "btn btn-light" %>
+      <% end %>
 
-    <h3>Outras opções:</h3>
-    <%= button_to "Agrupar", group_list_items_path(@lista), method: :get, class: "btn btn-info" %>
-    <%= button_to "Desagrupar", list_items_path(@lista), method: :get, class: "btn btn-warning" %>
-  </div>
+      <h3>Outras opções:</h3>
+      <%= button_to "Agrupar", list_items_path(@lista, order: 'agrupar'), method: :get, class: "btn btn-info" %>
+      <%= button_to "Desagrupar", list_items_path(@lista, order: 'desagrupar'), method: :get, class: "btn btn-warning" %>
+    </div>
+  <% end %>
 </div>
 
 <hr>
@@ -28,10 +56,12 @@
   <% @itens.each do |item| %>
     <li>
       <strong><%= item.name %></strong>
-      <% if item.tags.any? %>
-        <span class="item-tag">
-          (<%= item.tags.map(&:name).join(', ') %>)
-        </span>
+      <% if item.respond_to?(:tags) && item.tags.any? %>
+        <%= item.tags.map do |t| %>
+          <span class="tag-item"><%= t.name %></span>
+        <% end.join(' ').html_safe %>
+      <% elsif item.respond_to?(:tag) && item.tag.present? %>
+        <span class="tag-item"><%= item.tag %></span>
       <% end %>
 
       <%= link_to 'Editar', edit_list_item_path(@lista, item), class: "btn btn-sm btn-outline-secondary" %>

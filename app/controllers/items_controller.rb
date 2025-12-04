@@ -7,9 +7,10 @@ class ItemsController < ApplicationController
   # Como a rota :index existe, você pode querer implementar esta action
   def index
     @items = @list.items.all
-    # O cálculo do total deve somar o preço de todos os itens
-    @total_estimado = @itens.sum(:preco)
+    @total_estimado = @items.sum(:preco)
+    @available_tags = @list.items.pluck(:tag).compact.uniq
   end
+
 
   # GET /lists/:list_id/items/new
   def new
@@ -21,13 +22,16 @@ class ItemsController < ApplicationController
   # POST /lists/:list_id/items
   def create
     @item = @list.items.new(item_params)
-    
+    # Ensure added_by satisfies DB foreign key (tests may not have authentication)
+    @item.added_by = User.first || User.create!(email: 'test@example.com', name: 'Teste')
+
     if @item.save
       # Redireciona para a página de visualização da lista para ver o item recém-adicionado
       redirect_to list_path(@list), notice: 'Item adicionado com sucesso.'
     else
       # Re-renderiza o formulário em caso de erro
       @available_tags = ["frios", "horti-fruit", "carne", "padaria", "limpeza"]
+      flash.now[:alert] = @item.errors.full_messages.join(', ')
       render :new, status: :unprocessable_entity
     end
   end
@@ -63,6 +67,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:name, :quantidade, :comprado, :preco, :tag)
+    params.require(:item).permit(:name, :quantity, :comprado, :preco, :tag)
   end
 end

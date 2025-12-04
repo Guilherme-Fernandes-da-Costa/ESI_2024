@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-@@ -0,0 +1,41 @@
 # --- Spec: spec/models/list_spec.rb ---
 # RSpec unit tests for List#reset!
->>>>>>> 3734dc86fb70ee0868ae54dbc95231530ee58e55
 require 'rails_helper'
 
 
@@ -86,4 +81,3 @@ RSpec.describe List, type: :model do
         end
     end
 end
->>>>>>> origin/Testes_daniel

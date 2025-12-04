@@ -4,14 +4,36 @@ class ListsController < ApplicationController
   before_action :set_tags, only: %i[index create]
 
   def index
-    @itens = Item.includes(:tags)
+    @lista = current_list
+    if @lista.present?
+      @itens = @lista.items.includes(:tags)
+    else
+      @itens = Item.none
+    end
+  end
+
+  def create
+    name = params.dig(:list, :nome).presence || 'Sem nome'
+    @lista = List.create(name: name)
+    redirect_to lista_path
+  end
+
+  def update
+    @lista = List.find(params[:id])
+    if @lista.update(list_params)
+      redirect_to lista_path, notice: 'Lista atualizada com sucesso.'
+    else
+      @lista = current_list
+      @itens = @lista.present? ? @lista.items.includes(:tags) : Item.none
+      render :index
+    end
   end
 
   def show
-    @total_estimado = @list.items.sum(:preco)
+    @total_estimado = @lista.items.sum(:preco)
     
     # Lógica de ordenação (Cenário 2)
-    @items = @list.items
+    @items = @lista.items
     
     case params[:order]
     when 'agrupar'
@@ -24,30 +46,15 @@ class ListsController < ApplicationController
       @items = @items.order(created_at: :asc)
     end
 
-    @available_tags = @list.items.pluck(:tag).compact.uniq
+    @available_tags = @lista.items.pluck(:tag).compact.uniq
   end
 
-  def create
-    @item = Item.new(item_params)
-    @item.list = current_list
-    @item.added_by = current_user
-
-    if @item.save
-      if params[:tag_ids].present?
-        @item.tags << Tag.where(id: params[:tag_ids])
-      end
-      redirect_to list_path, notice: 'Item adicionado com sucesso.'
-    else
-      @itens = Item.includes(:tags)
-      render :index
-    end
-  end
 
   def reset
     begin
-      @list.reset!(by: current_user)
+      @lista.reset!(by: current_user)
       respond_to do |format|
-        format.html { redirect_to @list, notice: 'Lista reiniciada com sucesso.' }
+        format.html { redirect_to @lista, notice: 'Lista reiniciada com sucesso.' }
         format.json { render json: { success: true }, status: :ok }
       end
     rescue List::PermissionDenied
@@ -61,11 +68,20 @@ class ListsController < ApplicationController
   private
 
   def set_list
-    @list = List.find(params[:id])
+    if params[:id].present?
+      @lista = List.find(params[:id])
+    else
+      @lista = current_list
+    end
+    @list = @lista
   end
 
   def item_params
     params.require(:item).permit(:name)
+  end
+
+  def list_params
+    params.require(:list).permit(:nome)
   end
 
   def set_tags

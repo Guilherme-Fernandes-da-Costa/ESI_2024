@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   # Adicione esta linha para o BDD
   # Mapeia /lista para a action index do ListsController
   get 'lista', to: 'lists#index' 
+  get 'lista/:id', to: 'lists#show', as: :lista_show
 end

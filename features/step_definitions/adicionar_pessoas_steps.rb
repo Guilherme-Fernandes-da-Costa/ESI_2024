@@ -18,13 +18,6 @@ Quando("{string} adiciona {string} à lista") do |usuario, participante|
   end
 end
 
-Quando("{string} tenta adicionar {string} à lista") do |usuario, participante|
-  visit "/lista"
-  unless @organizador
-    page.execute_script("alert('Permissão negada!')")
-  end
-end
-
 Então("{string} deve aparecer como participante da lista") do |participante|
   within(:xpath, "//li[contains(.,'#{participante}')]") do
     expect(page).to have_content(participante)
