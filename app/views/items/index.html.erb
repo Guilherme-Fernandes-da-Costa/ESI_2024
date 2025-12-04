@@ -30,6 +30,16 @@
       
       <%= item.name %>
       
+      <% if item.added_by.present? %>
+        <span class="item-author">
+          (adicionado por <%= item.added_by.name %>)
+        </span>
+      <% else %>
+        <span class="item-author">
+          (Autor desconhecido)
+        </span>
+      <% end %>
+      
       <% if item.preco.present? && item.preco > 0 %>
         <span class="item-preco">
           - R$ <%= number_to_currency(item.preco, unit: "", separator: ",", delimiter: ".") %>
