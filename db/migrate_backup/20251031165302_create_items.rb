@@ -1,5 +1,4 @@
-# db/migrate/xxxx_create_items.rb
-class CreateItems < ActiveRecord::Migration[7.0]
+class CreateItems < ActiveRecord::Migration[7.1]
   def change
     create_table :items do |t|
       t.references :list, null: false, foreign_key: true
