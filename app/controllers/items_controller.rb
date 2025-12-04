@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_list
   # Encontra o item para as actions que lidam com ele, incluindo a nova toggle_comprado
-  before_action :set_item, only: [ :toggle_comprado ] # Adicionei :index se você precisar dele
+  before_action :set_item, only: [ :toggle_comprado, :update, :destroy ] # ensure item is loaded for these actions
 
   # GET /lists/:list_id/items
   # Como a rota :index existe, você pode querer implementar esta action
@@ -51,6 +51,22 @@ class ItemsController < ApplicationController
       # Em caso de falha de validação (embora improvável para um simples toggle)
       redirect_to list_items_path(@list), alert: "Não foi possível atualizar o item."
     end
+  end
+
+  # PATCH /lists/:list_id/items/:id
+  def update
+    if @item.update(item_params)
+      redirect_to list_path(@list), notice: 'Item atualizado com sucesso.'
+    else
+      flash.now[:alert] = @item.errors.full_messages.join(', ')
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /lists/:list_id/items/:id
+  def destroy
+    @item.destroy
+    redirect_to list_path(@list), notice: 'Item removido com sucesso.'
   end
 
   private

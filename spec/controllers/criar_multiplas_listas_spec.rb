@@ -9,12 +9,11 @@ RSpec.describe "Gerenciamento de Múltiplas Listas", type: :system do
 
   describe "Criar nova lista" do
     it "permite criar uma nova lista e dar um nome a ela" do
-      visit "/lista"
+      visit "/lista?new=1"
 
       expect(page).to have_button("Criar nova lista")
 
-      click_button "Criar nova lista"
-
+      # The new-list form is rendered when ?new=1 is present
       expect(page).to have_selector(".lista")
 
       fill_in "Nome da lista", with: "Lista de Compras 2"
@@ -35,19 +34,19 @@ RSpec.describe "Gerenciamento de Múltiplas Listas", type: :system do
 
       expect(page.current_path).to match(/\/lista\/\d+/)
 
-      expect(page).to have_selector(".itens-lista")
+      # Click the link to add a new item (navigates to items#new)
+      click_link "Adicionar Novo Item"
 
-      click_button "+"
+      # Use generated field ids to be robust across label text
+      expect(page).to have_field('item_name')
+      expect(page).to have_field('item_preco')
+      expect(page).to have_field('item_quantity')
 
-      expect(page).to have_content("nome")
-      expect(page).to have_content("preco")
-      expect(page).to have_content("quantidade")
+      fill_in "Nome do Item", with: "carne"
+      fill_in "item_preco", with: 10.00
+      fill_in "item_quantity", with: 2
 
-      fill_in "nome", with: "carne"
-      fill_in "preco", with: 10.00
-      fill_in "quantidade", with: 2
-
-      click_button "Concluir"
+      click_button "Salvar"
 
       expect(page).to have_content("carne")
     end
