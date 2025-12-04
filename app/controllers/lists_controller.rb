@@ -13,7 +13,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    name = params.dig(:list, :nome).presence || 'Sem nome'
+    name = params.dig(:list, :nome).presence || "Sem nome"
     @lista = List.create(name: name)
     redirect_to lista_path
   end
@@ -21,7 +21,7 @@ class ListsController < ApplicationController
   def update
     @lista = List.find(params[:id])
     if @lista.update(list_params)
-      redirect_to lista_path, notice: 'Lista atualizada com sucesso.'
+      redirect_to lista_path, notice: "Lista atualizada com sucesso."
     else
       @lista = current_list
       @itens = @lista.present? ? @lista.items.includes(:tags) : Item.none
@@ -31,14 +31,14 @@ class ListsController < ApplicationController
 
   def show
     @total_estimado = @lista.items.sum(:preco)
-    
+
     # Lógica de ordenação (Cenário 2)
     @items = @lista.items
-    
+
     case params[:order]
-    when 'agrupar'
+    when "agrupar"
       @items = @items.grouped_by_tag # Usa o scope definido no Model
-    when 'desagrupar'
+    when "desagrupar"
       @items = @items.order(created_at: :asc)
     when *@items.pluck(:tag).compact.uniq
       @items = @items.where(tag: params[:order])
@@ -54,13 +54,13 @@ class ListsController < ApplicationController
     begin
       @lista.reset!(by: current_user)
       respond_to do |format|
-        format.html { redirect_to @lista, notice: 'Lista reiniciada com sucesso.' }
+        format.html { redirect_to @lista, notice: "Lista reiniciada com sucesso." }
         format.json { render json: { success: true }, status: :ok }
       end
     rescue List::PermissionDenied
       respond_to do |format|
         format.html { head :forbidden }
-        format.json { render json: { error: 'Falta de permissão' }, status: :forbidden }
+        format.json { render json: { error: "Falta de permissão" }, status: :forbidden }
       end
     end
   end

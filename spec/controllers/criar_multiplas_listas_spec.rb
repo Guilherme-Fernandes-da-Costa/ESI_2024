@@ -24,7 +24,7 @@ RSpec.describe "Gerenciamento de Múltiplas Listas", type: :system do
     end
   end
 
- 
+
   describe "Adicionar itens à lista" do
     let!(:lista) { List.create!(nome: "Lista de Compras") }
 

@@ -1,4 +1,4 @@
-#cenario 1
+# cenario 1
 Dado("que eu estou na tela de fase de cadastro de um novo item") do
     @list = List.create!(name: "Lista de Compras de Teste")
     visit new_list_item_path(@list)
@@ -43,7 +43,7 @@ E("eu devo poder ver esse valor na lista ao lado do item cadastrado") do
     expect(page).to have_content("R$ 10,00")
 end
 
-#cenario 2
+# cenario 2
 Dado("que eu estou na tela exibição da minha lista") do
     @list = List.create!(name: "Lista de Gastos")
     user = User.find_or_create_by(email: 'test@example.com') { |u| u.name = 'Teste' }
@@ -57,11 +57,11 @@ Então("eu devo poder ver um campo chamado {string} em uma área separada da lis
 end
 
 E("eu devo poder ver o valor total da soma dos itens cadastrados na lista") do
-    total_esperado = "R$ 20,50" 
-    
+    total_esperado = "R$ 20,50"
+
     expect(page).to have_selector(".valor-total")
     total_texto = find(".valor-total").text
-    
+
     expect(total_texto).to match(/R\$ \d+,\d{2}/)
     expect(total_texto).to have_content(total_esperado)
 end

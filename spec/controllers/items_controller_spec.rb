@@ -5,7 +5,7 @@ RSpec.describe ItemsController, type: :controller do
   let!(:tag1) { Tag.create!(name: "Urgente") }
   let!(:tag2) { Tag.create!(name: "Opcional") }
 
-  let(:valid_attributes) { { name: "Novo Item", tag_ids: [tag1.id] } }
+  let(:valid_attributes) { { name: "Novo Item", tag_ids: [ tag1.id ] } }
   let(:invalid_attributes) { { name: "" } }
 
   describe "GET #new" do

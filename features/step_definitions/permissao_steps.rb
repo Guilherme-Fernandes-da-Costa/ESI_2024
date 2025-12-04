@@ -54,4 +54,3 @@ end
 Então("{string} não deve aparecer na lista") do |item|
   expect(@list.items.pluck(:name)).not_to include(item)
 end
-

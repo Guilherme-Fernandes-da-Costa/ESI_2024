@@ -124,4 +124,3 @@ Então("os itens voltam para suas posições originais anteriores a qualquer ord
   itens_exibidos = page.all('ul#item-list li').map(&:text)
   expect(itens_exibidos).to eq(@ordem_original)
 end
-

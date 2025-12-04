@@ -36,5 +36,3 @@ Então("a lista deve voltar ao formato original") do
   expect(page).not_to have_css('.text-large')
   expect(page).not_to have_css('.high-contrast')
 end
-
-

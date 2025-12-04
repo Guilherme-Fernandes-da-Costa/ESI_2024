@@ -1,4 +1,4 @@
-#cenário 1
+# cenário 1
 Dado('que estou na página inicial do aplicativo') do
     @app = App.new
     @app.abrir_pagina_inicial
@@ -10,7 +10,7 @@ Dado('estou sem conexão com a internet') do
 end
 
 Quando('eu clicar na área de acesso às minhas listas') do
-    @app.acessar_listas   
+    @app.acessar_listas
 end
 
 Então('poderei ver as informações que foram salvas até o último acesso online') do

@@ -19,6 +19,6 @@ end
 
 Então("a lista deve estar vazia") do
     expect(page).to have_no_css("li")
-end 
+end
 
 # Use shared permission step defined in permissao_steps.rb

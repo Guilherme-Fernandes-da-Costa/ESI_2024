@@ -2,7 +2,7 @@ class List < ApplicationRecord
   class PermissionDenied < StandardError; end
 
   # Associações:
-  belongs_to :owner, class_name: 'User', optional: true
+  belongs_to :owner, class_name: "User", optional: true
   has_many :items, dependent: :destroy
   has_many :list_shares, dependent: :destroy
   has_many :shared_users, through: :list_shares, source: :user

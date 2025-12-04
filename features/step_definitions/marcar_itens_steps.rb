@@ -1,10 +1,10 @@
-#cenario 1
+# cenario 1
 Dado("que exista um item {string} na minha lista") do |item_nome|
     @user ||= User.find_or_create_by(email: "test@example.com") { |u| u.name = "Teste" }
     @list = List.create!(name: "Lista de Teste", owner: @user)
     @item = Item.create!(name: item_nome, list: @list, added_by: @user, preco: 0.0)
     @item_nome = item_nome
-    
+
     visit list_items_path(@list)
     expect(page).to have_content(item_nome)
 end
@@ -28,12 +28,12 @@ Quando("apertar o botão correspondente a opção {string}") do |button_text|
     # Toggle the comprado state (simulating button click)
     item_li = find('li', text: @item_nome)
     item_id = item_li[:'data-item-id']
-    
+
     # Toggle comprado in database
     item = Item.find(item_id)
     item.update!(comprado: !item.comprado)
     item.reload
-    
+
     # Refresh page to see updated state
     visit list_items_path(@list)
 end
@@ -56,15 +56,15 @@ Então("não haverá alteração") do
 end
 
 
-#cenario 2
+# cenario 2
 E("eu ver que este item está sobre sobreposto por uma linha") do
     # First, we need to mark the item as comprado in the database
     # This step means "and given that the item is marked as comprado"
     @item.update!(comprado: true)
-    
+
     # Refresh the page to see the item with the comprado class
     visit list_items_path(@list)
-    
+
     # Verify the item has the comprado class
     item_element = find('li', text: @item_nome)
     expect(item_element[:class]).to include("comprado")

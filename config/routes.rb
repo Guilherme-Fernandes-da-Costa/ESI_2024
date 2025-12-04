@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :lists do
-    post 'reset', on: :member
-    resources :items, only: [:new, :create, :index] do
+    post "reset", on: :member
+    resources :items, only: [ :new, :create, :index ] do
       member do
         patch :toggle_comprado
       end
@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   end
 
   # Rota para o formulário de cadastro (ou tela de edição)
-  get 'cadastro', to: 'itens#new', as: :cadastro
-  
+  get "cadastro", to: "itens#new", as: :cadastro
+
   # Adicione esta linha para o BDD
   # Mapeia /lista para a action index do ListsController
-  get 'lista', to: 'lists#index' 
-  get 'lista/:id', to: 'lists#show', as: :lista_show
+  get "lista", to: "lists#index"
+  get "lista/:id", to: "lists#show", as: :lista_show
 end

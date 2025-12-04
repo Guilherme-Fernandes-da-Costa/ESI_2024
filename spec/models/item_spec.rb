@@ -48,7 +48,7 @@ RSpec.describe Item, type: :model do
       grouped_items = Item.grouped_by_tag
       # Os itens agrupados devem vir na ordem alfabética das tags:
       # carne, horti-fruit, padaria, nil (ou 'sem tag')
-      expect(grouped_items.map(&:tag)).to eq(["carne", "horti-fruit", "padaria", nil])
+      expect(grouped_items.map(&:tag)).to eq([ "carne", "horti-fruit", "padaria", nil ])
     end
   end
 end

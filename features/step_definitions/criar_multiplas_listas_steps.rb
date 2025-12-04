@@ -1,7 +1,7 @@
 require_relative '../../app/services/criar_multiplas_listas'
 
-#cenario 1
-Dado("que eu estou na tela de exibição das listas")do
+# cenario 1
+Dado("que eu estou na tela de exibição das listas") do
     visit "/lista"
 end
 
@@ -24,7 +24,7 @@ E("poderia dar o seu respectivo nome") do
     expect(page).to have_content("Lista de Compras 2")
 end
 
-#cenario 2
+# cenario 2
 # (second scenario reuses the same "Dado" step defined above)
 
 Quando("eu clicar eu uma das listas") do

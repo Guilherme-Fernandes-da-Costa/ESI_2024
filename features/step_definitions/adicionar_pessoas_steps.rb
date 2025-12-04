@@ -26,7 +26,7 @@ Quando("{string} adiciona {string} à lista") do |usuario, participante|
 end
 
 Quando("{string} adiciona {string} à lista na unidade") do |usuario, participante|
-  step(%Q|"#{usuario}" adiciona "#{participante}" à lista|)
+  step(%Q("#{usuario}" adiciona "#{participante}" à lista))
 end
 
 Então("{string} deve aparecer como participante da lista") do |participante|
@@ -41,6 +41,6 @@ Então("{string} e {string} devem aparecer como participantes da lista") do |p1,
   expect(names).to include(p2)
 end
 
- # Use common permission step defined in permissao_steps.rb
+# Use common permission step defined in permissao_steps.rb
 
- # Use permission step/DB-based check from permissao_steps.rb for absence assertions
+# Use permission step/DB-based check from permissao_steps.rb for absence assertions

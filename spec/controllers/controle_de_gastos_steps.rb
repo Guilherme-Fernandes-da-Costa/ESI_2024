@@ -16,7 +16,7 @@ RSpec.feature 'Exibir preços dos itens', type: :feature do
 
     within('ul#lista-de-compras') do
       within('li', text: 'Arroz 5kg') do
-        expect(page).to have_css('.item-preco', text: /24,90/) 
+        expect(page).to have_css('.item-preco', text: /24,90/)
       end
     end
   end
