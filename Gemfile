@@ -32,10 +32,8 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# GRUPO DE PRODUÇÃO (PARA O HEROKU)
-group :production do
-  gem "pg"
-end
+# Postgres adapter (required for CI that uses Postgres service)
+gem "pg"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
