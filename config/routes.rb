@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :lists do
-    post 'reset', on: :member
-    resources :items, only: [:new, :create, :index, :update, :destroy] do
+    post "reset", on: :member
+    resources :items, only: [ :new, :create, :index, :update, :destroy ] do
       member do
         patch :toggle_comprado
       end

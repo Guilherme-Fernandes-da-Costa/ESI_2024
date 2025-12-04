@@ -56,9 +56,9 @@ class ItemsController < ApplicationController
   # PATCH /lists/:list_id/items/:id
   def update
     if @item.update(item_params)
-      redirect_to list_path(@list), notice: 'Item atualizado com sucesso.'
+      redirect_to list_path(@list), notice: "Item atualizado com sucesso."
     else
-      flash.now[:alert] = @item.errors.full_messages.join(', ')
+      flash.now[:alert] = @item.errors.full_messages.join(", ")
       render :edit, status: :unprocessable_entity
     end
   end
@@ -66,7 +66,7 @@ class ItemsController < ApplicationController
   # DELETE /lists/:list_id/items/:id
   def destroy
     @item.destroy
-    redirect_to list_path(@list), notice: 'Item removido com sucesso.'
+    redirect_to list_path(@list), notice: "Item removido com sucesso."
   end
 
   private
