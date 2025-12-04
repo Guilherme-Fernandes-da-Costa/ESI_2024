@@ -5,14 +5,37 @@ Dado("que eu estou na tela de fase de cadastro de um novo item") do
 end
 
 Quando("eu clicar na opção {string} referente ao cadastro") do |preco|
-    click_button preco
+        # The form does not necessarily expose a button called "Preço".
+        # Try several strategies: click a button/link, or focus the input field by label or name.
+        if page.has_button?(preco)
+            click_button preco
+        elsif page.has_link?(preco)
+            click_link preco
+        elsif page.has_field?(preco)
+            find_field(preco).click
+        elsif page.has_field?('preco')
+            find_field('preco').click
+        else
+            # as a fallback, ensure the preco input exists by name or id
+            expect(page).to have_selector("input[name='item[preco]'], input#item_preco")
+        end
 end
 
 Então("eu devo poder adicionar o valor desejado àquele item") do
     @produto_preco = 10
-    fill_in "Preço", with: @produto_preco
-    fill_in "item_name", with: "Maçã"
-    click_button "Adicionar"
+        # Fill the price field flexibly (label may be localized or not)
+        if page.has_field?("Preço")
+            fill_in "Preço", with: @produto_preco
+        elsif page.has_field?("item_preco")
+            fill_in "item_preco", with: @produto_preco
+        elsif page.has_field?("item[preco]")
+            fill_in "item[preco]", with: @produto_preco
+        else
+            fill_in "preco", with: @produto_preco
+        end
+        # Fill name and submit (the new item form uses 'Salvar')
+        fill_in "item_name", with: "Maçã"
+        click_button "Salvar"
 end
 
 E("eu devo poder ver esse valor na lista ao lado do item cadastrado") do
@@ -23,8 +46,9 @@ end
 #cenario 2
 Dado("que eu estou na tela exibição da minha lista") do
     @list = List.create!(name: "Lista de Gastos")
-    @list.items.create!(name: "Produto 1", preco: 5.00)
-    @list.items.create!(name: "Produto 2", preco: 15.50)
+    user = User.find_or_create_by(email: 'test@example.com') { |u| u.name = 'Teste' }
+    @list.items.create!(name: "Produto 1", preco: 5.00, added_by: user)
+    @list.items.create!(name: "Produto 2", preco: 15.50, added_by: user)
     visit list_path(@list)
 end
 

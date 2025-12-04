@@ -25,9 +25,7 @@ E("poderia dar o seu respectivo nome") do
 end
 
 #cenario 2
-Dado("que eu estou na tela de exibição das listas") do
-    visit "/lista"
-end
+# (second scenario reuses the same "Dado" step defined above)
 
 Quando("eu clicar eu uma das listas") do
     click_on "Listas de Compras"

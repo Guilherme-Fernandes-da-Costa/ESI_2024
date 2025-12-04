@@ -1,13 +1,7 @@
-Dado('que {string} é um usuário') do |nome|
-  @usuario = nome
-  @lista_aberta = true
-end
+# Given step for user is defined elsewhere to avoid ambiguous matches
 
-Quando('{string} apertar no botão {string}') do |nome, botao|
-  expect(@usuario).to eq(nome)
-  expect(botao).to eq('Sair')
-  @lista_aberta = false
-end
+# The generic "apertar no botão" step is defined in adicionar_lista_amigos_steps.rb
+# to avoid ambiguous matches across friend-management step files.
 
 Então('{string} deve ser direcionado a tela principal') do |nome|
   expect(@usuario).to eq(nome)

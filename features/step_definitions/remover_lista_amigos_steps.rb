@@ -1,17 +1,9 @@
 # features/step_definitions/remover_lista_amigos_steps.rb
 
-Dado('que {string} é um usuário') do |nome|
-  @usuario = nome
-  # Simula que o usuário está logado e possui uma lista de amigos
-  @lista_amigos = ['Amigo1', 'Amigo2']
-end
+# Given step for user is defined elsewhere to avoid ambiguous matches
 
-Quando('{string} apertar no botão {string}') do |nome, botao|
-  expect(@usuario).to eq(nome)
-  expect(botao).to eq('Remover Amigo')
-  # Simula o clique no botão "Remover Amigo"
-  @acao_remover = true
-end
+# The generic "apertar no botão" step is defined in adicionar_lista_amigos_steps.rb
+# to avoid ambiguous matches across friend-management step files.
 
 Então('se ele existir na lista, deve ser removido da sua lista de amigos.') do
   expect(@acao_remover).to be_truthy
