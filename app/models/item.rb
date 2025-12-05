@@ -6,6 +6,12 @@ class Item < ApplicationRecord
   # `tag` is stored as a simple string column on items in this app
   # (there is also a Tag model, but items use a `tag` string for simple categorization)
 
+  # Atributos:
+  # - name: string
+  # - quantity: integer
+  # - preco: decimal
+  # - comprado: boolean
+  # - tag: string
   # Validações:
   validates :name, presence: true
   validates :preco, numericality: { greater_than_or_equal_to: 0 }
