@@ -54,6 +54,6 @@ RSpec.describe 'Agrupar itens por categoria', type: :request do
     expect(response).to have_http_status(:success)
     # Verify items are ordered by tag (Carnes < Frios < Horti-Fruti alphabetically)
     items = Item.grouped_by_tag.map { |i| "#{i.name}:#{i.tag}" }
-    expect(items).to eq(['Picanha:Carnes', 'Queijo:Frios', 'Maçã:Horti-Fruti'])
+    expect(items).to eq([ 'Picanha:Carnes', 'Queijo:Frios', 'Maçã:Horti-Fruti' ])
   end
 end

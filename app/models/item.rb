@@ -5,7 +5,7 @@ class Item < ApplicationRecord
   belongs_to :added_by, class_name: "User", optional: true
   # `tag` is stored as a simple string column on items in this app
   # (there is also a Tag model, but items use a `tag` string for simple categorization)
-  
+
   # Atributos:
   # - name: string
   # - quantity: integer
