@@ -1,0 +1,45 @@
+<h1><%= @list.name %></h1>
+
+<div class="sorting-options">
+  <button id="ordenar-lista-button">Ordenar Lista</button>
+  <div class="opcoes-tags" style="display:none;">
+    <% @available_tags.each do |tag| %>
+      <%= link_to tag, list_path(@list, order: tag) %>
+    <% end %>
+    
+    <%= link_to "Agrupar", list_path(@list, order: 'agrupar') %>
+    <%= link_to "Desagrupar", list_path(@list, order: 'desagrupar') %>
+  </div>
+</div>
+
+<ul>
+  <% @items.each do |item| %>
+    <li>
+      <%= item.name %> 
+      <% if item.tag.present? %>
+        <span class="tag-item">(<%= item.tag %>)</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="area-total">
+  <h2>Total</h2>
+  <p class="valor-total">
+    <%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %>
+  </p>
+</div>
+
+<%= link_to "Adicionar Novo Item", new_list_item_path(@list) %>
+
+<script>
+  document.getElementById('ordenar-lista-button').addEventListener('click', function() {
+    var opcoes = document.querySelector('.opcoes-tags');
+    // Mude a lógica para remover o display:none, ou usar uma classe 'visible'
+    if (opcoes.style.display === 'none') {
+        opcoes.style.display = 'block';
+    } else {
+        opcoes.style.display = 'none';
+    }
+  });
+</script>

@@ -8,7 +8,7 @@ Um aplicativo de lista de compras compartilhada, feito para simplificar a vida d
 
 **Code Climate**
 <br>
-[![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
+[![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg?t=123)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024?t=123)
 [![Maintainability](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/maintainability.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
 <br>
 
@@ -21,6 +21,10 @@ Um aplicativo de lista de compras compartilhada, feito para simplificar a vida d
 <br>
 ![Open Issues](https://img.shields.io/github/last-commit/Guilherme-Fernandes-da-Costa/ESI_2024)
 ![Open Issues](https://img.shields.io/github/issues/Guilherme-Fernandes-da-Costa/ESI_2024)
+
+**Tests**
+<br>
+[![Tests](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/test.yml/badge.svg)](https://github.com/Guilherme-Fernandes-da-Costa/ESI_2024/actions/workflows/test.yml)
 
 ---
 
@@ -35,8 +39,7 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 
 ## Links Úteis 🔗
 
-* **Aplicação no Heroku:**[`[LINK PARA APLICAÇÃO NO HEROKU]`]()
-* **Projeto no Pivotal Tracker:** `[LINK SERÁ FORNECIDO EM BREVE]`
+* **Projeto no Jira:** [clique aqui.](https://matesp8624.atlassian.net/jira/software/projects/ESI/boards/2?atlOrigin=eyJpIjoiYzNmMDY2MDAyZTEyNGE3YmJlMjgyY2U0NzExY2E3MWIiLCJwIjoiaiJ9)
 
 ---
 
@@ -47,9 +50,9 @@ O **We Shop** pretende resolver este problema ao oferecer uma plataforma central
 | Daniel Ye | 14668540 |
 | Guilherme Fernandes da Costa | 14677300 |
 | Mateus da Cruz Esposte | 13862650 |
-| Marcos |  |
+| Marcos Medeiros da Silva Filho | 14594271 |
 | Nazivon Santos do Nascimento | 10266548 | 
-| Sara Letícia  |  |
+| Sara Leticia Santos Silva  | 14677190 |
 
 ---
 
