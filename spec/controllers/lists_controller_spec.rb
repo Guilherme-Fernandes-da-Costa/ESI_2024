@@ -35,4 +35,21 @@ RSpec.describe ListsController, type: :controller do
       end
     end
   end
+  describe 'GET #show' do
+    context 'com modo leitura ativado' do
+      it 'renderiza a view em modo leitura' do
+        get :show, params: { id: @list.id, mode: 'reading' }
+        expect(response).to render_template(:show)
+        expect(assigns(:mode)).to eq('reading') # Assumindo variável para condicional na view
+      end
+    end
+
+    context 'sem modo leitura' do
+      it 'renderiza a view normal com edições' do
+        get :show, params: { id: @list.id }
+        expect(response).to render_template(:show)
+        expect(assigns(:mode)).to be_nil
+      end
+    end
+  end
 end
