@@ -36,6 +36,7 @@ group :development, :test do
 
   # ---- TEST FRAMEWORKS ----
   gem "rspec-rails"
+  gem "rspec"
   gem "factory_bot_rails"
   gem "cucumber-rails", require: false
   gem "capybara"
@@ -44,6 +45,7 @@ group :development, :test do
   # ---- COBERTURA ----
   gem "simplecov", require: false
   gem "coveralls", require: false
+  gem "shoulda-matchers", "~> 5.0"
 end
 
 group :development do
