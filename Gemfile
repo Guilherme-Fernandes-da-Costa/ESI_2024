@@ -49,7 +49,10 @@ group :development, :test do
   gem "database_cleaner-active_record"
   gem "simplecov", require: false
   gem "coveralls", require: false
-  gem 'shoulda-matchers', '~> 5.0' 
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'bcrypt', '~> 3.1.7'
+  #gem 'rails-controller-testing'
+  #gem 'faker' # opcional, mas útil para dados de teste
 end
 
 group :development do
