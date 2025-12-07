@@ -20,10 +20,16 @@ class ListsController < ApplicationController
 
     # POST /lists
     def create
+        puts "DEBUG: current_user = #{current_user.inspect}"  # Para logs
+        puts "DEBUG: Params = #{params.inspect}"  # Para logs
         @list = List.new(list_params)
         @list.owner = current_user
 
+        puts "DEBUG: List valid? = #{@list.valid?}"  # Para logs
+        puts "DEBUG: List errors = #{@list.errors.full_messages}"  # Para logs
+
         if @list.save
+          puts "DEBUG: List saved successfully!"
           # Atribui o usuário atual como "added_by" para cada item
           @list.items.each do |item|
             item.added_by = current_user
@@ -32,6 +38,7 @@ class ListsController < ApplicationController
 
           redirect_to @list, notice: 'Lista criada com sucesso.'
         else
+          puts "DEBUG: Save failed!"  # Para logs
           render :new, status: :unprocessable_entity
         end
       end
@@ -79,7 +86,7 @@ class ListsController < ApplicationController
 
   def list_params
       params.require(:list).permit(:name,
-        items_attributes: [:id, :name, :quantidade, :preco, :tag, :_destroy]
+        items_attributes: [:id, :name, :quantity, :preco, :tag, :_destroy]
       )
     end
 end

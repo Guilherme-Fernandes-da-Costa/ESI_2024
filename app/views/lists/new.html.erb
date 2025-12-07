@@ -29,8 +29,8 @@
         </div>
 
         <div class="field">
-          <%= item_form.label :quantidade, "Quantidade" %>
-          <%= item_form.number_field :quantidade, min: 1, value: 1 %>
+          <%= item_form.label :quantity, "Quantidade" %>
+          <%= item_form.number_field :quantity, min: 1, value: 1 %>
         </div>
 
         <div class="field">
@@ -80,9 +80,9 @@
           <input type="text" name="list[items_attributes][${newIndex}][name]" placeholder="Ex: Leite">
         </div>
         <div class="field">
-          <label>Quantidade</label>
-          <input type="number" name="list[items_attributes][${newIndex}][quantidade]" min="1" value="1">
-        </div>
+            <label>Quantidade</label>
+            <input type="number" name="list[items_attributes][${newIndex}][quantity]" min="1" value="1">
+          </div>
         <div class="field">
           <label>Preço (R$)</label>
           <input type="number" name="list[items_attributes][${newIndex}][preco]" step="0.01" min="0" placeholder="0.00">
