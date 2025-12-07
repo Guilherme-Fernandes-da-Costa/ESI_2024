@@ -1,67 +1,145 @@
 <h1>Minhas Listas de Compras</h1>
 
-<div class="actions mb-4">
+<div class="actions mb-4 d-flex justify-content-between">
   <%= link_to '➕ Nova Lista', new_list_path, class: 'btn btn-primary' %>
+  <div>
+    <span class="me-3 text-muted">Logado como: <strong><%= current_user.email %></strong></span>
+    <%= button_to '🚪 Sair', logout_path, method: :delete, class: 'btn btn-outline-danger' %>
+  </div>
 </div>
 
 <% if @owned_lists.any? || @shared_lists.any? %>
   <div class="row">
+    <!-- Listas do Usuário (Owner) -->
     <% if @owned_lists.any? %>
-      <div class="col-md-6">
-        <h2>Minhas Listas</h2>
-        <div class="list-group">
-          <% @owned_lists.each do |list| %>
-            <a href="<%= list_path(list) %>" class="list-group-item list-group-item-action">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"><%= list.name %></h5>
-                <small>
-                  <span class="badge bg-primary rounded-pill"><%= list.items.count %> itens</span>
-                </small>
-              </div>
-              <p class="mb-1">
-                <% if list.shared_users.any? %>
-                  <span class="badge bg-info">Compartilhada com <%= list.shared_users.count %></span>
-                <% end %>
-              </p>
-              <small>
-                <%= link_to "Editar", edit_list_path(list), class: "text-decoration-none" %> •
-                Criada <%= time_ago_in_words(list.created_at) %> atrás
-              </small>
-            </a>
-          <% end %>
+      <div class="col-md-6 mb-4">
+        <div class="card border-primary">
+          <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0">Minhas Listas</h2>
+            <small class="opacity-75">Listas que você criou</small>
+          </div>
+          <div class="card-body p-0">
+            <div class="list-group list-group-flush">
+              <% @owned_lists.each do |list| %>
+                <div class="list-group-item">
+                  <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div class="flex-grow-1">
+                      <h5 class="mb-1">
+                        <%= link_to list.name, list_path(list), class: 'text-decoration-none text-dark' %>
+                      </h5>
+                      <div class="mb-2">
+                        <% if list.shared_users.any? %>
+                          <span class="badge bg-info me-1">Compartilhada</span>
+                        <% else %>
+                          <span class="badge bg-secondary me-1">Privada</span>
+                        <% end %>
+                        <span class="badge bg-light text-dark border">
+                          <%= pluralize(list.items.count, 'item') %>
+                        </span>
+                      </div>
+                      <small class="text-muted">
+                        Criada <%= time_ago_in_words(list.created_at) %> atrás
+                      </small>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                      <%= link_to "📋", list_path(list), class: "btn btn-outline-primary", title: "Visualizar" %>
+                      <%= link_to "✏️", edit_list_path(list), class: "btn btn-outline-secondary", title: "Editar" %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-md-6 mb-4">
+        <div class="card border-light">
+          <div class="card-body text-center py-5">
+            <h3 class="text-muted">📭</h3>
+            <h4 class="text-muted mb-3">Você ainda não criou listas</h4>
+            <p class="text-muted mb-4">Crie sua primeira lista de compras!</p>
+            <%= link_to 'Criar Primeira Lista', new_list_path, class: 'btn btn-primary' %>
+          </div>
         </div>
       </div>
     <% end %>
 
+    <!-- Listas Compartilhadas -->
     <% if @shared_lists.any? %>
-      <div class="col-md-6">
-        <h2>Listas Compartilhadas Comigo</h2>
-        <div class="list-group">
-          <% @shared_lists.each do |list| %>
-            <a href="<%= list_path(list) %>" class="list-group-item list-group-item-action">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"><%= list.name %></h5>
-                <small>
-                  <span class="badge bg-primary rounded-pill"><%= list.items.count %> itens</span>
-                </small>
-              </div>
-              <p class="mb-1 text-muted">
-                <small>Compartilhada por: <%= list.owner.email %></small>
-              </p>
-              <small class="text-muted">
-                Última atualização: <%= time_ago_in_words(list.updated_at) %> atrás
-              </small>
-            </a>
-          <% end %>
+      <div class="col-md-6 mb-4">
+        <div class="card border-success">
+          <div class="card-header bg-success text-white">
+            <h2 class="h4 mb-0">Listas Compartilhadas Comigo</h2>
+            <small class="opacity-75">Listas que outros usuários compartilharam com você</small>
+          </div>
+          <div class="card-body p-0">
+            <div class="list-group list-group-flush">
+              <% @shared_lists.each do |list| %>
+                <div class="list-group-item">
+                  <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div class="flex-grow-1">
+                      <h5 class="mb-1">
+                        <%= link_to list.name, list_path(list), class: 'text-decoration-none text-dark' %>
+                      </h5>
+                      <div class="mb-2">
+                        <span class="badge bg-success me-1">Compartilhada</span>
+                        <span class="badge bg-light text-dark border">
+                          <%= pluralize(list.items.count, 'item') %>
+                        </span>
+                      </div>
+                      <div>
+                        <small class="text-muted d-block">
+                          <strong>Compartilhada por:</strong> <%= list.owner.email %>
+                        </small>
+                        <small class="text-muted">
+                          Última atualização: <%= time_ago_in_words(list.updated_at) %> atrás
+                        </small>
+                      </div>
+                    </div>
+                    <div>
+                      <%= link_to "📋", list_path(list), class: "btn btn-outline-success btn-sm", title: "Visualizar" %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-md-6 mb-4">
+        <div class="card border-light">
+          <div class="card-body text-center py-5">
+            <h3 class="text-muted">🤝</h3>
+            <h4 class="text-muted mb-3">Nenhuma lista compartilhada</h4>
+            <p class="text-muted mb-4">Outros usuários podem compartilhar listas com você!</p>
+            <small class="text-muted">Peça para compartilharem usando seu email: <strong><%= current_user.email %></strong></small>
+          </div>
         </div>
       </div>
     <% end %>
   </div>
 <% else %>
-  <div class="alert alert-info">
-    <h4 class="alert-heading">Nenhuma lista encontrada</h4>
-    <p>Você ainda não criou nenhuma lista de compras.</p>
-    <hr>
-    <p class="mb-0">Comece criando sua primeira lista!</p>
+  <!-- Estado vazio completo -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card border-light shadow-sm">
+        <div class="card-body text-center py-5">
+          <div class="mb-4">
+            <h1 class="display-1 text-muted">🛒</h1>
+          </div>
+          <h2 class="text-muted mb-3">Bem-vindo ao seu organizador de compras!</h2>
+          <p class="text-muted mb-4 lead">
+            Organize suas listas de compras, compartilhe com familiares e amigos,<br>
+            e mantenha tudo sincronizado.
+          </p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <%= link_to '➕ Criar Primeira Lista', new_list_path, class: 'btn btn-primary btn-lg px-4' %>
+            <%= link_to '🚪 Sair', logout_path, method: :delete, class: 'btn btn-outline-secondary btn-lg px-4' %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>

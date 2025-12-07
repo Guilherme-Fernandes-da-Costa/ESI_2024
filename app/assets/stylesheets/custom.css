@@ -1,0 +1,53 @@
+/* app/assets/stylesheets/custom.css */
+
+/* Cards com sombra suave */
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Badges personalizados */
+.badge {
+    font-weight: 500;
+}
+
+/* Listas mais legíveis */
+.list-group-item {
+    border-left: none;
+    border-right: none;
+}
+
+.list-group-item:first-child {
+    border-top: none;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Botões com ícones */
+.btn-with-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Espaçamento melhorado */
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/* Status dos itens */
+.comprado {
+    opacity: 0.7;
+    text-decoration: line-through;
+}
+
+/* Cards vazios */
+.card-empty-state {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
