@@ -1,12 +1,5 @@
-Given("que {string} é um organizador") do |usuario|
-    @usuario_atual = usuario
-    @organizador = true
-end
-
-Given("que {string} não é um organizador") do |usuario|
-    @usuario_atual = usuario
-    @organizador = true
-end
+# Given/step for organizer is defined in feature-specific step files to avoid ambiguity
+# This file relies on the shared organizer step defined elsewhere.
 
 Quando("{string} reinicia a lista") do |usuario|
     visit "/lista"
@@ -26,8 +19,6 @@ end
 
 Então("a lista deve estar vazia") do
     expect(page).to have_no_css("li")
-end 
-
-Então("a operação deve ser negada") do
-    expect(@organizador).to be false
 end
+
+# Use shared permission step defined in permissao_steps.rb

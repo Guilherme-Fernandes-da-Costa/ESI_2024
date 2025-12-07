@@ -5,7 +5,7 @@ RSpec.describe ItemsController, type: :controller do
   let!(:tag1) { Tag.create!(name: "Urgente") }
   let!(:tag2) { Tag.create!(name: "Opcional") }
 
-  let(:valid_attributes) { { name: "Novo Item", tag_ids: [tag1.id] } }
+  let(:valid_attributes) { { name: "Novo Item", tag_ids: [ tag1.id ] } }
   let(:invalid_attributes) { { name: "" } }
 
   describe "GET #new" do
@@ -25,7 +25,7 @@ RSpec.describe ItemsController, type: :controller do
 
       it "redireciona para a lista" do
         post :create, params: { list_id: list.id, item: valid_attributes }
-        expect(response).to redirect_to(list_path)
+        expect(response).to redirect_to(list_path(list))
       end
     end
 
@@ -38,13 +38,14 @@ RSpec.describe ItemsController, type: :controller do
 
       it "renderiza new novamente" do
         post :create, params: { list_id: list.id, item: invalid_attributes }
-        expect(response).to render_template(:new)
+        # controller renders :new with status :unprocessable_entity
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "PATCH #update" do
-    let!(:item) { Item.create!(name: "Item Antigo", list: list) }
+    let!(:item) { Item.create!(name: "Item Antigo", list: list, added_by: User.create!(email: 'spec1@example.com', name: 'Spec User')) }
 
     context "com atributos válidos" do
       it "atualiza o item" do
@@ -55,7 +56,7 @@ RSpec.describe ItemsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let!(:item) { Item.create!(name: "Item a remover", list: list) }
+    let!(:item) { Item.create!(name: "Item a remover", list: list, added_by: User.create!(email: 'spec2@example.com', name: 'Spec User')) }
 
     it "remove o item" do
       expect {

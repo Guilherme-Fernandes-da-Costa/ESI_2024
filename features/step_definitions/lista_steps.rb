@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Implementação dos passos para funcionalidades de Listas e Itens, usando Capybara.
 
 # ------------------------------------
@@ -19,11 +20,11 @@ end
 # Setup para o Cenário de Quantidade: Cria a lista navegando e preenchendo
 Dado("eu tenho uma lista chamada {string}") do |nome_lista|
   # CAPYBARA: Reutiliza steps de navegação e preenchimento
-  visit '/' 
+  visit '/'
   click_on "Nova Lista"
   fill_in "Nome da Lista", with: nome_lista
   click_button "Salvar"
-  
+
   # Navega para a página da lista recém-criada
   click_link nome_lista
 end

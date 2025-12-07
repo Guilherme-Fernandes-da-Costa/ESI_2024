@@ -154,7 +154,12 @@ class ListsController < ApplicationController
   private
 
   def set_list
-    @list = List.find(params[:id])
+    if params[:id].present?
+      @lista = List.find(params[:id])
+    else
+      @lista = current_list
+    end
+    @list = @lista
   end
 
   def list_params

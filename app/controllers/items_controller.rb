@@ -7,15 +7,16 @@ class ItemsController < ApplicationController
   # Como a rota :index existe, você pode querer implementar esta action
   def index
     @items = @list.items.all
-    # O cálculo do total deve somar o preço de todos os itens
-    @total_estimado = @itens.sum(:preco)
+    @total_estimado = @items.sum(:preco)
+    @available_tags = @list.items.pluck(:tag).compact.uniq
   end
+
 
   # GET /lists/:list_id/items/new
   def new
     @item = @list.items.new
     # Tags pré-cadastradas:
-    @available_tags = ["frios", "horti-fruit", "carne", "padaria", "limpeza"] 
+    @available_tags = [ "frios", "horti-fruit", "carne", "padaria", "limpeza" ]
   end
 
   # POST /lists/:list_id/items
@@ -24,10 +25,11 @@ class ItemsController < ApplicationController
     @item.added_by = current_user
     if @item.save
       # Redireciona para a página de visualização da lista para ver o item recém-adicionado
-      redirect_to list_path(@list), notice: 'Item adicionado com sucesso.'
+      redirect_to list_path(@list), notice: "Item adicionado com sucesso."
     else
       # Re-renderiza o formulário em caso de erro
-      @available_tags = ["frios", "horti-fruit", "carne", "padaria", "limpeza"]
+      @available_tags = [ "frios", "horti-fruit", "carne", "padaria", "limpeza" ]
+      flash.now[:alert] = @item.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end
@@ -65,12 +67,28 @@ class ItemsController < ApplicationController
       end
     end
 
+  # PATCH /lists/:list_id/items/:id
+  def update
+    if @item.update(item_params)
+      redirect_to list_path(@list), notice: "Item atualizado com sucesso."
+    else
+      flash.now[:alert] = @item.errors.full_messages.join(", ")
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /lists/:list_id/items/:id
+  def destroy
+    @item.destroy
+    redirect_to list_path(@list), notice: "Item removido com sucesso."
+  end
+
   private
 
   # Encontra o item com base no :id da rota (que é :item_id na rota aninhada)
   def set_item
     # Busca o item DENTRO da lista correta
-    @item = @list.items.find(params[:id]) 
+    @item = @list.items.find(params[:id])
   end
 
   def set_list
