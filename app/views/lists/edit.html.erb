@@ -66,6 +66,38 @@
 
 <hr class="my-4 border-danger">
 
+<hr class="my-4 border-warning">
+
+<div class="card border-warning mb-4">
+  <div class="card-header bg-warning text-dark">
+    <h4 class="mb-0">🔄 Reiniciar Lista</h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Reiniciar a lista significa:</strong>
+    </p>
+    <ul>
+      <li>Marcar todos os itens como <strong>não comprados</strong></li>
+      <li>Zerar as quantidades compradas</li>
+      <li>Manter todos os itens na lista</li>
+    </ul>
+
+    <div class="alert alert-info">
+      <strong>💡 Dica:</strong> Use esta opção quando quiser reutilizar a mesma lista para uma nova compra.
+    </div>
+
+    <%= button_to "🔄 Reiniciar Lista Agora",
+        reset_list_path(@list),
+        method: :post,
+        data: {
+          confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados.",
+          turbo_confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados.",
+          disable_with: "Reiniciando..."
+        },
+        class: "btn btn-warning btn-lg w-100" %>
+  </div>
+</div>
+
 <!-- Seção de Remoção da Lista - Zona de Perigo -->
 <div class="card border-danger">
   <div class="card-header bg-danger text-white">

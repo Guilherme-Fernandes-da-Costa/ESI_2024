@@ -116,15 +116,37 @@ class ListsController < ApplicationController
   # POST /lists/1/reset
   def reset
     begin
+      # Verificar permissão mais cedo para dar feedback melhor
+      unless @list.owner == current_user
+        redirect_to @list, alert: 'Apenas o dono da lista pode reiniciá-la.'
+        return
+      end
+
       @list.reset!(by: current_user)
+
       respond_to do |format|
-        format.html { redirect_to @list, notice: 'Lista reiniciada com sucesso.' }
+        format.html {
+          redirect_to @list,
+          notice: 'Lista reiniciada com sucesso. Todos os itens foram marcados como não comprados.'
+        }
         format.json { render json: { success: true }, status: :ok }
       end
     rescue List::PermissionDenied
       respond_to do |format|
-        format.html { head :forbidden }
+        format.html {
+          redirect_to @list,
+          alert: 'Você não tem permissão para reiniciar esta lista. Apenas o dono pode realizar esta ação.'
+        }
         format.json { render json: { error: 'Falta de permissão' }, status: :forbidden }
+      end
+    rescue StandardError => e
+      Rails.logger.error "Erro ao resetar lista #{@list.id}: #{e.message}"
+      respond_to do |format|
+        format.html {
+          redirect_to @list,
+          alert: "Não foi possível reiniciar a lista. Erro: #{e.message}"
+        }
+        format.json { render json: { error: e.message }, status: :unprocessable_entity }
       end
     end
   end

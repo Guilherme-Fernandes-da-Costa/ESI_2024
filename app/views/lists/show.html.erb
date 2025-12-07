@@ -113,7 +113,43 @@
     </div>
   </div>
 <% end %>
+<% if @list.owner == current_user %>
+  <hr class="my-4 border-warning">
 
+  <div class="card border-warning">
+    <div class="card-header bg-warning text-dark">
+      <h5 class="mb-0">🔄 Reiniciar Lista</h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Esta ação irá:</strong>
+      </p>
+      <ul>
+        <li>Marcar todos os itens como <strong>não comprados</strong></li>
+        <li>Zerar a quantidade comprada de todos os itens</li>
+        <li>Manter os itens na lista</li>
+      </ul>
+      <p class="text-muted">
+        <small>Use esta ação quando quiser começar uma nova rodada de compras com os mesmos itens.</small>
+      </p>
+
+      <div class="d-grid gap-2 d-md-block">
+        <%= button_to "🔄 Reiniciar Lista Agora",
+            reset_list_path(@list),
+            method: :post,
+            data: {
+              confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados.",
+              turbo_confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados.",
+              disable_with: "Reiniciando..."
+            },
+            class: "btn btn-warning btn-lg",
+            form_class: "d-inline" %>
+
+        <%= link_to "✏️ Editar Lista", edit_list_path(@list), class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
 <div class="mt-4">
   <%= link_to "Adicionar Novo Item", new_list_item_path(@list), class: "btn btn-primary" %>
   <%= link_to "Voltar para Listas", lists_path, class: "btn btn-secondary" %>
