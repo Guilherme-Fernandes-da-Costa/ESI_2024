@@ -12,36 +12,33 @@ class ListsController < ApplicationController
 
 
     # GET /lists/new
-      def new
-        @list = List.new
-        # Cria 3 itens em branco para o formulário
-        3.times { @list.items.build }
-      end
+    def new
+      @list = List.new
+      # Criar 3 itens em branco
+      3.times { @list.items.build }
+    end
 
     # POST /lists
     def create
-        puts "DEBUG: current_user = #{current_user.inspect}"  # Para logs
-        puts "DEBUG: Params = #{params.inspect}"  # Para logs
-        @list = List.new(list_params)
-        @list.owner = current_user
+      @list = List.new(list_params.except(:items_attributes))
+      @list.owner = current_user
 
-        puts "DEBUG: List valid? = #{@list.valid?}"  # Para logs
-        puts "DEBUG: List errors = #{@list.errors.full_messages}"  # Para logs
-
-        if @list.save
-          puts "DEBUG: List saved successfully!"
-          # Atribui o usuário atual como "added_by" para cada item
-          @list.items.each do |item|
-            item.added_by = current_user
-            item.save
-          end
-
-          redirect_to @list, notice: 'Lista criada com sucesso.'
-        else
-          puts "DEBUG: Save failed!"  # Para logs
-          render :new, status: :unprocessable_entity
+      # Construir os itens MANUALMENTE para poder atribuir added_by
+      if params[:list][:items_attributes]
+        params[:list][:items_attributes].each do |index, item_attrs|
+          item = @list.items.build(item_attrs.permit(:name, :quantity, :preco, :tag))
+          item.added_by = current_user  # Atribui o usuário atual
         end
       end
+
+      if @list.save
+        redirect_to lists_path, notice: 'Lista criada com sucesso.'
+      else
+        # Reconstruir 3 itens vazios para o formulário se falhar
+        3.times { @list.items.build } if @list.items.empty?
+        render :new, status: :unprocessable_entity
+      end
+    end
 
   # GET /lists/1/edit
   def edit
@@ -85,9 +82,7 @@ class ListsController < ApplicationController
   end
 
   def list_params
-    params.require(:list).permit(:name,
-      items_attributes: [:id, :name, :quantity, :preco, :tag, :_destroy]
-      # Note: mantemos :tag (string), não :tag_id
-    )
+    params.require(:list).permit(:name)
+    # Remova items_attributes daqui, vamos processar manualmente
   end
 end
