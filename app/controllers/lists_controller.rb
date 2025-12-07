@@ -14,8 +14,7 @@ class ListsController < ApplicationController
     # GET /lists/new
     def new
       @list = List.new
-      # Criar 3 itens em branco
-      3.times { @list.items.build }
+      # NÃO crie itens automaticamente - formulário começa vazio
     end
     def show
       @items = @list.items
@@ -42,19 +41,19 @@ class ListsController < ApplicationController
       @list = List.new(list_params.except(:items_attributes))
       @list.owner = current_user
 
-      # Construir os itens MANUALMENTE para poder atribuir added_by
+      # Adiciona itens apenas se existirem parâmetros
       if params[:list][:items_attributes]
         params[:list][:items_attributes].each do |index, item_attrs|
+          next if item_attrs[:name].blank? # Ignora itens sem nome
+
           item = @list.items.build(item_attrs.permit(:name, :quantity, :preco, :tag))
-          item.added_by = current_user  # Atribui o usuário atual
+          item.added_by = current_user
         end
       end
 
       if @list.save
         redirect_to lists_path, notice: 'Lista criada com sucesso.'
       else
-        # Reconstruir 3 itens vazios para o formulário se falhar
-        3.times { @list.items.build } if @list.items.empty?
         render :new, status: :unprocessable_entity
       end
     end

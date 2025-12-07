@@ -17,38 +17,143 @@
     <%= form.text_field :name, required: true, placeholder: "Ex: Lista de Compras da Semana" %>
   </div>
 
-  <h3>Itens da Lista</h3>
+  <h3>Itens da Lista <small>(opcional)</small></h3>
 
   <div id="items">
-    <% @list.items.each_with_index do |item, index| %>
-      <div class="item-fields" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-        <div class="field">
-          <%= label_tag "list_items_#{index}_name", "Nome do item" %>
-          <%= text_field_tag "list[items_attributes][#{index}][name]", item.name, placeholder: "Ex: Leite" %>
-        </div>
-
-        <div class="field">
-          <%= label_tag "list_items_#{index}_quantity", "Quantidade" %>
-          <%= number_field_tag "list[items_attributes][#{index}][quantity]", item.quantity, min: 1, value: 1 %>
-        </div>
-
-        <div class="field">
-          <%= label_tag "list_items_#{index}_preco", "Preço (R$)" %>
-          <%= number_field_tag "list[items_attributes][#{index}][preco]", item.preco, step: 0.01, min: 0, placeholder: "0.00" %>
-        </div>
-
-        <div class="field">
-          <%= label_tag "list_items_#{index}_tag", "Categoria" %>
-          <%= select_tag "list[items_attributes][#{index}][tag]",
-              options_for_select(["frios", "horti-fruit", "carne", "padaria", "limpeza"], item.tag),
-              include_blank: "Selecione..." %>
-        </div>
-      </div>
-    <% end %>
+    <!-- Os itens serão adicionados dinamicamente aqui -->
   </div>
 
+  <button type="button" id="add-item-btn" class="btn btn-secondary" style="margin-bottom: 20px;">
+    ➕ Adicionar Item
+  </button>
+
   <div class="actions">
-    <%= form.submit "Criar Lista com Itens", class: "btn btn-primary" %>
+    <%= form.submit "Criar Lista", class: "btn btn-primary" %>
     <%= link_to 'Cancelar', lists_path, class: "btn btn-secondary" %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const addItemButton = document.getElementById('add-item-btn');
+    const itemsContainer = document.getElementById('items');
+    let itemCounter = 0;
+
+    addItemButton.addEventListener('click', function() {
+      const newItem = createItemField(itemCounter);
+      itemsContainer.appendChild(newItem);
+      itemCounter++;
+    });
+
+    // Função para criar campos de item
+    function createItemField(index) {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'item-fields';
+      itemDiv.style.border = '1px solid #ddd';
+      itemDiv.style.borderRadius = '5px';
+      itemDiv.style.padding = '15px';
+      itemDiv.style.marginBottom = '15px';
+      itemDiv.style.backgroundColor = '#f9f9f9';
+
+      itemDiv.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <h4 style="margin: 0;">Item #${index + 1}</h4>
+          <button type="button" class="remove-item-btn btn btn-danger btn-sm">× Remover</button>
+        </div>
+
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-md-6">
+            <div class="field">
+              <label>Nome do item *</label>
+              <input type="text" name="list[items_attributes][${index}][name]"
+                     class="form-control" placeholder="Ex: Leite" required>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="field">
+              <label>Quantidade</label>
+              <input type="number" name="list[items_attributes][${index}][quantity]"
+                     class="form-control" min="1" value="1">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="field">
+              <label>Preço (R$)</label>
+              <input type="number" name="list[items_attributes][${index}][preco]"
+                     class="form-control" step="0.01" min="0" placeholder="0.00">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="field">
+              <label>Categoria</label>
+              <select name="list[items_attributes][${index}][tag]" class="form-control">
+                <option value="">Selecione uma categoria...</option>
+                <option value="frios">Frios</option>
+                <option value="horti-fruit">Hortifruti</option>
+                <option value="carne">Carnes</option>
+                <option value="padaria">Padaria</option>
+                <option value="limpeza">Limpeza</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Adiciona funcionalidade ao botão de remover
+      itemDiv.querySelector('.remove-item-btn').addEventListener('click', function() {
+        itemDiv.remove();
+        // Reindexa os itens restantes
+        reindexItems();
+      });
+
+      return itemDiv;
+    }
+
+    // Função para reindexar itens após remoção
+    function reindexItems() {
+      const itemFields = itemsContainer.querySelectorAll('.item-fields');
+      itemFields.forEach((field, index) => {
+        // Atualiza o título
+        const title = field.querySelector('h4');
+        if (title) title.textContent = `Item #${index + 1}`;
+
+        // Atualiza todos os inputs dentro deste campo
+        const inputs = field.querySelectorAll('input, select');
+        inputs.forEach(input => {
+          const name = input.getAttribute('name');
+          if (name && name.includes('items_attributes')) {
+            const newName = name.replace(/items_attributes\[\d+\]/, `items_attributes[${index}]`);
+            input.setAttribute('name', newName);
+          }
+        });
+      });
+
+      // Atualiza o contador
+      itemCounter = itemFields.length;
+    }
+
+    // Adiciona um item inicial se quiser (opcional)
+    // addItemButton.click(); // Descomente se quiser começar com 1 item
+  });
+</script>
+
+<style>
+  .item-fields {
+    transition: all 0.3s ease;
+  }
+
+  .item-fields:hover {
+    border-color: #007bff !important;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  }
+
+  .remove-item-btn {
+    font-size: 14px;
+    padding: 2px 8px;
+  }
+</style>
