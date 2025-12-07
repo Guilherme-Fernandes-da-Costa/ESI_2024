@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   resources :lists do
     post 'reset', on: :member
+    post 'share', on: :member      # Nova rota para compartilhar
+    delete 'unshare', on: :member  # Nova rota para remover compartilhamento
+
     resources :items, only: [:new, :create, :index, :update] do
       member do
         patch :toggle_comprado

@@ -1,4 +1,4 @@
-<%# app/views/lists/show.html.erb - LINHA 41: Mude item.quantity para item.quantity %>
+
 <h1><%= @list.name %></h1>
 
 <% if @items.any? %>
@@ -75,6 +75,42 @@
 <% else %>
   <div class="alert alert-info">
     Esta lista ainda não tem itens.
+  </div>
+<% end %>
+
+<% if @list.owner == current_user || @list.shared_users.include?(current_user) %>
+  <div class="card mt-4">
+    <div class="card-header">
+      <h5 class="mb-0">Compartilhamento</h5>
+    </div>
+    <div class="card-body">
+      <% if @list.owner == current_user %>
+        <p class="card-text">
+          <strong>Dono:</strong> Você<br>
+          <strong>Usuários com acesso:</strong>
+          <%= @list.shared_users.count + 1 %>
+          (você + <%= @list.shared_users.count %> usuário(s))
+        </p>
+
+        <ul class="list-unstyled mb-3">
+          <li><strong>• <%= current_user.email %></strong> (você - dono)</li>
+          <% @list.shared_users.each do |user| %>
+            <li>• <%= user.email %></li>
+          <% end %>
+        </ul>
+
+        <%= link_to "Gerenciar compartilhamento", edit_list_path(@list),
+            class: "btn btn-outline-primary btn-sm" %>
+      <% else %>
+        <p class="card-text">
+          <strong>Dono:</strong> <%= @list.owner.email %><br>
+          <strong>Compartilhado com você por:</strong> <%= @list.owner.email %>
+        </p>
+        <p class="text-muted">
+          <small>Você tem permissão para editar quantidades nesta lista.</small>
+        </p>
+      <% end %>
+    </div>
   </div>
 <% end %>
 

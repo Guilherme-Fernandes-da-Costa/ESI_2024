@@ -1,33 +1,67 @@
 <h1>Minhas Listas de Compras</h1>
 
-<div class="actions">
-  <%= link_to 'Nova Lista', new_list_path, class: 'btn btn-primary' %>
+<div class="actions mb-4">
+  <%= link_to '➕ Nova Lista', new_list_path, class: 'btn btn-primary' %>
 </div>
 
-<h2>Minhas Listas</h2>
-<% if @owned_lists.any? %>
-  <ul>
-    <% @owned_lists.each do |list| %>
-      <li>
-        <%= link_to list.name, list %>
-        (<%= link_to 'Editar', edit_list_path(list) %>)
-      </li>
+<% if @owned_lists.any? || @shared_lists.any? %>
+  <div class="row">
+    <% if @owned_lists.any? %>
+      <div class="col-md-6">
+        <h2>Minhas Listas</h2>
+        <div class="list-group">
+          <% @owned_lists.each do |list| %>
+            <a href="<%= list_path(list) %>" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><%= list.name %></h5>
+                <small>
+                  <span class="badge bg-primary rounded-pill"><%= list.items.count %> itens</span>
+                </small>
+              </div>
+              <p class="mb-1">
+                <% if list.shared_users.any? %>
+                  <span class="badge bg-info">Compartilhada com <%= list.shared_users.count %></span>
+                <% end %>
+              </p>
+              <small>
+                <%= link_to "Editar", edit_list_path(list), class: "text-decoration-none" %> •
+                Criada <%= time_ago_in_words(list.created_at) %> atrás
+              </small>
+            </a>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  </ul>
-<% else %>
-  <p>Você ainda não criou nenhuma lista.</p>
-<% end %>
 
-<h2>Listas Compartilhadas Comigo</h2>
-<% if @shared_lists.any? %>
-  <ul>
-    <% @shared_lists.each do |list| %>
-      <li>
-        <%= link_to list.name, list %>
-        (de <%= list.owner.email %>)
-      </li>
+    <% if @shared_lists.any? %>
+      <div class="col-md-6">
+        <h2>Listas Compartilhadas Comigo</h2>
+        <div class="list-group">
+          <% @shared_lists.each do |list| %>
+            <a href="<%= list_path(list) %>" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><%= list.name %></h5>
+                <small>
+                  <span class="badge bg-primary rounded-pill"><%= list.items.count %> itens</span>
+                </small>
+              </div>
+              <p class="mb-1 text-muted">
+                <small>Compartilhada por: <%= list.owner.email %></small>
+              </p>
+              <small class="text-muted">
+                Última atualização: <%= time_ago_in_words(list.updated_at) %> atrás
+              </small>
+            </a>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% else %>
-  <p>Nenhuma lista compartilhada com você.</p>
+  <div class="alert alert-info">
+    <h4 class="alert-heading">Nenhuma lista encontrada</h4>
+    <p>Você ainda não criou nenhuma lista de compras.</p>
+    <hr>
+    <p class="mb-0">Comece criando sua primeira lista!</p>
+  </div>
 <% end %>

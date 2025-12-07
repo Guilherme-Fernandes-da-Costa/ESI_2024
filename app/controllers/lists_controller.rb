@@ -76,6 +76,40 @@ class ListsController < ApplicationController
     redirect_to lists_url, notice: 'Lista excluída com sucesso.'
   end
 
+  def share
+    user_email = params[:email].to_s.strip.downcase
+
+    # Verificar se é o próprio usuário
+    if user_email == current_user.email
+      redirect_to edit_list_path(@list), alert: "Você não pode compartilhar a lista consigo mesmo."
+      return
+    end
+
+    # Buscar usuário pelo email
+    user = User.find_by(email: user_email)
+
+    if user.nil?
+      redirect_to edit_list_path(@list), alert: "Usuário com email '#{user_email}' não encontrado."
+    elsif @list.shared_users.include?(user)
+      redirect_to edit_list_path(@list), alert: "Lista já está compartilhada com este usuário."
+    else
+      # Criar o compartilhamento
+      @list.shared_users << user
+      redirect_to edit_list_path(@list), notice: "Lista compartilhada com #{user.email}."
+    end
+  end
+
+  # DELETE /lists/:id/unshare
+  def unshare
+    user = User.find(params[:user_id])
+
+    if @list.shared_users.include?(user)
+      @list.shared_users.delete(user)
+      redirect_to edit_list_path(@list), notice: "Acesso removido de #{user.email}."
+    else
+      redirect_to edit_list_path(@list), alert: "Usuário não tem acesso a esta lista."
+    end
+  end
   # POST /lists/1/reset
   def reset
     begin
