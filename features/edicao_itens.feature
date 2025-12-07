@@ -1,7 +1,5 @@
-# features/edicao_itens.feature
 #language: pt
 
-@JIRA-ADDITENS
 Funcionalidade: Gerenciamento de Itens da Lista
   Para manter a lista sempre atualizada
   Como um membro da lista
