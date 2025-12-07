@@ -12,10 +12,9 @@ gem "sprockets-rails"
 # SQLite apenas em desenvolvimento local (não no CI)
 gem "sqlite3", "~> 1.4", group: :development
 
-# PostgreSQL em produção **e** em teste (CI)
-group :production, :test do
-  gem "pg", "~> 1.5"
-end
+
+gem "pg", "~> 1.5", group: [:production, :test]
+
 # ---------------------------------------------------------------
 
 gem "puma", ">= 5.0"
@@ -31,10 +30,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 gem 'bcrypt', '~> 3.1.7'
-# GRUPO DE PRODUÇÃO (PARA O HEROKU)
-group :production do
-  gem "pg"
-end
+
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
