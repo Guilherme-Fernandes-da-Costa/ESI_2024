@@ -1,0 +1,140 @@
+<h1>Editar Lista: <%= @list.name %></h1>
+
+<%= form_with(model: @list, local: true) do |form| %>
+  <div class="field mb-3">
+    <%= form.label :name, "Nome da Lista" %>
+    <%= form.text_field :name, required: true, class: "form-control" %>
+  </div>
+
+  <div class="actions mb-4">
+    <%= form.submit "Atualizar Lista", class: "btn btn-primary" %>
+    <%= link_to 'Cancelar', @list, class: "btn btn-secondary" %>
+  </div>
+<% end %>
+
+<hr class="my-4">
+
+<h2>Compartilhar Lista</h2>
+
+<%= form_with(url: share_list_path(@list), method: :post, local: true) do |form| %>
+  <div class="row g-3 align-items-end">
+    <div class="col-md-8">
+      <%= label_tag :email, "Email do usuário para compartilhar:", class: "form-label" %>
+      <%= text_field_tag :email, nil,
+          placeholder: "exemplo@email.com",
+          required: true,
+          class: "form-control" %>
+    </div>
+    <div class="col-md-4">
+      <%= submit_tag "Compartilhar", class: "btn btn-success w-100" %>
+    </div>
+  </div>
+<% end %>
+
+<h3 class="mt-4">Usuários com acesso</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Tipo de Acesso</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-primary">
+        <td><strong><%= @list.owner.email %></strong></td>
+        <td><span class="badge bg-primary">Dono</span></td>
+        <td>-</td>
+      </tr>
+      <% @list.shared_users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><span class="badge bg-secondary">Compartilhado</span></td>
+          <td>
+            <%= button_to "Remover",
+                unshare_list_path(@list, user_id: user.id),
+                method: :delete,
+                data: { confirm: "Remover acesso de #{user.email}?" },
+                class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<hr class="my-4 border-danger">
+
+<hr class="my-4 border-warning">
+
+<div class="card border-warning mb-4">
+  <div class="card-header bg-warning text-dark">
+    <h4 class="mb-0">🔄 Reiniciar Lista</h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Reiniciar a lista significa:</strong>
+    </p>
+    <ul>
+      <li>Marcar todos os itens como <strong>não comprados</strong></li>
+      <li>Zerar as quantidades compradas</li>
+      <li>Manter todos os itens na lista</li>
+    </ul>
+
+    <div class="alert alert-info">
+      <strong>💡 Dica:</strong> Use esta opção quando quiser reutilizar a mesma lista para uma nova compra.
+    </div>
+
+    <%= button_to "🔄 Reiniciar Lista Agora",
+        reset_list_path(@list),
+        method: :post,
+        data: {
+          confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados.",
+          turbo_confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados.",
+          disable_with: "Reiniciando..."
+        },
+        class: "btn btn-warning btn-lg w-100" %>
+  </div>
+</div>
+
+<!-- Seção de Remoção da Lista - Zona de Perigo -->
+<div class="card border-danger">
+  <div class="card-header bg-danger text-white">
+    <h4 class="mb-0">⚠️ Zona de Perigo</h4>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title text-danger">Remover Lista Permanentemente</h5>
+    <p class="card-text">
+      <strong>Atenção:</strong> Esta ação é irreversível. Ao remover a lista:
+    </p>
+    <ul class="text-danger">
+      <li>Todos os itens da lista serão excluídos</li>
+      <li>O histórico de compras será perdido</li>
+      <li>Todos os compartilhamentos serão removidos</li>
+      <li>Esta ação não pode ser desfeita</li>
+    </ul>
+
+    <div class="alert alert-warning">
+      <strong>📝 Recomendação:</strong>
+      Se você quer apenas limpar os itens mas manter a lista, considere usar o botão
+      Reiniciar Lista
+      em vez de remover completamente.
+    </div>
+
+    <%= button_to "🗑️ Excluir Lista Permanentemente",
+        @list,
+        method: :delete,
+        data: {
+          confirm: "Tem CERTEZA ABSOLUTA que deseja excluir a lista '#{@list.name}'?\n\nEsta ação NÃO pode ser desfeita!",
+          turbo_confirm: "Tem CERTEZA ABSOLUTA que deseja excluir a lista '#{@list.name}'?\n\nEsta ação NÃO pode ser desfeita!"
+        },
+        class: "btn btn-lg btn-danger w-100",
+        form_class: "d-inline" %>
+  </div>
+</div>
+
+<div class="mt-4 d-flex justify-content-between">
+  <%= link_to "← Voltar para Lista", @list, class: "btn btn-outline-secondary" %>
+  <%= link_to "← Voltar para Minhas Listas", lists_path, class: "btn btn-secondary" %>
+</div>

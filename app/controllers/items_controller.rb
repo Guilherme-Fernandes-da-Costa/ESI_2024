@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
+  before_action :require_login
   before_action :set_list
-  # Encontra o item para as actions que lidam com ele, incluindo a nova toggle_comprado
-  before_action :set_item, only: [ :toggle_comprado, :update, :destroy ] # ensure item is loaded for these actions
+  before_action :set_item, only: [:toggle_comprado, :update]
 
   # GET /lists/:list_id/items
   # Como a rota :index existe, você pode querer implementar esta action
@@ -22,9 +22,7 @@ class ItemsController < ApplicationController
   # POST /lists/:list_id/items
   def create
     @item = @list.items.new(item_params)
-    # Ensure added_by satisfies DB foreign key (tests may not have authentication)
-    @item.added_by = User.first || User.create!(email: "test@example.com", name: "Teste")
-
+    @item.added_by = current_user
     if @item.save
       # Redireciona para a página de visualização da lista para ver o item recém-adicionado
       redirect_to list_path(@list), notice: "Item adicionado com sucesso."
@@ -36,22 +34,38 @@ class ItemsController < ApplicationController
     end
   end
 
+  def update
+      if @item.update(item_params)
+        respond_to do |format|
+          format.html { redirect_to list_path(@list), notice: 'Item atualizado com sucesso.' }
+          format.js   # Isso renderizará update.js.erb para atualização AJAX
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to list_path(@list), alert: 'Não foi possível atualizar o item.' }
+          format.js { render json: { error: @item.errors.full_messages }, status: :unprocessable_entity }
+        end
+      end
+    end
+
   # PATCH /lists/:list_id/items/:id/toggle_comprado
   def toggle_comprado
-    # A lógica aqui é simples: inverte o valor do atributo 'comprado'.
-    # Isso atende aos cenários de 'Marcar' (de false para true) e 'Desmarcar' (de true para false).
+      # Alterna entre marcado/desmarcado
+      novo_valor = !@item.comprado
+      quantidade_a_comprar = novo_valor ? @item.quantity : 0
 
-    if @item.update(comprado: !@item.comprado) # Usa o método update diretamente
-      # Responde ao cliente. No Rails moderno, é comum usar Turbo Frames ou JS/JSON.
-      # Para o cenário BDD (que simula um clique e espera o estado riscado),
-      # um simples redirecionamento (refresh da página) é o mais fácil de testar.
-      # Se você estiver em list_items_path(@list), use redirect_to
-      redirect_to list_items_path(@list), notice: "Status do item '#{@item.name}' atualizado."
-    else
-      # Em caso de falha de validação (embora improvável para um simples toggle)
-      redirect_to list_items_path(@list), alert: "Não foi possível atualizar o item."
+      if @item.update(comprado: novo_valor, quantidade_comprada: quantidade_a_comprar)
+        respond_to do |format|
+          format.html { redirect_to list_path(@list), notice: "Status do item '#{@item.name}' atualizado." }
+          format.js   # Isso renderizará toggle_comprado.js.erb
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to list_path(@list), alert: "Não foi possível atualizar o item." }
+          format.js { render json: { error: @item.errors.full_messages }, status: :unprocessable_entity }
+        end
+      end
     end
-  end
 
   # PATCH /lists/:list_id/items/:id
   def update
@@ -82,7 +96,7 @@ class ItemsController < ApplicationController
     @list = List.find(params[:list_id])
   end
 
-  def item_params
-    params.require(:item).permit(:name, :quantity, :comprado, :preco, :tag)
-  end
+   def item_params
+     params.require(:item).permit(:name, :quantity, :preco, :tag, :quantidade_comprada, :comprado)
+   end
 end

@@ -1,0 +1,117 @@
+<h1>Nova Lista</h1>
+
+<%= form_with(model: @list, local: true) do |form| %>
+  <% if @list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@list.errors.count, "erro") %> impediram esta lista de ser salva:</h2>
+      <ul>
+        <% @list.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name, "Nome da Lista" %>
+    <%= form.text_field :name, required: true, placeholder: "Ex: Lista de Compras da Semana" %>
+  </div>
+
+  <h3>Itens da Lista <small>(opcional)</small></h3>
+
+  <div id="items">
+    <!-- Itens serão adicionados aqui -->
+  </div>
+
+  <button type="button" onclick="addItem()" class="btn btn-secondary" style="margin-bottom: 20px;">
+    ➕ Adicionar Item
+  </button>
+
+  <div class="actions">
+    <%= form.submit "Criar Lista", class: "btn btn-primary" %>
+    <%= link_to 'Cancelar', lists_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
+
+<script>
+  let itemCount = 0;
+
+  function addItem() {
+    const itemsContainer = document.getElementById('items');
+
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'item-fields';
+    itemDiv.style.border = '1px solid #ddd';
+    itemDiv.style.borderRadius = '5px';
+    itemDiv.style.padding = '15px';
+    itemDiv.style.marginBottom = '15px';
+    itemDiv.style.backgroundColor = '#f9f9f9';
+
+    itemDiv.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h4 style="margin: 0;">Item #${itemCount + 1}</h4>
+        <button type="button" onclick="this.parentElement.parentElement.remove(); updateItemNumbers()"
+                class="btn btn-danger btn-sm">× Remover</button>
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <div class="field">
+          <label>Nome do item *</label>
+          <input type="text" name="list[items_attributes][${itemCount}][name]"
+                 class="form-control" placeholder="Ex: Leite" required>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+        <div class="field" style="flex: 1;">
+          <label>Quantidade</label>
+          <input type="number" name="list[items_attributes][${itemCount}][quantity]"
+                 class="form-control" min="1" value="1">
+        </div>
+
+        <div class="field" style="flex: 1;">
+          <label>Preço (R$)</label>
+          <input type="number" name="list[items_attributes][${itemCount}][preco]"
+                 class="form-control" step="0.01" min="0" placeholder="0.00">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Categoria</label>
+        <select name="list[items_attributes][${itemCount}][tag]" class="form-control">
+          <option value="">Selecione uma categoria...</option>
+          <option value="frios">Frios</option>
+          <option value="horti-fruit">Hortifruti</option>
+          <option value="carne">Carnes</option>
+          <option value="padaria">Padaria</option>
+          <option value="limpeza">Limpeza</option>
+        </select>
+      </div>
+    `;
+
+    itemsContainer.appendChild(itemDiv);
+    itemCount++;
+  }
+
+  function updateItemNumbers() {
+    const items = document.querySelectorAll('.item-fields');
+    items.forEach((item, index) => {
+      const title = item.querySelector('h4');
+      if (title) {
+        title.textContent = `Item #${index + 1}`;
+      }
+
+      // Atualiza os nomes dos campos
+      const inputs = item.querySelectorAll('input, select');
+      inputs.forEach(input => {
+        const oldName = input.getAttribute('name');
+        if (oldName) {
+          const newName = oldName.replace(/items_attributes\[\d+\]/, `items_attributes[${index}]`);
+          input.setAttribute('name', newName);
+        }
+      });
+    });
+
+    itemCount = items.length;
+  }
+</script>

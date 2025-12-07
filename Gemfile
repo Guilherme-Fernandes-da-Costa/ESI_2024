@@ -30,7 +30,12 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
-# ---------- DESENVOLVIMENTO / TESTE ----------
+gem 'bcrypt', '~> 3.1.7'
+# GRUPO DE PRODUÇÃO (PARA O HEROKU)
+group :production do
+  gem "pg"
+end
+
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 
@@ -45,7 +50,10 @@ group :development, :test do
   # ---- COBERTURA ----
   gem "simplecov", require: false
   gem "coveralls", require: false
-  gem "shoulda-matchers", "~> 5.0"
+  gem 'shoulda-matchers', '~> 5.0'
+
+  #gem 'rails-controller-testing'
+  #gem 'faker' # opcional, mas útil para dados de teste
 end
 
 group :development do
