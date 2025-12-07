@@ -1,61 +1,63 @@
 # app/controllers/lists_controller.rb
 class ListsController < ApplicationController
   before_action :require_login
-  before_action :set_list, only: %i[show edit update destroy reset]
+  # CORREÇÃO: Adicione :share e :unshare
+  before_action :set_list, only: %i[show edit update destroy reset share unshare]
 
-    # GET /lists
-    def index
-      # Mostra listas do usuário (como owner) + listas compartilhadas
-      @owned_lists = current_user.owned_lists
-      @shared_lists = current_user.shared_lists
+  # GET /lists
+  def index
+    # Mostra listas do usuário (como owner) + listas compartilhadas
+    @owned_lists = current_user.owned_lists
+    @shared_lists = current_user.shared_lists
+  end
+
+  # GET /lists/new
+  def new
+    @list = List.new
+    # NÃO crie itens automaticamente - formulário começa vazio
+  end
+
+  def show
+    @items = @list.items
+
+    @available_tags = @items.pluck(:tag).compact.uniq || []
+
+    case params[:order]
+    when 'agrupar'
+      @items = @items.grouped_by_tag
+    when 'desagrupar'
+      @items = @items.order(created_at: :asc)
+    when *@available_tags
+      @items = @items.where(tag: params[:order])
+    else
+      @items = @items.order(created_at: :asc)
     end
 
+    # Calcular o total estimado: soma de (quantity * preco) para todos os itens
+    @total_estimado = @items.sum('quantity * preco')
+  end
 
-    # GET /lists/new
-    def new
-      @list = List.new
-      # NÃO crie itens automaticamente - formulário começa vazio
-    end
-    def show
-      @items = @list.items
+  # POST /lists
+  def create
+    @list = List.new(list_params.except(:items_attributes))
+    @list.owner = current_user
 
-      @available_tags = @items.pluck(:tag).compact.uniq || []
+    # Adiciona itens apenas se existirem parâmetros
+    if params[:list][:items_attributes]
+      params[:list][:items_attributes].each do |index, item_attrs|
+        next if item_attrs[:name].blank? # Ignora itens sem nome
 
-      case params[:order]
-      when 'agrupar'
-        @items = @items.grouped_by_tag
-      when 'desagrupar'
-        @items = @items.order(created_at: :asc)
-      when *@available_tags
-        @items = @items.where(tag: params[:order])
-      else
-        @items = @items.order(created_at: :asc)
-      end
-
-      # Calcular o total estimado: soma de (quantity * preco) para todos os itens
-      @total_estimado = @items.sum('quantity * preco')
-    end
-    # POST /lists
-    def create
-      @list = List.new(list_params.except(:items_attributes))
-      @list.owner = current_user
-
-      # Adiciona itens apenas se existirem parâmetros
-      if params[:list][:items_attributes]
-        params[:list][:items_attributes].each do |index, item_attrs|
-          next if item_attrs[:name].blank? # Ignora itens sem nome
-
-          item = @list.items.build(item_attrs.permit(:name, :quantity, :preco, :tag))
-          item.added_by = current_user
-        end
-      end
-
-      if @list.save
-        redirect_to lists_path, notice: 'Lista criada com sucesso.'
-      else
-        render :new, status: :unprocessable_entity
+        item = @list.items.build(item_attrs.permit(:name, :quantity, :preco, :tag))
+        item.added_by = current_user
       end
     end
+
+    if @list.save
+      redirect_to lists_path, notice: 'Lista criada com sucesso.'
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   # GET /lists/1/edit
   def edit
@@ -110,6 +112,7 @@ class ListsController < ApplicationController
       redirect_to edit_list_path(@list), alert: "Usuário não tem acesso a esta lista."
     end
   end
+
   # POST /lists/1/reset
   def reset
     begin
