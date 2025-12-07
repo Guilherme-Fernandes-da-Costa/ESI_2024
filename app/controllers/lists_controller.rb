@@ -17,7 +17,26 @@ class ListsController < ApplicationController
       # Criar 3 itens em branco
       3.times { @list.items.build }
     end
+    def show
+      @items = @list.items
 
+      # Garanta que @available_tags sempre seja um array
+      @available_tags = @items.pluck(:tag).compact.uniq || []
+      # O .compact remove valores nil e .uniq remove duplicados
+
+      case params[:order]
+      when 'agrupar'
+        @items = @items.grouped_by_tag
+      when 'desagrupar'
+        @items = @items.order(created_at: :asc)
+      when *@available_tags
+        @items = @items.where(tag: params[:order])
+      else
+        @items = @items.order(created_at: :asc)
+      end
+
+      @total_estimado = @items.sum(:preco)
+    end
     # POST /lists
     def create
       @list = List.new(list_params.except(:items_attributes))
