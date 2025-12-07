@@ -32,6 +32,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+gem 'bcrypt', '~> 3.1.7'
 # GRUPO DE PRODUÇÃO (PARA O HEROKU)
 group :production do
   gem "pg"
@@ -50,7 +51,7 @@ group :development, :test do
   gem "simplecov", require: false
   gem "coveralls", require: false
   gem 'shoulda-matchers', '~> 5.0'
-  gem 'bcrypt', '~> 3.1.7'
+
   #gem 'rails-controller-testing'
   #gem 'faker' # opcional, mas útil para dados de teste
 end
