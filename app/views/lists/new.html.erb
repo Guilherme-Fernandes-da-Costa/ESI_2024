@@ -1,3 +1,4 @@
+
 <h1>Nova Lista</h1>
 
 <%= form_with(model: @list, local: true) do |form| %>
@@ -17,8 +18,94 @@
     <%= form.text_field :name, required: true, placeholder: "Ex: Lista de Compras da Semana" %>
   </div>
 
+  <h3>Itens da Lista</h3>
+
+  <div id="items">
+    <%= form.fields_for :items do |item_form| %>
+      <div class="item-fields" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+        <div class="field">
+          <%= item_form.label :name, "Nome do item" %>
+          <%= item_form.text_field :name, placeholder: "Ex: Leite" %>
+        </div>
+
+        <div class="field">
+          <%= item_form.label :quantidade, "Quantidade" %>
+          <%= item_form.number_field :quantidade, min: 1, value: 1 %>
+        </div>
+
+        <div class="field">
+          <%= item_form.label :preco, "Preço (R$)" %>
+          <%= item_form.number_field :preco, step: 0.01, min: 0, placeholder: "0.00" %>
+        </div>
+
+        <div class="field">
+          <%= item_form.label :tag, "Categoria" %>
+          <%= item_form.select :tag,
+              options_for_select(["frios", "horti-fruit", "carne", "padaria", "limpeza"]),
+              include_blank: "Selecione..." %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
   <div class="actions">
-    <%= form.submit "Criar Lista", class: "btn btn-primary" %>
+    <%= form.submit "Criar Lista com Itens", class: "btn btn-primary" %>
     <%= link_to 'Cancelar', lists_path, class: "btn btn-secondary" %>
   </div>
 <% end %>
+
+<script>
+  // Adiciona mais campos de item dinamicamente
+  document.addEventListener('DOMContentLoaded', function() {
+    const addItemButton = document.createElement('button');
+    addItemButton.type = 'button';
+    addItemButton.textContent = '➕ Adicionar outro item';
+    addItemButton.className = 'btn btn-sm btn-outline-secondary';
+    addItemButton.style.marginBottom = '15px';
+
+    addItemButton.addEventListener('click', function() {
+      const itemsDiv = document.getElementById('items');
+      const lastItem = itemsDiv.lastElementChild;
+      const newIndex = document.querySelectorAll('.item-fields').length;
+
+      const newItem = document.createElement('div');
+      newItem.className = 'item-fields';
+      newItem.style.border = '1px solid #ccc';
+      newItem.style.padding = '10px';
+      newItem.style.marginBottom = '10px';
+
+      newItem.innerHTML = `
+        <div class="field">
+          <label>Nome do item</label>
+          <input type="text" name="list[items_attributes][${newIndex}][name]" placeholder="Ex: Leite">
+        </div>
+        <div class="field">
+          <label>Quantidade</label>
+          <input type="number" name="list[items_attributes][${newIndex}][quantidade]" min="1" value="1">
+        </div>
+        <div class="field">
+          <label>Preço (R$)</label>
+          <input type="number" name="list[items_attributes][${newIndex}][preco]" step="0.01" min="0" placeholder="0.00">
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <select name="list[items_attributes][${newIndex}][tag]">
+            <option value="">Selecione...</option>
+            <option value="frios">frios</option>
+            <option value="horti-fruit">horti-fruit</option>
+            <option value="carne">carne</option>
+            <option value="padaria">padaria</option>
+            <option value="limpeza">limpeza</option>
+          </select>
+        </div>
+      `;
+
+      itemsDiv.appendChild(newItem);
+    });
+
+    // Insere o botão antes do botão de submit
+    const form = document.querySelector('form');
+    const submitButton = form.querySelector('input[type="submit"]');
+    form.insertBefore(addItemButton, submitButton);
+  });
+</script>

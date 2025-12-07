@@ -9,7 +9,7 @@ class List < ApplicationRecord
 
   # Validações (mínimas):
   validates :name, presence: true
-
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   # Reinicia a lista: apenas o owner (organizador) pode executar
   # by: User que está solicitando a ação
   def reset!(by:)
@@ -22,4 +22,5 @@ class List < ApplicationRecord
 
     true
   end
+
 end

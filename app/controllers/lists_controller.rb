@@ -1,7 +1,7 @@
 # app/controllers/lists_controller.rb
 class ListsController < ApplicationController
   before_action :require_login
-    before_action :set_list, only: %i[show edit update destroy reset]
+  before_action :set_list, only: %i[show edit update destroy reset]
 
     # GET /lists
     def index
@@ -10,22 +10,31 @@ class ListsController < ApplicationController
       @shared_lists = current_user.shared_lists
     end
 
+
     # GET /lists/new
-    def new
-      @list = List.new
-    end
+      def new
+        @list = List.new
+        # Cria 3 itens em branco para o formulário
+        3.times { @list.items.build }
+      end
 
     # POST /lists
     def create
-      @list = List.new(list_params)
-      @list.owner = current_user  # Agora temos current_user definido
+        @list = List.new(list_params)
+        @list.owner = current_user
 
-      if @list.save
-        redirect_to @list, notice: 'Lista criada com sucesso.'
-      else
-        render :new, status: :unprocessable_entity
+        if @list.save
+          # Atribui o usuário atual como "added_by" para cada item
+          @list.items.each do |item|
+            item.added_by = current_user
+            item.save
+          end
+
+          redirect_to @list, notice: 'Lista criada com sucesso.'
+        else
+          render :new, status: :unprocessable_entity
+        end
       end
-    end
 
   # GET /lists/1/edit
   def edit
@@ -69,6 +78,8 @@ class ListsController < ApplicationController
   end
 
   def list_params
-    params.require(:list).permit(:name)  # Note: 'list' não 'item'
-  end
+      params.require(:list).permit(:name,
+        items_attributes: [:id, :name, :quantidade, :preco, :tag, :_destroy]
+      )
+    end
 end
