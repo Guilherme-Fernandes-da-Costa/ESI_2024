@@ -1,7 +1,7 @@
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
-  helper_method :can_edit_quantity?
+
   private
 
   def current_user
@@ -18,10 +18,5 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
-  private
 
-    def can_edit_quantity?(item)
-      # Permite edição se o usuário for o dono da lista ou um usuário compartilhado
-      current_user == item.list.owner || item.list.shared_users.include?(current_user)
-    end
 end
