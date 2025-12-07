@@ -51,3 +51,31 @@
 .card-empty-state {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
+
+/* app/assets/stylesheets/custom.css ou application.css */
+
+/* Estilo para a zona de perigo */
+.danger-zone {
+    border-left: 4px solid #dc3545;
+    padding-left: 1rem;
+}
+
+.danger-zone h4 {
+    color: #dc3545;
+}
+
+/* Botão de delete com efeito hover */
+.btn-danger {
+    transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Alertas de confirmação */
+.confirm-delete {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+    border: 2px dashed #dc3545;
+}
