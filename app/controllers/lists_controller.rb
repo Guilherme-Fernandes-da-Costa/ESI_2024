@@ -1,6 +1,7 @@
 # app/controllers/lists_controller.rb
 class ListsController < ApplicationController
   before_action :require_login
+<<<<<<< HEAD
   # CORREÇÃO: Adicione :share e :unshare
   before_action :set_list, only: %i[show edit update destroy reset share unshare]
 
@@ -111,6 +112,51 @@ class ListsController < ApplicationController
     else
       redirect_to edit_list_path(@list), alert: "Usuário não tem acesso a esta lista."
     end
+=======
+    before_action :set_list, only: %i[show edit update destroy reset]
+
+    # GET /lists
+    def index
+      # Mostra listas do usuário (como owner) + listas compartilhadas
+      @owned_lists = current_user.owned_lists
+      @shared_lists = current_user.shared_lists
+    end
+
+    # GET /lists/new
+    def new
+      @list = List.new
+    end
+
+    # POST /lists
+    def create
+      @list = List.new(list_params)
+      @list.owner = current_user  # Agora temos current_user definido
+
+      if @list.save
+        redirect_to @list, notice: 'Lista criada com sucesso.'
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
+
+  # GET /lists/1/edit
+  def edit
+  end
+
+  # PATCH/PUT /lists/1
+  def update
+    if @list.update(list_params)
+      redirect_to @list, notice: 'Lista atualizada com sucesso.'
+    else
+      render :edit
+    end
+  end
+
+  # DELETE /lists/1
+  def destroy
+    @list.destroy
+    redirect_to lists_url, notice: 'Lista excluída com sucesso.'
+>>>>>>> 0d98f6d (Implementa sistema de autenticação)
   end
 
   # POST /lists/1/reset
@@ -163,8 +209,14 @@ class ListsController < ApplicationController
   end
 
   def list_params
+<<<<<<< HEAD
     params.require(:list).permit(:name,
       items_attributes: [ :id, :name, :quantity, :preco, :tag, :quantidade_comprada, :_destroy ]
     )
   end
 end
+=======
+    params.require(:list).permit(:name)  # Note: 'list' não 'item'
+  end
+end
+>>>>>>> 0d98f6d (Implementa sistema de autenticação)

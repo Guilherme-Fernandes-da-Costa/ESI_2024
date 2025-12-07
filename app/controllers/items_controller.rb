@@ -1,7 +1,13 @@
 class ItemsController < ApplicationController
+<<<<<<< HEAD
   before_action :require_login
   before_action :set_list
   before_action :set_item, only: [ :toggle_comprado, :update ]
+=======
+  before_action :require_login  # Adicionar esta linha
+  before_action :set_list
+  before_action :set_item, only: [:toggle_comprado]
+>>>>>>> 0d98f6d (Implementa sistema de autenticação)
 
   # GET /lists/:list_id/items
   # Como a rota :index existe, você pode querer implementar esta action

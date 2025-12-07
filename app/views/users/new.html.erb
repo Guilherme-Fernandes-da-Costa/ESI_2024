@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style>
   body {
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
@@ -120,3 +121,29 @@
     Já tem uma conta? <%= link_to "Faça login", login_path %>
   </div>
 </div>
+=======
+<h1>Criar Conta</h1>
+
+<%= form_with(model: @user, url: signup_path, local: true) do |f| %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email, required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password, required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Criar Conta" %>
+  </div>
+<% end %>
+
+<p>Já tem uma conta? <%= link_to "Faça login", login_path %></p>
+>>>>>>> 0d98f6d (Implementa sistema de autenticação)
