@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
+  before_action :require_login  # Adicionar esta linha
   before_action :set_list
-  # Encontra o item para as actions que lidam com ele, incluindo a nova toggle_comprado
-  before_action :set_item, only: [:toggle_comprado] # Adicionei :index se você precisar dele
+  before_action :set_item, only: [:toggle_comprado]
 
   # GET /lists/:list_id/items
   # Como a rota :index existe, você pode querer implementar esta action
@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
   # POST /lists/:list_id/items
   def create
     @item = @list.items.new(item_params)
-    
+    @item.added_by = current_user
     if @item.save
       # Redireciona para a página de visualização da lista para ver o item recém-adicionado
       redirect_to list_path(@list), notice: 'Item adicionado com sucesso.'

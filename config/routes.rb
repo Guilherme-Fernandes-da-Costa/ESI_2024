@@ -1,6 +1,14 @@
+# config/routes.rb
 Rails.application.routes.draw do
-  # Defines the root path route ("/")
   root "home#index"
+
+  # Rotas de autenticação
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+
+  get 'signup', to: 'users#new'
+  post 'signup', to: 'users#create'
 
   resources :lists do
     post 'reset', on: :member
@@ -11,10 +19,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # Rota para o formulário de cadastro (ou tela de edição)
-  get 'cadastro', to: 'itens#new', as: :cadastro
-  
-  # Adicione esta linha para o BDD
-  # Mapeia /lista para a action index do ListsController
-  get 'lista', to: 'lists#index' 
+  # Rota para o BDD
+  get 'lista', to: 'lists#index'
 end
