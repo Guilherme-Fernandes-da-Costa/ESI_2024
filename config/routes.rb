@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :lists do
     post 'reset', on: :member
-    resources :items, only: [:new, :create, :index] do
+    resources :items, only: [:new, :create, :index, :update] do
       member do
         patch :toggle_comprado
       end

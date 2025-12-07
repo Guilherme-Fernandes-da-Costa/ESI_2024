@@ -19,9 +19,8 @@ class ListsController < ApplicationController
     def show
       @items = @list.items
 
-      # Garanta que @available_tags sempre seja um array
+      # Garantir que @available_tags sempre seja um array
       @available_tags = @items.pluck(:tag).compact.uniq || []
-      # O .compact remove valores nil e .uniq remove duplicados
 
       case params[:order]
       when 'agrupar'
@@ -34,7 +33,8 @@ class ListsController < ApplicationController
         @items = @items.order(created_at: :asc)
       end
 
-      @total_estimado = @items.sum(:preco)
+      # Calcular o total estimado (quantidade * preco para todos os itens)
+      @total_estimado = @items.sum { |item| item.quantity * item.preco }
     end
     # POST /lists
     def create

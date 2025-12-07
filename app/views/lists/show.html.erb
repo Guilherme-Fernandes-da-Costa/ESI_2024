@@ -15,31 +15,107 @@
     </div>
   </div>
 
-  <ul>
-    <% @items.each do |item| %>
-      <li>
-        <%= item.name %>
-        <% if item.tag.present? %>
-          <span class="item-tag">(<%= item.tag %>)</span>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-
-  <div class="area-total">
-    <h2>Total</h2>
-    <p class="valor-total">
-      <%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %>
-    </p>
-  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Preço Unitário</th>
+        <th>Quantidade</th>
+        <th>Quantidade Comprada</th>
+        <th>Falta Comprar</th>
+        <th>Subtotal</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr id="item-<%= item.id %>">
+          <td>
+            <strong><%= item.name %></strong>
+            <% if item.tag.present? %>
+              <br><small class="text-muted">(<%= item.tag %>)</small>
+            <% end %>
+          </td>
+          <td>
+            <%= number_to_currency(item.preco, unit: "R$ ", separator: ",", delimiter: ".") %>
+          </td>
+          <td><%= item.quantity %></td>
+          <td>
+            <div class="quantity-control">
+              <% if can_edit_quantity?(item) %>
+                <%= form_with(model: item, url: list_item_path(@list, item), method: :patch,
+                    data: { remote: true }, class: "quantity-form") do |f| %>
+                  <%= f.number_field :quantidade_comprada, value: item.quantidade_comprada || 0,
+                      min: 0, max: item.quantity, class: "form-control form-control-sm",
+                      style: "width: 80px; display: inline;" %>
+                  <%= f.submit "✓", class: "btn btn-sm btn-success", title: "Atualizar" %>
+                <% end %>
+              <% else %>
+                <span class="badge bg-secondary"><%= item.quantidade_comprada || 0 %></span>
+              <% end %>
+            </div>
+          </td>
+          <td>
+            <% falta_comprar = item.quantity - (item.quantidade_comprada || 0) %>
+            <span class="badge <%= falta_comprar > 0 ? 'bg-warning' : 'bg-success' %>">
+              <%= falta_comprar %>
+            </span>
+          </td>
+          <td>
+            <%= number_to_currency(item.quantity * item.preco, unit: "R$ ", separator: ",", delimiter: ".") %>
+          </td>
+          <td>
+            <%= form_with(model: item, url: toggle_comprado_list_item_path(@list, item),
+                method: :patch, data: { remote: true }) do |f| %>
+              <%= f.hidden_field :comprado, value: !item.comprado %>
+              <button type="submit" class="btn btn-sm <%= item.comprado ? 'btn-outline-secondary' : 'btn-outline-primary' %>">
+                <%= item.comprado ? '✗ Desmarcar' : '✓ Marcar' %>
+              </button>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr class="table-info">
+        <td colspan="3" class="text-end"><strong>Totais:</strong></td>
+        <td><strong><%= @items.sum(:quantidade_comprada) || 0 %></strong></td>
+        <td><strong><%= @items.sum(:quantity) - (@items.sum(:quantidade_comprada) || 0) %></strong></td>
+        <td><strong><%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
+        <td></td>
+      </tr>
+      <tr class="table-success">
+        <td colspan="5" class="text-end"><strong>Progresso de Compra:</strong></td>
+        <td colspan="2">
+          <% total_items = @items.sum(:quantity) %>
+          <% comprados = @items.sum(:quantidade_comprada) || 0 %>
+          <% percentual = total_items > 0 ? (comprados.to_f / total_items * 100).round(1) : 0 %>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar" role="progressbar"
+                 style="width: <%= percentual %>%"
+                 aria-valuenow="<%= percentual %>"
+                 aria-valuemin="0"
+                 aria-valuemax="100">
+              <%= percentual %>%
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 <% else %>
-  <p>Esta lista ainda não tem itens.</p>
+  <div class="alert alert-info">
+    Esta lista ainda não tem itens.
+  </div>
 <% end %>
 
-<%= link_to "Adicionar Novo Item", new_list_item_path(@list) %>
+<div class="mt-4">
+  <%= link_to "Adicionar Novo Item", new_list_item_path(@list), class: "btn btn-primary" %>
+  <%= link_to "Voltar para Listas", lists_path, class: "btn btn-secondary" %>
+</div>
 
 <script>
-  // Mantenha o JavaScript existente
+  // Manter o script de ordenação
   document.getElementById('ordenar-lista-button')?.addEventListener('click', function() {
     var opcoes = document.querySelector('.opcoes-tags');
     if (opcoes.style.display === 'none') {
