@@ -19,7 +19,6 @@ class ListsController < ApplicationController
     def show
       @items = @list.items
 
-      # Garantir que @available_tags sempre seja um array
       @available_tags = @items.pluck(:tag).compact.uniq || []
 
       case params[:order]
@@ -33,8 +32,8 @@ class ListsController < ApplicationController
         @items = @items.order(created_at: :asc)
       end
 
-      # Calcular o total estimado (quantidade * preco para todos os itens)
-      @total_estimado = @items.sum { |item| item.quantity * item.preco }
+      # Calcular o total estimado: soma de (quantity * preco) para todos os itens
+      @total_estimado = @items.sum('quantity * preco')
     end
     # POST /lists
     def create
@@ -100,7 +99,8 @@ class ListsController < ApplicationController
   end
 
   def list_params
-    params.require(:list).permit(:name)
-    # Remova items_attributes daqui, vamos processar manualmente
+    params.require(:list).permit(:name,
+      items_attributes: [:id, :name, :quantity, :preco, :tag, :quantidade_comprada, :_destroy]
+    )
   end
 end
