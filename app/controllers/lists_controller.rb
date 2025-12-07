@@ -85,8 +85,9 @@ class ListsController < ApplicationController
   end
 
   def list_params
-      params.require(:list).permit(:name,
-        items_attributes: [:id, :name, :quantity, :preco, :tag, :_destroy]
-      )
-    end
+    params.require(:list).permit(:name,
+      items_attributes: [:id, :name, :quantity, :preco, :tag, :_destroy]
+      # Note: mantemos :tag (string), não :tag_id
+    )
+  end
 end

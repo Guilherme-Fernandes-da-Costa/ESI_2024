@@ -3,14 +3,14 @@ class Item < ApplicationRecord
   # Associações:
   belongs_to :list
   belongs_to :added_by, class_name: 'User'
-  belongs_to :tag, optional: true
+
 
   # Validações:
   validates :name, presence: true
   validates :preco, numericality: { greater_than_or_equal_to: 0 }
 
   # Adiciona itens sem tag ao final.
-  scope :grouped_by_tag, -> { includes(:tag).order("tags.name ASC NULLS LAST") }
+  scope :grouped_by_tag, -> { order("tag ASC NULLS LAST") }
 
   def marcar_como_comprado
     update(comprado: true) unless comprado?
