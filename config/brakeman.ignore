@@ -1,0 +1,9 @@
+{
+  "ignored_warnings": [
+    {
+      "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
+      "note": "Ignoring Rails EOL warning because the project will update Rails later and this is not a security vulnerability."
+    }
+  ],
+  "updated": "2025-12-08"
+}

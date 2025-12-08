@@ -13,7 +13,7 @@ gem "sprockets-rails"
 gem "sqlite3", "~> 1.4", group: :development
 
 
-gem "pg", "~> 1.5", group: [:production, :test]
+gem "pg", "~> 1.5", group: [ :production, :test ]
 
 # ---------------------------------------------------------------
 
@@ -29,7 +29,7 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
-gem 'bcrypt', '~> 3.1.7'
+gem "bcrypt", "~> 3.1.7"
 
 
 group :development, :test do
@@ -42,22 +42,22 @@ group :development, :test do
   gem "cucumber-rails", require: false
   gem "capybara"
   gem "database_cleaner-active_record"
+  gem "selenium-webdriver"
+  # ---- GITHUB ACTIONS / CI ----
+  gem "brakeman", require: false
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rails-omakase", require: false
 
   # ---- COBERTURA ----
   gem "simplecov", require: false
   gem "coveralls", require: false
-  gem 'shoulda-matchers', '~> 5.0'
+  gem "shoulda-matchers", "~> 5.0"
 
-  #gem 'rails-controller-testing'
-  #gem 'faker' # opcional, mas útil para dados de teste
+  # gem 'rails-controller-testing'
+  # gem 'faker' # opcional, mas útil para dados de teste
 end
 
 group :development do
   gem "web-console"
-end
-
-# ---------- TESTES E2E ----------
-group :test do
-  gem "selenium-webdriver"
-  # (capybara já está no grupo acima)
 end

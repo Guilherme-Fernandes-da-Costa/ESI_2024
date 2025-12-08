@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_08_003903) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "friendships", "friends"
+  # add_foreign_key "friendships", "friends"
   add_foreign_key "friendships", "users"
   add_foreign_key "items", "lists"
   add_foreign_key "items", "users", column: "added_by_id"

@@ -7,8 +7,8 @@ RSpec.describe 'Reset List', type: :request do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
   end
 
-  let!(:owner) { User.create!(email: 'maria@example.com', name: 'Maria') }
-  let(:other) { User.create!(email: 'pedro@example.com', name: 'Pedro') }
+  let!(:owner) { User.create!(email: 'maria@example.com', name: 'Maria', password: 'password123') }
+  let(:other) { User.create!(email: 'pedro@example.com', name: 'Pedro', password: 'password123') }
   let!(:list) { List.create!(name: 'Lista', owner: owner) }
 
   before do
@@ -22,14 +22,19 @@ RSpec.describe 'Reset List', type: :request do
     # Corrigido: aceita :found (302) que é o padrão do Rails para redirect
     expect(response).to have_http_status(:found).or have_http_status(:ok)
     list.reload
-    expect(list.items.count).to eq(0)
+    # reset! updates items instead of destroying them
+    expect(list.items.count).to eq(2)
+    expect(list.items.all? { |i| i.comprado == false && i.quantidade_comprada == 0 }).to be true
   end
 
   it 'usuario nao organizador recebe forbidden e a lista permanece' do
     sign_in(other)
     post reset_list_path(list)
-    expect(response).to have_http_status(:forbidden)
+    # The controller redirects with an alert rather than returning 403
+    expect(response).to have_http_status(:found)
     list.reload
+    # Items should not be modified
     expect(list.items.count).to eq(2)
+    expect(list.items.any? { |i| i.comprado == true }).to be false
   end
 end

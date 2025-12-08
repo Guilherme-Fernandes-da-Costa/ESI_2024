@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Agrupar itens por categoria', type: :request do
-  let(:user) { User.create!(email: 'test@example.com', name: 'Teste') }
+  let(:user) { User.create!(email: 'test@example.com', name: 'Teste', password: 'password123') }
   let(:lista) { List.create!(name: 'Compras da Semana', owner: user) }
 
   before do

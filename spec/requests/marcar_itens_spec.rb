@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Marcar itens como comprados', type: :request do
-  let(:user) { User.create!(email: 'mark_spec@example.com', name: 'Mark Spec') }
+  let(:user) { User.create!(email: 'mark_spec@example.com', name: 'Mark Spec', password: 'password123') }
   let(:lista) { List.create!(name: 'Lista Marcar', owner: user) }
 
   before do
