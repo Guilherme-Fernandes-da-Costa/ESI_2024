@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_07_123611) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_08_003903) do
+  create_table "friendships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "friend_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.integer "list_id", null: false
     t.string "name"
@@ -21,6 +30,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_07_123611) do
     t.decimal "preco", precision: 10, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantidade_comprada", default: 0
     t.index ["added_by_id"], name: "index_items_on_added_by_id"
     t.index ["list_id"], name: "index_items_on_list_id"
   end
@@ -67,6 +77,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_07_123611) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "friendships", "friends"
+  add_foreign_key "friendships", "users"
   add_foreign_key "items", "lists"
   add_foreign_key "items", "users", column: "added_by_id"
   add_foreign_key "list_shares", "lists"
