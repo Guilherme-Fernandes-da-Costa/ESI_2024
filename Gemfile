@@ -42,7 +42,10 @@ group :development, :test do
   gem "cucumber-rails", require: false
   gem "capybara"
   gem "database_cleaner-active_record"
+  # ---- GITHUB ACTIONS / CI ----
   gem "brakeman", require: false
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 
   # ---- COBERTURA ----
   gem "simplecov", require: false
