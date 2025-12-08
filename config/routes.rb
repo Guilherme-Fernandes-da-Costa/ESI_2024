@@ -1,21 +1,33 @@
+# config/routes.rb
 Rails.application.routes.draw do
-  # Defines the root path route ("/")
+  get 'friendships/create'
+  get 'friendships/destroy'
   root "home#index"
 
+  # Rotas de autenticação
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+
+  get 'signup', to: 'users#new'
+  post 'signup', to: 'users#create'
+
   resources :lists do
-    post "reset", on: :member
-    resources :items, only: [ :new, :create, :index, :update, :destroy ] do
+    post 'reset', on: :member
+    post 'share', on: :member      # Nova rota para compartilhar
+    delete 'unshare', on: :member  # Nova rota para remover compartilhamento
+
+    resources :items, only: [:new, :create, :index, :update] do
       member do
         patch :toggle_comprado
       end
     end
   end
 
-  # Rota para o formulário de cadastro (ou tela de edição)
-  get "cadastro", to: "itens#new", as: :cadastro
+  # Rota para o BDD
+  get 'lista', to: 'lists#index'
 
-  # Adicione esta linha para o BDD
-  # Mapeia /lista para a action index do ListsController
-  get "lista", to: "lists#index"
-  get "lista/:id", to: "lists#show", as: :lista_show
+  resources :friendships, only: [:create, :destroy]
+  
+  get "/friends", to: "friendships#index", as: "friends"
 end

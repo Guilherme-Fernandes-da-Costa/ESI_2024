@@ -1,0 +1,335 @@
+<style>
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .header {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .weshop-title {
+    color: #2575fc;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: #2575fc;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1c64e0;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: #6a11cb;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background: #590da3;
+  }
+
+  .btn-outline {
+    background: white;
+    color: #2575fc;
+    border: 1px solid #2575fc;
+  }
+
+  .btn-outline:hover {
+    background: #f0f5ff;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    border: 1px solid #eaeaea;
+  }
+
+  .card-header {
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    color: white;
+  }
+
+  .card-header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #2575fc;
+    box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
+  }
+
+  .error-box {
+    background: #ffe6e6;
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .error-box h2 {
+    color: #e74c3c;
+    margin-top: 0;
+    font-size: 18px;
+  }
+
+  .error-box ul {
+    margin: 10px 0;
+    padding-left: 20px;
+  }
+
+  .error-box li {
+    color: #c0392b;
+  }
+
+  .item-card {
+    background: #f8f9fa;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .item-title {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+  }
+
+  .item-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  @media (max-width: 768px) {
+    .item-fields {
+      grid-template-columns: 1fr;
+    }
+
+    .header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+
+    .actions {
+      flex-direction: column;
+    }
+
+    .actions .btn {
+      width: 100%;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+  }
+</style>
+
+<div class="container">
+  <!-- Cabeçalho -->
+  <div class="header">
+    <h1 class="weshop-title">Weshop</h1>
+    <div class="button-group">
+      <%= link_to '📋 Minhas Listas', lists_path, class: 'btn btn-secondary' %>
+      <%= link_to '👥 Amigos', friends_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <div class="card">
+    <div class="card-header">
+      <h1>➕ Nova Lista</h1>
+    </div>
+    <div class="card-body">
+      <%= form_with(model: @list, local: true) do |form| %>
+        <% if @list.errors.any? %>
+          <div class="error-box">
+            <h2><%= pluralize(@list.errors.count, "erro") %> impediram esta lista de ser salva:</h2>
+            <ul>
+              <% @list.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= form.label :name, "📝 Nome da Lista" %>
+          <%= form.text_field :name, required: true, class: "form-control",
+                placeholder: "Ex: Lista de Compras da Semana" %>
+        </div>
+
+        <h3 style="margin-top: 30px; margin-bottom: 20px; color: #333;">
+          🛒 Itens da Lista <small style="color: #666;">(opcional)</small>
+        </h3>
+
+        <div id="items">
+          <!-- Itens serão adicionados aqui -->
+        </div>
+
+        <button type="button" onclick="addItem()" class="btn btn-outline" style="margin-bottom: 20px;">
+          ➕ Adicionar Item
+        </button>
+
+        <div class="actions">
+          <%= form.submit "✅ Criar Lista", class: "btn btn-primary" %>
+          <%= link_to '← Cancelar', lists_path, class: "btn btn-outline" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  let itemCount = 0;
+
+  function addItem() {
+    const itemsContainer = document.getElementById('items');
+
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'item-card';
+
+    itemDiv.innerHTML = `
+      <div class="item-header">
+        <h3 class="item-title">Item #${itemCount + 1}</h3>
+        <button type="button" onclick="this.parentElement.parentElement.remove(); updateItemNumbers()"
+                class="btn" style="background: #e74c3c; color: white; padding: 5px 10px; font-size: 12px;">
+          × Remover
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label>📋 Nome do item *</label>
+        <input type="text" name="list[items_attributes][${itemCount}][name]"
+               class="form-control" placeholder="Ex: Leite" required>
+      </div>
+
+      <div class="item-fields">
+        <div class="form-group">
+          <label>🔢 Quantidade</label>
+          <input type="number" name="list[items_attributes][${itemCount}][quantity]"
+                 class="form-control" min="1" value="1">
+        </div>
+
+        <div class="form-group">
+          <label>💰 Preço (R$)</label>
+          <input type="number" name="list[items_attributes][${itemCount}][preco]"
+                 class="form-control" step="0.01" min="0" placeholder="0.00">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>🏷️ Categoria</label>
+        <select name="list[items_attributes][${itemCount}][tag]" class="form-control">
+          <option value="">Selecione uma categoria...</option>
+          <option value="frios">Frios</option>
+          <option value="horti-fruit">Hortifruti</option>
+          <option value="carne">Carnes</option>
+          <option value="padaria">Padaria</option>
+          <option value="limpeza">Limpeza</option>
+        </select>
+      </div>
+    `;
+
+    itemsContainer.appendChild(itemDiv);
+    itemCount++;
+  }
+
+  function updateItemNumbers() {
+    const items = document.querySelectorAll('.item-card');
+    items.forEach((item, index) => {
+      const title = item.querySelector('.item-title');
+      if (title) {
+        title.textContent = `Item #${index + 1}`;
+      }
+
+      // Atualiza os nomes dos campos
+      const inputs = item.querySelectorAll('input, select');
+      inputs.forEach(input => {
+        const oldName = input.getAttribute('name');
+        if (oldName) {
+          const newName = oldName.replace(/items_attributes\[\d+\]/, `items_attributes[${index}]`);
+          input.setAttribute('name', newName);
+        }
+      });
+    });
+
+    itemCount = items.length;
+  }
+</script>

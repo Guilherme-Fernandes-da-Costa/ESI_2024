@@ -1,0 +1,406 @@
+<style>
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    margin: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .weshop-title {
+    color: #2575fc;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: #2575fc;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1c64e0;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: #6a11cb;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background: #590da3;
+  }
+
+  .btn-outline {
+    background: white;
+    color: #2575fc;
+    border: 1px solid #2575fc;
+  }
+
+  .btn-outline:hover {
+    background: #f0f5ff;
+  }
+
+  .btn-danger {
+    background: #e74c3c;
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background: #c0392b;
+  }
+
+  .btn-success {
+    background: #2ecc71;
+    color: white;
+  }
+
+  .btn-success:hover {
+    background: #27ae60;
+  }
+
+  .btn-warning {
+    background: #f39c12;
+    color: white;
+  }
+
+  .btn-warning:hover {
+    background: #d35400;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    border: 1px solid #eaeaea;
+  }
+
+  .card-header {
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    color: white;
+  }
+
+  .card-header h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .page-title {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #2575fc;
+    box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
+  }
+
+  .table-container {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th {
+    background: #f8f9fa;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #eaeaea;
+    color: #333;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 15px;
+    border-bottom: 1px solid #eaeaea;
+    color: #555;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .bg-primary {
+    background: #e3f2fd;
+    color: #2575fc;
+  }
+
+  .bg-secondary {
+    background: #f5f5f5;
+    color: #666;
+  }
+
+  .danger-zone {
+    border-left: 4px solid #e74c3c;
+    padding-left: 15px;
+  }
+
+  .alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .alert-info {
+    background: #e3f2fd;
+    color: #2575fc;
+    border-left: 4px solid #2575fc;
+  }
+
+  .alert-warning {
+    background: #fff3cd;
+    color: #856404;
+    border-left: 4px solid #f39c12;
+  }
+
+  .actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+
+    .actions {
+      flex-direction: column;
+    }
+
+    .actions .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="container">
+  <!-- Cabeçalho -->
+  <div class="header">
+    <h1 class="weshop-title">Weshop</h1>
+    <div class="button-group">
+      <%= link_to '📋 Minhas Listas', lists_path, class: 'btn btn-secondary' %>
+      <%= link_to '👥 Amigos', friends_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+
+  <!-- Título -->
+  <h1 class="page-title">Editar Lista: <%= @list.name %></h1>
+
+  <!-- Formulário de Edição -->
+  <div class="card">
+    <div class="card-header">
+      <h2>📝 Editar Informações</h2>
+    </div>
+    <div class="card-body">
+      <%= form_with(model: @list, local: true) do |form| %>
+        <div class="form-group">
+          <%= form.label :name, "Nome da Lista" %>
+          <%= form.text_field :name, required: true, class: "form-control" %>
+        </div>
+
+        <div class="actions">
+          <%= form.submit "💾 Atualizar Lista", class: "btn btn-primary" %>
+          <%= link_to '← Cancelar', @list, class: "btn btn-outline" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Compartilhar Lista -->
+  <div class="card">
+    <div class="card-header">
+      <h2>🤝 Compartilhar Lista</h2>
+    </div>
+    <div class="card-body">
+      <%= form_with(url: share_list_path(@list), method: :post, local: true) do |form| %>
+        <div class="form-group">
+          <%= label_tag :email, "Email do usuário para compartilhar:" %>
+          <%= text_field_tag :email, nil, placeholder: "exemplo@email.com", required: true, class: "form-control" %>
+        </div>
+
+        <%= submit_tag "✅ Compartilhar", class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Usuários com Acesso -->
+  <div class="card">
+    <div class="card-header">
+      <h2>👥 Usuários com Acesso</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Tipo de Acesso</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong><%= @list.owner.email %></strong></td>
+              <td><span class="badge bg-primary">Dono</span></td>
+              <td>-</td>
+            </tr>
+            <% @list.shared_users.each do |user| %>
+              <tr>
+                <td><%= user.email %></td>
+                <td><span class="badge bg-secondary">Compartilhado</span></td>
+                <td>
+                  <%= button_to "🗑️ Remover", unshare_list_path(@list, user_id: user.id),
+                        method: :delete, data: { confirm: "Remover acesso de #{user.email}?" },
+                        class: "btn btn-danger", style: "padding: 5px 10px; font-size: 12px;" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reiniciar Lista -->
+  <div class="card">
+    <div class="card-header" style="background: linear-gradient(135deg, #f39c12 0%, #d35400 100%);">
+      <h2>🔄 Reiniciar Lista</h2>
+    </div>
+    <div class="card-body">
+      <p><strong>Reiniciar a lista significa:</strong></p>
+      <ul>
+        <li>Marcar todos os itens como <strong>não comprados</strong></li>
+        <li>Zerar as quantidades compradas</li>
+        <li>Manter todos os itens na lista</li>
+      </ul>
+
+      <div class="alert alert-info">
+        <strong>💡 Dica:</strong> Use esta opção quando quiser reutilizar a mesma lista para uma nova compra.
+      </div>
+
+      <%= button_to "🔄 Reiniciar Lista Agora", reset_list_path(@list), method: :post,
+            data: { confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados." },
+            class: "btn btn-warning" %>
+    </div>
+  </div>
+
+  <!-- Zona de Perigo -->
+  <div class="card">
+    <div class="card-header" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">
+      <h2>⚠️ Zona de Perigo</h2>
+    </div>
+    <div class="card-body">
+      <div class="danger-zone">
+        <h3 style="color: #e74c3c;">🗑️ Remover Lista Permanentemente</h3>
+        <p><strong>Atenção:</strong> Esta ação é irreversível. Ao remover a lista:</p>
+        <ul style="color: #e74c3c;">
+          <li>Todos os itens da lista serão excluídos</li>
+          <li>O histórico de compras será perdido</li>
+          <li>Todos os compartilhamentos serão removidos</li>
+          <li>Esta ação não pode ser desfeita</li>
+        </ul>
+
+        <div class="alert alert-warning">
+          <strong>📝 Recomendação:</strong>
+          Se você quer apenas limpar os itens mas manter a lista, considere usar o botão
+          "Reiniciar Lista" em vez de remover completamente.
+        </div>
+
+        <%= button_to "🗑️ Excluir Lista Permanentemente", @list, method: :delete,
+              data: { confirm: "Tem CERTEZA ABSOLUTA que deseja excluir a lista '#{@list.name}'?\n\nEsta ação NÃO pode ser desfeita!" },
+              class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botões de Navegação -->
+  <div class="actions">
+    <%= link_to "← Voltar para Lista", @list, class: "btn btn-outline" %>
+    <%= link_to "← Voltar para Minhas Listas", lists_path, class: "btn btn-secondary" %>
+  </div>
+</div>

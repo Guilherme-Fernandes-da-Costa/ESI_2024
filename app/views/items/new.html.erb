@@ -10,9 +10,9 @@
     <%= form.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :quantity, 'quantidade' %>
-    <%= form.number_field :quantity %>
+  <div class="field">
+    <%= form.label :quantity, "Quantidade" %>
+    <%= form.number_field :quantity, min: 1, value: 1 %>
   </div>
 
   <div>

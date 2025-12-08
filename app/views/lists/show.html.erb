@@ -1,45 +1,464 @@
-<h1><%= @list.name %></h1>
+<style>
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    margin: 0;
+  }
 
-<div class="sorting-options">
-  <button id="ordenar-lista-button">Ordenar Lista</button>
-  <div class="opcoes-tags" style="display:none;">
-    <% @available_tags.each do |tag| %>
-      <%= link_to tag, list_path(@list, order: tag) %>
-    <% end %>
-    
-    <%= link_to "Agrupar", list_path(@list, order: 'agrupar') %>
-    <%= link_to "Desagrupar", list_path(@list, order: 'desagrupar') %>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .weshop-title {
+    color: #2575fc;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: #2575fc;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1c64e0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 117, 252, 0.3);
+  }
+
+  .btn-secondary {
+    background: #6a11cb;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background: #590da3;
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: white;
+    color: #2575fc;
+    border: 1px solid #2575fc;
+  }
+
+  .btn-outline:hover {
+    background: #f0f5ff;
+  }
+
+  .btn-danger {
+    background: #e74c3c;
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background: #c0392b;
+  }
+
+  .btn-success {
+    background: #2ecc71;
+    color: white;
+  }
+
+  .btn-success:hover {
+    background: #27ae60;
+  }
+
+  .btn-warning {
+    background: #f39c12;
+    color: white;
+  }
+
+  .btn-warning:hover {
+    background: #d35400;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    border: 1px solid #eaeaea;
+  }
+
+  .card-header {
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    color: white;
+  }
+
+  .card-header h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .list-title {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .sorting-options {
+    margin-bottom: 25px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .sort-btn {
+    background: #6a11cb;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .opcoes-tags {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #eaeaea;
+  }
+
+  .opcoes-tags a {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #2575fc;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .opcoes-tags a:hover {
+    background: #2575fc;
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .table-container {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th {
+    background: #f8f9fa;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #eaeaea;
+    color: #333;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 15px;
+    border-bottom: 1px solid #eaeaea;
+    color: #555;
+  }
+
+  tr:hover {
+    background: #f9f9f9;
+  }
+
+  tfoot tr {
+    background: #f1f8ff;
+    font-weight: 600;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .bg-warning {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  .bg-success {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  .alert {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    background: #e3f2fd;
+    border-left: 4px solid #2575fc;
+  }
+
+  .form-control {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 100%;
+  }
+
+  .quantity-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .quantity-form input {
+    width: 80px;
+  }
+
+  .actions-footer {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+
+    .actions-footer {
+      flex-direction: column;
+    }
+
+    .actions-footer .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="container">
+  <!-- Cabeçalho -->
+  <div class="header">
+    <h1 class="weshop-title">Weshop</h1>
+    <div class="button-group">
+      <%= link_to '📋 Minhas Listas', lists_path, class: 'btn btn-secondary' %>
+      <%= link_to '👥 Amigos', friends_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+
+  <!-- Título da Lista -->
+  <h1 class="list-title"><%= @list.name %></h1>
+
+  <!-- Ordenação -->
+  <% if @items.any? %>
+    <div class="sorting-options">
+      <button id="ordenar-lista-button" class="sort-btn">📊 Ordenar Lista</button>
+      <div class="opcoes-tags" style="display:none;">
+        <% if @available_tags.any? %>
+          <% @available_tags.each do |tag| %>
+            <%= link_to tag, list_path(@list, order: tag) %>
+          <% end %>
+        <% end %>
+        <%= link_to "Agrupar", list_path(@list, order: 'agrupar') %>
+        <%= link_to "Desagrupar", list_path(@list, order: 'desagrupar') %>
+      </div>
+    </div>
+
+    <!-- Tabela de Itens -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Preço Unitário</th>
+            <th>Quantidade</th>
+            <th>Quantidade Comprada</th>
+            <th>Falta Comprar</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @items.each do |item| %>
+            <tr>
+              <td>
+                <strong><%= item.name %></strong>
+                <% if item.tag.present? %>
+                  <br><small style="color: #666;">(<%= item.tag %>)</small>
+                <% end %>
+              </td>
+              <td>
+                <%= number_to_currency(item.preco, unit: "R$ ", separator: ",", delimiter: ".") %>
+              </td>
+              <td><%= item.quantity %></td>
+              <td>
+                <div class="quantity-form">
+                  <%= form_with(model: item, url: list_item_path(@list, item), method: :patch, data: { remote: true }) do |f| %>
+                    <%= f.number_field :quantidade_comprada, value: item.quantidade_comprada || 0, min: 0, max: item.quantity, class: "form-control" %>
+                    <%= f.submit "✓", class: "btn btn-success", style: "padding: 8px 15px;" %>
+                  <% end %>
+                </div>
+              </td>
+              <td>
+                <% falta_comprar = item.quantity - (item.quantidade_comprada || 0) %>
+                <span class="badge <%= falta_comprar > 0 ? 'bg-warning' : 'bg-success' %>">
+                  <%= falta_comprar %>
+                </span>
+              </td>
+              <td>
+                <%= number_to_currency(item.quantity * item.preco, unit: "R$ ", separator: ",", delimiter: ".") %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" style="text-align: right;"><strong>Totais:</strong></td>
+            <td><strong><%= @items.sum(:quantidade_comprada) || 0 %></strong></td>
+            <td><strong><%= @items.sum(:quantity) - (@items.sum(:quantidade_comprada) || 0) %></strong></td>
+            <td><strong><%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert">
+      Esta lista ainda não tem itens.
+    </div>
+  <% end %>
+
+  <!-- Compartilhamento -->
+  <% if @list.owner == current_user || @list.shared_users.include?(current_user) %>
+    <div class="card">
+      <div class="card-header">
+        <h2>Compartilhamento</h2>
+      </div>
+      <div class="card-body">
+        <% if @list.owner == current_user %>
+          <p>
+            <strong>Dono:</strong> Você<br>
+            <strong>Usuários com acesso:</strong>
+            <%= @list.shared_users.count + 1 %>
+            (você + <%= @list.shared_users.count %> usuário(s))
+          </p>
+
+          <ul style="padding-left: 20px; margin-bottom: 20px;">
+            <li><strong>• <%= current_user.email %></strong> (você - dono)</li>
+            <% @list.shared_users.each do |user| %>
+              <li>• <%= user.email %></li>
+            <% end %>
+          </ul>
+
+          <%= link_to "✏️ Gerenciar compartilhamento", edit_list_path(@list), class: "btn btn-outline" %>
+        <% else %>
+          <p>
+            <strong>Dono:</strong> <%= @list.owner.email %><br>
+            <strong>Compartilhado com você por:</strong> <%= @list.owner.email %>
+          </p>
+          <p style="color: #666; font-style: italic;">
+            Você tem permissão para editar quantidades nesta lista.
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Reiniciar Lista (apenas para dono) -->
+  <% if @list.owner == current_user %>
+    <div class="card">
+      <div class="card-header" style="background: linear-gradient(135deg, #f39c12 0%, #d35400 100%);">
+        <h2>🔄 Reiniciar Lista</h2>
+      </div>
+      <div class="card-body">
+        <p><strong>Esta ação irá:</strong></p>
+        <ul>
+          <li>Marcar todos os itens como <strong>não comprados</strong></li>
+          <li>Zerar a quantidade comprada de todos os itens</li>
+          <li>Manter os itens na lista</li>
+        </ul>
+        <p style="color: #666; margin-top: 15px;">
+          Use esta ação quando quiser começar uma nova rodada de compras com os mesmos itens.
+        </p>
+
+        <div style="display: flex; gap: 15px; margin-top: 20px;">
+          <%= button_to "🔄 Reiniciar Lista", reset_list_path(@list), method: :post,
+                data: { confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados." },
+                class: "btn btn-warning" %>
+          <%= link_to "✏️ Editar Lista", edit_list_path(@list), class: "btn btn-outline" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Ações -->
+  <div class="actions-footer">
+    <%= link_to "➕ Adicionar Novo Item", new_list_item_path(@list), class: "btn btn-primary" %>
+    <%= link_to "← Voltar para Listas", lists_path, class: "btn btn-secondary" %>
   </div>
 </div>
 
-<ul>
-  <% @items.each do |item| %>
-    <li>
-      <%= item.name %> 
-      <% if item.tag.present? %>
-        <span class="tag-item">(<%= item.tag %>)</span>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<div class="area-total">
-  <h2>Total</h2>
-  <p class="valor-total">
-    <%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %>
-  </p>
-</div>
-
-<%= link_to "Adicionar Novo Item", new_list_item_path(@list) %>
-
 <script>
-  document.getElementById('ordenar-lista-button').addEventListener('click', function() {
+  document.getElementById('ordenar-lista-button')?.addEventListener('click', function() {
     var opcoes = document.querySelector('.opcoes-tags');
-    // Mude a lógica para remover o display:none, ou usar uma classe 'visible'
     if (opcoes.style.display === 'none') {
-        opcoes.style.display = 'block';
+      opcoes.style.display = 'block';
     } else {
-        opcoes.style.display = 'none';
+      opcoes.style.display = 'none';
     }
   });
 </script>
