@@ -47,7 +47,8 @@ jobs:
           bundle exec rails db:create db:schema:load
 
       - name: Check Zeitwerk autoloading (skipped in CI)
-        if: false
+        env:
+          RAILS_ENV: test
         run: bin/rails zeitwerk:check
 
       - name: Run tests

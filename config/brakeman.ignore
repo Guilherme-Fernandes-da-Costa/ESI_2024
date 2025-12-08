@@ -1,0 +1,14 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 141,
+      "fingerprint": "eolrails_gemfilelock_rails716",
+      "message": "Support for Rails 7.1.6 ended on 2025-10-01",
+      "file": "Gemfile.lock",
+      "line": 264,
+      "note": "Ignoring Rails EOL warning because the project will update Rails later and this is not a security vulnerability."
+    }
+  ],
+  "updated": "2025-12-08"
+}
