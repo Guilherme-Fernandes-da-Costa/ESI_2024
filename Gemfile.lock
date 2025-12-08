@@ -89,6 +89,8 @@ GEM
     bindex (0.8.1)
     bootsnap (1.19.0)
       msgpack (~> 1.2)
+    brakeman (7.1.1)
+      racc
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -390,6 +392,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
+  brakeman
   capybara
   coveralls
   cucumber-rails
