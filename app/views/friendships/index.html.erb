@@ -1,0 +1,42 @@
+<h1>Minha lista de amigos</h1>
+
+<%# ================== FORMULÁRIO ================== %>
+
+<div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc;">
+  <h2>Adicionar novo amigo</h2>
+
+  <%= form_with url: friendships_path, method: :post do %>
+    <div style="margin-bottom: 10px;">
+      <%= label_tag :email, "Email do amigo:" %><br>
+      <%= text_field_tag :email, nil, placeholder: "ex: pessoa@email.com" %>
+    </div>
+
+    <%= submit_tag "Adicionar amigo", style: "background:#2ecc71; color:white; padding:6px 12px; border-radius:5px;" %>
+  <% end %>
+</div>
+
+
+<%# ================== LISTA DE AMIGOS ================== %>
+
+<h2>Amigos adicionados</h2>
+
+<% if @friends.any? %>
+  <ul style="list-style:none; padding:0;">
+    <% @friends.each do |friendship| %>
+      <li style="padding:10px; border-bottom:1px solid #ddd; display:flex; justify-content:space-between;">
+        <span>
+          <strong><%= friendship.friend.name || "(Sem nome cadastrado)" %></strong>
+          — <%= friendship.friend.email %>
+        </span>
+
+        <%= button_to "Remover",
+              friendship_path(friendship),
+              method: :delete,
+              form: { data: { turbo_confirm: "Tem certeza que deseja remover esse amigo?" }},
+              style: "background:#e74c3c; color:white; padding:3px 10px; border-radius:4px;" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhum amigo adicionado ainda.</p>
+<% end %>
