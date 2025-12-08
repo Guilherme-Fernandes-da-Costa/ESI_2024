@@ -1,0 +1,3 @@
+# .brakeman.yml
+checks:
+  EOLRails: false  # Desabilita só o check de Rails EOL
