@@ -19,4 +19,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_user!
+      redirect_to login_path, alert: "Você precisa estar logado para acessar esta página." unless logged_in?
+  end
 end
