@@ -32,9 +32,9 @@ RSpec.describe List, type: :model do
     it 'levanta erro/retorna false quando quem chama nao e organizador e nao altera a lista' do
       original_item_count = list.items.count
       original_comprado_states = list.items.map(&:comprado)
-      
+
       expect { list.reset!(by: other) }.to raise_error(List::PermissionDenied)
-      
+
       # Items should not be modified
       expect(list.items.count).to eq(original_item_count)
       expect(list.items.map(&:comprado)).to eq(original_comprado_states)
