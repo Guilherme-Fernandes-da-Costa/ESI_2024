@@ -1,24 +1,122 @@
-<h1>Criar Conta</h1>
+<style>
+  body {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 0;
+  }
 
-<%= form_with(model: @user, url: signup_path, local: true) do |f| %>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, required: true %>
+  .signup-box {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .weshop-title {
+    color: #2575fc;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 25px;
+  }
+
+  .signup-subtitle {
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #2575fc;
+  }
+
+  .signup-btn {
+    background: #2575fc;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .signup-btn:hover {
+    background: #1c64e0;
+  }
+
+  .login-link {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+
+  .login-link a {
+    color: #2575fc;
+    text-decoration: none;
+  }
+
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="signup-box">
+  <h1 class="weshop-title">Weshop</h1>
+  <p class="signup-subtitle">Crie sua conta para começar a comprar</p>
+
+  <%= form_with(model: @user, url: signup_path, local: true) do |f| %>
+    <div class="input-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, required: true, placeholder: "seu@email.com" %>
+    </div>
+
+    <div class="input-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, required: true, placeholder: "Mínimo 6 caracteres" %>
+    </div>
+
+    <div class="input-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, required: true, placeholder: "Confirme sua senha" %>
+    </div>
+
+    <%= f.submit "Criar Conta", class: "signup-btn" %>
+  <% end %>
+
+  <div class="login-link">
+    Já tem uma conta? <%= link_to "Faça login", login_path %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password, required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, required: true %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Criar Conta" %>
-  </div>
-<% end %>
-
-<p>Já tem uma conta? <%= link_to "Faça login", login_path %></p>
+</div>
