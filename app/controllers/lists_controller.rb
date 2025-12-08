@@ -23,9 +23,9 @@ class ListsController < ApplicationController
     @available_tags = @items.pluck(:tag).compact.uniq || []
 
     case params[:order]
-    when 'agrupar'
+    when "agrupar"
       @items = @items.grouped_by_tag
-    when 'desagrupar'
+    when "desagrupar"
       @items = @items.order(created_at: :asc)
     when *@available_tags
       @items = @items.where(tag: params[:order])
@@ -34,7 +34,7 @@ class ListsController < ApplicationController
     end
 
     # Calcular o total estimado: soma de (quantity * preco) para todos os itens
-    @total_estimado = @items.sum('quantity * preco')
+    @total_estimado = @items.sum("quantity * preco")
   end
 
   # POST /lists
@@ -53,7 +53,7 @@ class ListsController < ApplicationController
     end
 
     if @list.save
-      redirect_to lists_path, notice: 'Lista criada com sucesso.'
+      redirect_to lists_path, notice: "Lista criada com sucesso."
     else
       render :new, status: :unprocessable_entity
     end
@@ -66,7 +66,7 @@ class ListsController < ApplicationController
   # PATCH/PUT /lists/1
   def update
     if @list.update(list_params)
-      redirect_to @list, notice: 'Lista atualizada com sucesso.'
+      redirect_to @list, notice: "Lista atualizada com sucesso."
     else
       render :edit
     end
@@ -75,7 +75,7 @@ class ListsController < ApplicationController
   # DELETE /lists/1
   def destroy
     @list.destroy
-    redirect_to lists_url, notice: 'Lista excluída com sucesso.'
+    redirect_to lists_url, notice: "Lista excluída com sucesso."
   end
 
   def share
@@ -118,7 +118,7 @@ class ListsController < ApplicationController
     begin
       # Verificar permissão mais cedo para dar feedback melhor
       unless @list.owner == current_user
-        redirect_to @list, alert: 'Apenas o dono da lista pode reiniciá-la.'
+        redirect_to @list, alert: "Apenas o dono da lista pode reiniciá-la."
         return
       end
 
@@ -127,7 +127,7 @@ class ListsController < ApplicationController
       respond_to do |format|
         format.html {
           redirect_to @list,
-          notice: 'Lista reiniciada com sucesso. Todos os itens foram marcados como não comprados.'
+          notice: "Lista reiniciada com sucesso. Todos os itens foram marcados como não comprados."
         }
         format.json { render json: { success: true }, status: :ok }
       end
@@ -135,9 +135,9 @@ class ListsController < ApplicationController
       respond_to do |format|
         format.html {
           redirect_to @list,
-          alert: 'Você não tem permissão para reiniciar esta lista. Apenas o dono pode realizar esta ação.'
+          alert: "Você não tem permissão para reiniciar esta lista. Apenas o dono pode realizar esta ação."
         }
-        format.json { render json: { error: 'Falta de permissão' }, status: :forbidden }
+        format.json { render json: { error: "Falta de permissão" }, status: :forbidden }
       end
     rescue StandardError => e
       Rails.logger.error "Erro ao resetar lista #{@list.id}: #{e.message}"
@@ -164,7 +164,7 @@ class ListsController < ApplicationController
 
   def list_params
     params.require(:list).permit(:name,
-      items_attributes: [:id, :name, :quantity, :preco, :tag, :quantidade_comprada, :_destroy]
+      items_attributes: [ :id, :name, :quantity, :preco, :tag, :quantidade_comprada, :_destroy ]
     )
   end
 end

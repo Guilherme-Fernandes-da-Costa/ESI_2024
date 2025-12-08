@@ -11,7 +11,7 @@ RSpec.describe ListsController, type: :controller do
     it "assigns all lists as @lists" do
       list = create(:list)
       get :index
-      expect(assigns(:lists)).to eq([list])
+      expect(assigns(:lists)).to eq([ list ])
     end
   end
 

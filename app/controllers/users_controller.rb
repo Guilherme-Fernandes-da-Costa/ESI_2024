@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to lists_path, notice: 'Conta criada com sucesso!'
+      redirect_to lists_path, notice: "Conta criada com sucesso!"
     else
       render :new, status: :unprocessable_entity
     end

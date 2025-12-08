@@ -1,7 +1,7 @@
 # app/models/item.rb
 class Item < ApplicationRecord
   belongs_to :list
-  belongs_to :added_by, class_name: 'User', optional: true
+  belongs_to :added_by, class_name: "User", optional: true
 
   validates :name, presence: true
   validates :preco, numericality: { greater_than_or_equal_to: 0 }
