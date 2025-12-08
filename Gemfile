@@ -42,6 +42,7 @@ group :development, :test do
   gem "cucumber-rails", require: false
   gem "capybara"
   gem "database_cleaner-active_record"
+  gem "selenium-webdriver"
   # ---- GITHUB ACTIONS / CI ----
   gem "brakeman", require: false
   gem "rubocop", require: false
@@ -59,10 +60,5 @@ end
 
 group :development do
   gem "web-console"
-end
-
-# ---------- TESTES E2E ----------
-group :test do
-  gem "selenium-webdriver"
-  # (capybara já está no grupo acima)
+  
 end

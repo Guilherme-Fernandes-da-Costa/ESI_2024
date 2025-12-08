@@ -4,6 +4,7 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   # Cria um objeto List para ser associado aos Items
   let(:list) { List.create!(name: "Minha Lista de Teste") }
+  let(:user) { User.create!(email: "item_spec@test.com", name: "Spec User", password: "password123") }
 
   it "é válido com nome e lista" do
     item = Item.new(name: "Pão", list: list)
@@ -37,7 +38,6 @@ RSpec.describe Item, type: :model do
   # Este teste usa FactoryBot. Certifique-se de que FactoryBot esteja configurado.
   describe ".grouped_by_tag" do
     before do
-      user = User.create!(email: 'item_spec@test', name: 'Spec User')
       Item.create!(name: "Maçã", tag: "horti-fruit", list: list, added_by: user)
       Item.create!(name: "Carne", tag: "carne", list: list, added_by: user)
       Item.create!(name: "Pão", tag: "padaria", list: list, added_by: user)

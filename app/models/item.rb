@@ -12,7 +12,7 @@ class Item < ApplicationRecord
     message: "não pode ser maior que a quantidade total"
   }, allow_nil: true
 
-  scope :grouped_by_tag, -> { order("tag ASC NULLS LAST") }
+  scope :grouped_by_tag, -> { order(Arel.sql("tag ASC NULLS LAST")) }
 
   # Verifica se está totalmente comprado
   def totalmente_comprado?
