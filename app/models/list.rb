@@ -9,6 +9,7 @@ class List < ApplicationRecord
 
   # Validações (mínimas):
   validates :name, presence: true
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
   # Compatibilidade com specs/fixtures em português
   def nome
@@ -20,13 +21,25 @@ class List < ApplicationRecord
   end
 
   # Reinicia a lista: apenas o owner (organizador) pode executar
-  # by: User que está solicitando a ação
   def reset!(by:)
     raise PermissionDenied unless by == owner
 
     # Transação para garantir consistência
     transaction do
-      items.destroy_all
+      # Primeiro, vamos verificar se há itens
+      Rails.logger.info "Resetando lista #{id}: #{items.count} itens encontrados"
+
+      # Em vez de destroy_all, vamos fazer update para manter os itens mas zerar as quantidades
+      items.each do |item|
+        item.update!(
+          comprado: false,
+          quantidade_comprada: 0
+        )
+        Rails.logger.info "Item #{item.id} resetado"
+      end
+
+      # Se preferir realmente apagar os itens, use:
+      # items.destroy_all
     end
 
     true

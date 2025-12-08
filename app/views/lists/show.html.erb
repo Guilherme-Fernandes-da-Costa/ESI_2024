@@ -1,45 +1,167 @@
+
 <h1><%= @list.name %></h1>
 
-<div class="sorting-options">
-  <button id="ordenar-lista-button">Ordenar Lista</button>
-  <div class="opcoes-tags" style="display:none;">
-    <% @available_tags.each do |tag| %>
-      <%= link_to tag, list_path(@list, order: tag) %>
-    <% end %>
-    
-    <%= link_to "Agrupar", list_path(@list, order: 'agrupar') %>
-    <%= link_to "Desagrupar", list_path(@list, order: 'desagrupar') %>
-  </div>
-</div>
-
-<ul>
-  <% @items.each do |item| %>
-    <li>
-      <%= item.name %> 
-      <% if item.tag.present? %>
-        <span class="tag-item">(<%= item.tag %>)</span>
+<% if @items.any? %>
+  <div class="sorting-options">
+    <button id="ordenar-lista-button">Ordenar Lista</button>
+    <div class="opcoes-tags" style="display:none;">
+      <% if @available_tags.any? %>
+        <% @available_tags.each do |tag| %>
+          <%= link_to tag, list_path(@list, order: tag) %>
+        <% end %>
       <% end %>
-    </li>
-  <% end %>
-</ul>
 
-<div class="area-total">
-  <h2>Total</h2>
-  <p class="valor-total">
-    <%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %>
-  </p>
+      <%= link_to "Agrupar", list_path(@list, order: 'agrupar') %>
+      <%= link_to "Desagrupar", list_path(@list, order: 'desagrupar') %>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Preço Unitário</th>
+        <th>Quantidade</th>
+        <th>Quantidade Comprada</th>
+        <th>Falta Comprar</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr id="item-<%= item.id %>">
+          <td>
+            <strong><%= item.name %></strong>
+            <% if item.tag.present? %>
+              <br><small class="text-muted">(<%= item.tag %>)</small>
+            <% end %>
+          </td>
+          <td>
+            <%= number_to_currency(item.preco, unit: "R$ ", separator: ",", delimiter: ".") %>
+          </td>
+          <td><%= item.quantity %></td> <!-- LINHA CORRIGIDA -->
+          <td>
+            <div class="quantity-control">
+              <%= form_with(model: item, url: list_item_path(@list, item), method: :patch,
+                  data: { remote: true }, class: "quantity-form") do |f| %>
+                <%= f.number_field :quantidade_comprada, value: item.quantidade_comprada || 0,
+                    min: 0, max: item.quantity, class: "form-control form-control-sm",
+                    style: "width: 80px; display: inline;" %>
+                <%= f.submit "✓", class: "btn btn-sm btn-success", title: "Atualizar" %>
+              <% end %>
+            </div>
+          </td>
+          <td>
+            <% falta_comprar = item.quantity - (item.quantidade_comprada || 0) %> <!-- LINHA CORRIGIDA -->
+            <span class="badge <%= falta_comprar > 0 ? 'bg-warning' : 'bg-success' %>">
+              <%= falta_comprar %>
+            </span>
+          </td>
+          <td>
+            <%= number_to_currency(item.quantity * item.preco, unit: "R$ ", separator: ",", delimiter: ".") %> <!-- LINHA CORRIGIDA -->
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr class="table-info">
+        <td colspan="3" class="text-end"><strong>Totais:</strong></td>
+        <td><strong><%= @items.sum(:quantidade_comprada) || 0 %></strong></td>
+        <td><strong><%= @items.sum(:quantity) - (@items.sum(:quantidade_comprada) || 0) %></strong></td> <!-- LINHA CORRIGIDA -->
+        <td><strong><%= number_to_currency(@total_estimado, unit: "R$ ", separator: ",", delimiter: ".") %></strong></td>
+      </tr>
+    </tfoot>
+  </table>
+<% else %>
+  <div class="alert alert-info">
+    Esta lista ainda não tem itens.
+  </div>
+<% end %>
+
+<% if @list.owner == current_user || @list.shared_users.include?(current_user) %>
+  <div class="card mt-4">
+    <div class="card-header">
+      <h5 class="mb-0">Compartilhamento</h5>
+    </div>
+    <div class="card-body">
+      <% if @list.owner == current_user %>
+        <p class="card-text">
+          <strong>Dono:</strong> Você<br>
+          <strong>Usuários com acesso:</strong>
+          <%= @list.shared_users.count + 1 %>
+          (você + <%= @list.shared_users.count %> usuário(s))
+        </p>
+
+        <ul class="list-unstyled mb-3">
+          <li><strong>• <%= current_user.email %></strong> (você - dono)</li>
+          <% @list.shared_users.each do |user| %>
+            <li>• <%= user.email %></li>
+          <% end %>
+        </ul>
+
+        <%= link_to "Gerenciar compartilhamento", edit_list_path(@list),
+            class: "btn btn-outline-primary btn-sm" %>
+      <% else %>
+        <p class="card-text">
+          <strong>Dono:</strong> <%= @list.owner.email %><br>
+          <strong>Compartilhado com você por:</strong> <%= @list.owner.email %>
+        </p>
+        <p class="text-muted">
+          <small>Você tem permissão para editar quantidades nesta lista.</small>
+        </p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+<% if @list.owner == current_user %>
+  <hr class="my-4 border-warning">
+
+  <div class="card border-warning">
+    <div class="card-header bg-warning text-dark">
+      <h5 class="mb-0">🔄 Reiniciar Lista</h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Esta ação irá:</strong>
+      </p>
+      <ul>
+        <li>Marcar todos os itens como <strong>não comprados</strong></li>
+        <li>Zerar a quantidade comprada de todos os itens</li>
+        <li>Manter os itens na lista</li>
+      </ul>
+      <p class="text-muted">
+        <small>Use esta ação quando quiser começar uma nova rodada de compras com os mesmos itens.</small>
+      </p>
+
+      <div class="d-grid gap-2 d-md-block">
+        <%= button_to "🔄 Reiniciar Lista Agora",
+            reset_list_path(@list),
+            method: :post,
+            data: {
+              confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados.",
+              turbo_confirm: "Tem certeza que deseja reiniciar a lista '#{@list.name}'?\n\nTodos os itens serão marcados como não comprados.",
+              disable_with: "Reiniciando..."
+            },
+            class: "btn btn-warning btn-lg",
+            form_class: "d-inline" %>
+
+        <%= link_to "✏️ Editar Lista", edit_list_path(@list), class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="mt-4">
+  <%= link_to "Adicionar Novo Item", new_list_item_path(@list), class: "btn btn-primary" %>
+  <%= link_to "Voltar para Listas", lists_path, class: "btn btn-secondary" %>
 </div>
-
-<%= link_to "Adicionar Novo Item", new_list_item_path(@list) %>
 
 <script>
-  document.getElementById('ordenar-lista-button').addEventListener('click', function() {
+  document.getElementById('ordenar-lista-button')?.addEventListener('click', function() {
     var opcoes = document.querySelector('.opcoes-tags');
-    // Mude a lógica para remover o display:none, ou usar uma classe 'visible'
     if (opcoes.style.display === 'none') {
-        opcoes.style.display = 'block';
+      opcoes.style.display = 'block';
     } else {
-        opcoes.style.display = 'none';
+      opcoes.style.display = 'none';
     }
   });
 </script>

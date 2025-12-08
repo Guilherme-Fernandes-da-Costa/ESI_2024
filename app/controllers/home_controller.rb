@@ -1,5 +1,10 @@
+# app/controllers/home_controller.rb
 class HomeController < ApplicationController
   def index
-    render plain: "OK" # simples resposta 200; você pode alterar para renderizar view
+    if logged_in?
+      redirect_to lists_path
+    else
+      redirect_to login_path
+    end
   end
 end
