@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :require_login
   before_action :set_list
-  before_action :set_item, only: [:toggle_comprado, :update]
+  before_action :set_item, only: [ :toggle_comprado, :update ]
 
   # GET /lists/:list_id/items
   # Como a rota :index existe, você pode querer implementar esta action
@@ -37,12 +37,12 @@ class ItemsController < ApplicationController
   def update
       if @item.update(item_params)
         respond_to do |format|
-          format.html { redirect_to list_path(@list), notice: 'Item atualizado com sucesso.' }
+          format.html { redirect_to list_path(@list), notice: "Item atualizado com sucesso." }
           format.js   # Isso renderizará update.js.erb para atualização AJAX
         end
       else
         respond_to do |format|
-          format.html { redirect_to list_path(@list), alert: 'Não foi possível atualizar o item.' }
+          format.html { redirect_to list_path(@list), alert: "Não foi possível atualizar o item." }
           format.js { render json: { error: @item.errors.full_messages }, status: :unprocessable_entity }
         end
       end

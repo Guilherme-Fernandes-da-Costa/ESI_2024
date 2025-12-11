@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Exibir preços dos itens', type: :request do
-  let(:user)  { User.create!(email: 'test@spec.local', name: 'Spec User') }
+  let(:user)  { User.create!(email: 'test@spec.local', name: 'Spec User', password: 'password123') }
   let(:lista) { List.create!(name: 'Compras do Mês', owner: user) }
 
   before do

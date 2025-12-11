@@ -1,145 +1,370 @@
-<h1>Minhas Listas de Compras</h1>
+<style>
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    margin: 0;
+  }
 
-<div class="actions mb-4 d-flex justify-content-between">
-  <%= link_to '➕ Nova Lista', new_list_path, class: 'btn btn-primary' %>
-  <div>
-    <span class="me-3 text-muted">Logado como: <strong><%= current_user.email %></strong></span>
-    <%= button_to '🚪 Sair', logout_path, method: :delete, class: 'btn btn-outline-danger' %>
-  </div>
-</div>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-<% if @owned_lists.any? || @shared_lists.any? %>
-  <div class="row">
-    <!-- Listas do Usuário (Owner) -->
-    <% if @owned_lists.any? %>
-      <div class="col-md-6 mb-4">
-        <div class="card border-primary">
-          <div class="card-header bg-primary text-white">
-            <h2 class="h4 mb-0">Minhas Listas</h2>
-            <small class="opacity-75">Listas que você criou</small>
-          </div>
-          <div class="card-body p-0">
-            <div class="list-group list-group-flush">
-              <% @owned_lists.each do |list| %>
-                <div class="list-group-item">
-                  <div class="d-flex w-100 justify-content-between align-items-center">
-                    <div class="flex-grow-1">
-                      <h5 class="mb-1">
-                        <%= link_to list.name, list_path(list), class: 'text-decoration-none text-dark' %>
-                      </h5>
-                      <div class="mb-2">
-                        <% if list.shared_users.any? %>
-                          <span class="badge bg-info me-1">Compartilhada</span>
-                        <% else %>
-                          <span class="badge bg-secondary me-1">Privada</span>
-                        <% end %>
-                        <span class="badge bg-light text-dark border">
-                          <%= pluralize(list.items.count, 'item') %>
-                        </span>
-                      </div>
-                      <small class="text-muted">
-                        Criada <%= time_ago_in_words(list.created_at) %> atrás
-                      </small>
-                    </div>
-                    <div class="btn-group btn-group-sm">
-                      <%= link_to "📋", list_path(list), class: "btn btn-outline-primary", title: "Visualizar" %>
-                      <%= link_to "✏️", edit_list_path(list), class: "btn btn-outline-secondary", title: "Editar" %>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% else %>
-      <div class="col-md-6 mb-4">
-        <div class="card border-light">
-          <div class="card-body text-center py-5">
-            <h3 class="text-muted">📭</h3>
-            <h4 class="text-muted mb-3">Você ainda não criou listas</h4>
-            <p class="text-muted mb-4">Crie sua primeira lista de compras!</p>
-            <%= link_to 'Criar Primeira Lista', new_list_path, class: 'btn btn-primary' %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+  .header {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    <!-- Listas Compartilhadas -->
-    <% if @shared_lists.any? %>
-      <div class="col-md-6 mb-4">
-        <div class="card border-success">
-          <div class="card-header bg-success text-white">
-            <h2 class="h4 mb-0">Listas Compartilhadas Comigo</h2>
-            <small class="opacity-75">Listas que outros usuários compartilharam com você</small>
-          </div>
-          <div class="card-body p-0">
-            <div class="list-group list-group-flush">
-              <% @shared_lists.each do |list| %>
-                <div class="list-group-item">
-                  <div class="d-flex w-100 justify-content-between align-items-center">
-                    <div class="flex-grow-1">
-                      <h5 class="mb-1">
-                        <%= link_to list.name, list_path(list), class: 'text-decoration-none text-dark' %>
-                      </h5>
-                      <div class="mb-2">
-                        <span class="badge bg-success me-1">Compartilhada</span>
-                        <span class="badge bg-light text-dark border">
-                          <%= pluralize(list.items.count, 'item') %>
-                        </span>
-                      </div>
-                      <div>
-                        <small class="text-muted d-block">
-                          <strong>Compartilhada por:</strong> <%= list.owner.email %>
-                        </small>
-                        <small class="text-muted">
-                          Última atualização: <%= time_ago_in_words(list.updated_at) %> atrás
-                        </small>
-                      </div>
-                    </div>
-                    <div>
-                      <%= link_to "📋", list_path(list), class: "btn btn-outline-success btn-sm", title: "Visualizar" %>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
+  .weshop-title {
+    color: #2575fc;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .user-email {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .user-email strong {
+    color: #2575fc;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: #2575fc;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1c64e0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 117, 252, 0.3);
+  }
+
+  .btn-secondary {
+    background: #6a11cb;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background: #590da3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
+  }
+
+  .btn-outline {
+    background: white;
+    color: #2575fc;
+    border: 1px solid #2575fc;
+  }
+
+  .btn-outline:hover {
+    background: #f0f5ff;
+  }
+
+  .btn-danger {
+    background: #e74c3c;
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  }
+
+  .lists-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #eaeaea;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-header {
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    color: white;
+  }
+
+  .card-header h3 {
+    margin: 0;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .list-info {
+    margin-bottom: 20px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+
+  .badge-primary {
+    background: #e3f2fd;
+    color: #2575fc;
+  }
+
+  .badge-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  .badge-secondary {
+    background: #f5f5f5;
+    color: #666;
+  }
+
+  .badge-light {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #dee2e6;
+  }
+
+  .list-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 13px;
+    color: #666;
+  }
+
+  .list-owner {
+    font-size: 13px;
+    color: #666;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+  }
+
+  .list-owner strong {
+    color: #333;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .card-actions .btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    background: white;
+    border-radius: 12px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .empty-state-icon {
+    font-size: 60px;
+    color: #c3cfe2;
+    margin-bottom: 20px;
+  }
+
+  .empty-state h2 {
+    color: #666;
+    margin-bottom: 15px;
+  }
+
+  .empty-state p {
+    color: #999;
+    margin-bottom: 25px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .empty-state .btn {
+    margin: 0 5px;
+  }
+
+  .page-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .lists-container {
+      grid-template-columns: 1fr;
+    }
+
+    .header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+
+    .user-info {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .empty-state {
+      padding: 40px 20px;
+    }
+  }
+</style>
+
+<div class="container">
+  <!-- Cabeçalho -->
+  <div class="header">
+    <h1 class="weshop-title">Weshop</h1>
+    <div class="user-info">
+      <div class="user-email">
+        Logado como: <strong><%= current_user.email %></strong>
       </div>
-    <% else %>
-      <div class="col-md-6 mb-4">
-        <div class="card border-light">
-          <div class="card-body text-center py-5">
-            <h3 class="text-muted">🤝</h3>
-            <h4 class="text-muted mb-3">Nenhuma lista compartilhada</h4>
-            <p class="text-muted mb-4">Outros usuários podem compartilhar listas com você!</p>
-            <small class="text-muted">Peça para compartilharem usando seu email: <strong><%= current_user.email %></strong></small>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <!-- Estado vazio completo -->
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card border-light shadow-sm">
-        <div class="card-body text-center py-5">
-          <div class="mb-4">
-            <h1 class="display-1 text-muted">🛒</h1>
-          </div>
-          <h2 class="text-muted mb-3">Bem-vindo ao seu organizador de compras!</h2>
-          <p class="text-muted mb-4 lead">
-            Organize suas listas de compras, compartilhe com familiares e amigos,<br>
-            e mantenha tudo sincronizado.
-          </p>
-          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <%= link_to '➕ Criar Primeira Lista', new_list_path, class: 'btn btn-primary btn-lg px-4' %>
-            <%= link_to '🚪 Sair', logout_path, method: :delete, class: 'btn btn-outline-secondary btn-lg px-4' %>
-          </div>
-        </div>
+      <div class="button-group">
+        <%= link_to '👥 Amigos', friends_path, class: 'btn btn-secondary' %>
+        <%= link_to '➕ Nova Lista', new_list_path, class: 'btn btn-primary' %>
+        <%= button_to '🚪 Sair', logout_path, method: :delete, class: 'btn btn-danger', form: { style: 'display: inline;' } %>
       </div>
     </div>
   </div>
-<% end %>
+
+  <!-- Título da página -->
+  <h1 class="page-title">Minhas Listas de Compras</h1>
+
+  <!-- Listas -->
+  <% if @owned_lists.any? || @shared_lists.any? %>
+    <div class="lists-container">
+      <!-- Listas do Usuário (Owner) -->
+      <% if @owned_lists.any? %>
+        <% @owned_lists.each do |list| %>
+          <div class="card">
+            <div class="card-header">
+              <h3>
+                <%= list.name %>
+                <% if list.shared_users.any? %>
+                  <span class="badge badge-success">Compartilhada</span>
+                <% else %>
+                  <span class="badge badge-primary">Privada</span>
+                <% end %>
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="list-info">
+                <div class="list-stats">
+                  <span>📋 <%= pluralize(list.items.count, 'item') %></span>
+                  <span>Criada há <%= time_ago_in_words(list.created_at) %></span>
+                </div>
+              </div>
+              <div class="list-owner">
+                <strong>👤 Criada por você</strong>
+              </div>
+              <div class="card-actions">
+                <%= link_to "📋 Ver", list_path(list), class: "btn btn-outline" %>
+                <%= link_to "✏️ Editar", edit_list_path(list), class: "btn btn-outline" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <!-- Listas Compartilhadas -->
+      <% if @shared_lists.any? %>
+        <% @shared_lists.each do |list| %>
+          <div class="card">
+            <div class="card-header">
+              <h3>
+                <%= list.name %>
+                <span class="badge badge-success">Compartilhada</span>
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="list-info">
+                <div class="list-stats">
+                  <span>📋 <%= pluralize(list.items.count, 'item') %></span>
+                  <span>Atualizada há <%= time_ago_in_words(list.updated_at) %></span>
+                </div>
+              </div>
+              <div class="list-owner">
+                <strong>👤 Compartilhada por:</strong> <%= list.owner.email %>
+              </div>
+              <div class="card-actions">
+                <%= link_to "📋 Ver", list_path(list), class: "btn btn-outline" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <!-- Estado vazio -->
+    <div class="empty-state">
+      <div class="empty-state-icon">🛒</div>
+      <h2>Bem-vindo ao Weshop!</h2>
+      <p>
+        Organize suas listas de compras, compartilhe com familiares e amigos,<br>
+        e mantenha tudo sincronizado em um só lugar.
+      </p>
+      <div>
+        <%= link_to '➕ Criar Primeira Lista', new_list_path, class: 'btn btn-primary' %>
+        <%= link_to '👥 Ver Amigos', friends_path, class: 'btn btn-secondary' %>
+      </div>
+    </div>
+  <% end %>
+</div>

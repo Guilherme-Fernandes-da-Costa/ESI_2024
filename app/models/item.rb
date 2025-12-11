@@ -1,7 +1,7 @@
 # app/models/item.rb
 class Item < ApplicationRecord
   belongs_to :list
-  belongs_to :added_by, class_name: 'User', optional: true
+  belongs_to :added_by, class_name: "User", optional: true
 
   validates :name, presence: true
   validates :preco, numericality: { greater_than_or_equal_to: 0 }
@@ -12,7 +12,7 @@ class Item < ApplicationRecord
     message: "não pode ser maior que a quantidade total"
   }, allow_nil: true
 
-  scope :grouped_by_tag, -> { order("tag ASC NULLS LAST") }
+  scope :grouped_by_tag, -> { order(Arel.sql("tag ASC NULLS LAST")) }
 
   # Verifica se está totalmente comprado
   def totalmente_comprado?
