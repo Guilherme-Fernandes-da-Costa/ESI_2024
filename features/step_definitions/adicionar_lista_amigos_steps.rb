@@ -9,7 +9,7 @@ Quando('{string} apertar no botão {string}') do |nome, botao|
   @acao_adicionar = true
 end
 
-Então('deve aparecer o cadastro de um amigo para a sua lista, se ele existir será adicionado à lista') do
+Então('deve aparecer o cadastro de um amigo para a sua lista') do
   expect(@acao_adicionar).to be_truthy
   amigo = 'NovoAmigo'
   unless @lista_amigos.include?(amigo)
