@@ -5,7 +5,7 @@ Funcionalidade: lista de amigos
     Como um usuário
     Eu quero adicionar um usuário numa lista de amigos
     
-    Cenário: Adicionar um novo usuario a lista de amigos
-        Dado que "Maria" é um usuário
-        Quando "Maria" apertar no botão "Adicionar Amigo"
-        Então o deve aparecer o cadastro de um amigo para a sua lista
+Cenário: Adicionar um novo usuario a lista de amigos
+    Dado que "Maria" é um usuário
+    Quando "Maria" apertar no botão "Adicionar Amigo"
+    Então deve aparecer o cadastro de um amigo para a sua lista

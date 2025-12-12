@@ -38,3 +38,7 @@
 .qlty/
 .qlty.toml  # Config local, se não quiser versionar
 .qlty/cache/
+
+venv/
+.env/
+.venv/
