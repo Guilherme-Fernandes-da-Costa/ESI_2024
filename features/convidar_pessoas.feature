@@ -1,13 +1,13 @@
 #language: pt
 
-Funcianalidade: Convidar outras pessoas
+Funcionalidade: Convidar outras pessoas
 	Como um membro de uma família
 	Eu quero convidar outras pessoas
 	De forma que todos possam contribuir e ver o que está faltando ou já foi comprado
 
 
 Cenário: Convidar um usuário por email
-	Dado Eu estou logado como usuário
+	Dado eu estou logado como usuário
 	E eu tenho uma lista existente chamada "Lista Compartilhada"
 	Quando Eu visito a página da lista "Lista Compartilhada"
 	E eu clico em "Convidar Pessoas"
