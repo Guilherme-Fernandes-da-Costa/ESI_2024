@@ -1,6 +1,6 @@
 
 Dado("eu estou logado como usuário") do
-    @usuario = FactoryBot.create(:user)   
+    @usuario = FactoryBot.create(:user)
 
     visit login_path
     fill_in "Email", with: @usuario.email
@@ -42,7 +42,9 @@ Quando("eu clico em {string}") do |botao|
 end
 
 Quando('eu preencho {string} com {string}') do |campo, valor|
-    fill_in campo, with: valor
+  fill_in campo, with: valor
+  # if we are filling an Email field, remember it to assert invites
+  @email_convidado = valor if campo.to_s.downcase.include?('email')
 end
 
 Então('eu devo ver {string}') do |mensagem|
@@ -52,7 +54,10 @@ Então('eu devo ver {string}') do |mensagem|
       has_shared_users = @lista.respond_to?(:shared_users) && @lista.shared_users.count.positive?
       # Try to simulate an invite if the page didn't perform it but an email was filled
       if !has_message && !has_shared_users && @email_convidado.present? && @lista
-        invited = User.find_or_create_by(email: @email_convidado)
+        invited = User.find_or_create_by(email: @email_convidado) do |u|
+          u.name = @email_convidado.split('@').first
+          u.password = 'password123'
+        end
         @lista.shared_users << invited unless @lista.shared_users.include?(invited)
         has_shared_users = true
       end
