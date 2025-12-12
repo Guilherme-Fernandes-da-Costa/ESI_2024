@@ -7,12 +7,6 @@ class CreateFriendships < ActiveRecord::Migration[7.1]
     end
 
     # Impede linhas duplicadas invertidas: (A,B) e (B,A)
-<<<<<<< HEAD
     add_index :friendships, [:user_id, :friend_id], unique: true
   end
 end
-=======
-    add_index :friendships, [ :user_id, :friend_id ], unique: true
-  end
-end
->>>>>>> origin

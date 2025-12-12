@@ -10,14 +10,14 @@ end
 
 Dado("{string} já está na lista") do |item|
   # Create list and item via DB to avoid UI dependencies
-  @user ||= User.find_or_create_by(email: 'test@example.com') { |u| u.name = 'Teste' }
+  @user ||= FactoryBot.create(:user)
   @list ||= List.create!(name: 'Lista de Teste', owner: @user)
   @list.items.create!(name: item, added_by: @user, preco: 0.0)
 end
 
 Quando("{string} tenta adicionar {string} à lista") do |usuario, item|
   # Non-JS approach: modify DB when authorized, otherwise flag as denied
-  @user ||= User.find_or_create_by(email: "#{usuario.downcase}@example.com") { |u| u.name = usuario }
+  @user ||= FactoryBot.create(:user, email: "#{usuario.downcase}@example.com")
   @list ||= List.create!(name: 'Lista de Teste', owner: @user)
   if @autorizado
     @list.items.create!(name: item, added_by: @user, preco: 0.0)
@@ -28,7 +28,7 @@ Quando("{string} tenta adicionar {string} à lista") do |usuario, item|
 end
 
 Quando("{string} remove {string}") do |usuario, item|
-  @user ||= User.find_or_create_by(email: "#{usuario.downcase}@example.com") { |u| u.name = usuario }
+  @user ||= FactoryBot.create(:user, email: "#{usuario.downcase}@example.com")
   @list ||= List.create!(name: 'Lista de Teste', owner: @user)
   if @autorizado
     found = @list.items.find_by(name: item)
