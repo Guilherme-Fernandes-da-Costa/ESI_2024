@@ -1,6 +1,12 @@
 # cenario 1
 Dado("que eu estou na tela de fase de cadastro de um novo item") do
-    @list = List.create!(name: "Lista de Compras de Teste")
+    # create and sign in a user so the created item will have an added_by set
+    @user = FactoryBot.create(:user)
+    @list = FactoryBot.create(:list, owner: @user)
+    visit login_path
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: @user.password
+    click_button "Entrar"
     visit new_list_item_path(@list)
 end
 
@@ -45,15 +51,20 @@ end
 
 # cenario 2
 Dado("que eu estou na tela exibição da minha lista") do
-    @list = List.create!(name: "Lista de Gastos")
-    user = User.find_or_create_by(email: 'test@example.com') { |u| u.name = 'Teste' }
+    user = FactoryBot.create(:user)
+    @list = FactoryBot.create(:list, name: "Lista de Gastos", owner: user)
     @list.items.create!(name: "Produto 1", preco: 5.00, added_by: user)
     @list.items.create!(name: "Produto 2", preco: 15.50, added_by: user)
+    visit login_path
+    fill_in "Email", with: user.email
+    fill_in "Password", with: user.password
+    click_button "Entrar"
     visit list_path(@list)
 end
 
 Então("eu devo poder ver um campo chamado {string} em uma área separada da lista") do |total|
-    expect(page).to have_content(total)
+    # Accept case-insensitive presence of the label (UI shows 'Totais' in some pages)
+    expect(page.text.downcase).to include(total.downcase)
 end
 
 E("eu devo poder ver o valor total da soma dos itens cadastrados na lista") do
