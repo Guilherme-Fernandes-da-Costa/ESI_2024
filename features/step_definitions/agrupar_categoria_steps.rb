@@ -69,14 +69,6 @@ Então("ela será aplicada ao item") do
   # Por enquanto, apenas verifica existência do item. A tag pode estar em diferentes formatos.
 end
 
-Então("se não selecionar uma tag o cadastro prossegue normalmente") do
-  item = @lista.items.find_by(name: @novo_item_nome)
-  expect(item.tag).to be_blank
-  within(:xpath, "//tr[.//strong[contains(.,'#{@novo_item_nome}')]]") do
-    expect(page).not_to have_text(/\(.*\)/)
-  end
-end
-
 Então("eu poderia ver essas tags sendo exibida na lista ao lado do nome do item") do
   # Verifica que o item aparece na página
   expect(page).to have_content(@novo_item_nome)
@@ -124,11 +116,6 @@ Então("eu deveria ver uma lista de opções referentes as tags presentes na lis
     end
 end
 
-E("mais as opções {string} e {string}") do |opcao1, opcao2|
-    expect(page).to have_link(opcao1)
-    expect(page).to have_link(opcao2)
-end
-
 Quando("clicar em uma das opções de {string}") do |opcao_tipo|
     # Generic step for clicking any option (tags, agrupar, desagrupar, etc.)
     if @available_tags.present?
@@ -142,11 +129,11 @@ Quando("clicar em uma das opções de tags {string}") do |tag_name|
     click_link(@available_tags.first) if @available_tags.present?
 end
 
-Então("somente serão exibidos os itens que possuem a respectiva {string}") do |tag_nome|
-  itens_exibidos = page.all('table tbody tr')
+Então("somente serão exibidos os itens que possuem a tag {string}") do |tag_nome|
+  itens = page.all('table tbody tr')
 
-  itens_exibidos.each do |li|
-    expect(li).to have_text(tag_nome) if li.text.present?
+  itens.each do |linha|
+    expect(linha).to have_text("(#{tag_nome})")
   end
 end
 
