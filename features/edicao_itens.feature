@@ -11,11 +11,11 @@ Cenário: Adicionar um novo item
 	Então eu devo ver "Arroz" na lista de compras
 
 Cenário: Editar um item existente
-    Dado que existe o item "Arroz" na lista
+    Dado que exista o item "Arroz" na lista
     Quando eu edito "Arroz" para "Arroz Integral"
     Então eu devo ver "Arroz Integral" na lista
 
 Cenário: Remover um item da lista
-    Dado que existe o item "Arroz Integral" na lista
+    Dado que exista o item "Arroz Integral" na lista
     Quando eu removo "Arroz Integral"
     Então eu não devo ver "Arroz Integral" na lista

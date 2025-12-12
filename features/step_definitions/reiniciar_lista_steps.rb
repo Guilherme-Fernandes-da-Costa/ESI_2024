@@ -13,10 +13,6 @@ Dado('que {string} não é um organizador') do |nome|
     visit list_path(@lista)
 end
 
-Quando('{string} apertar no botão {string}') do |nome, botao|
-    click_on botao
-end
-
 Então('a lista deve aparecer vazia \(sem itens).') do
     expect(@lista.items.reload.count).to eq(0)
 end

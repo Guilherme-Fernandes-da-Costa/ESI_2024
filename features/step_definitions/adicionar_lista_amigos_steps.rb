@@ -3,12 +3,6 @@ Dado('que {string} é um usuário') do |nome|
   @lista_amigos = []
 end
 
-Quando('{string} apertar no botão {string}') do |nome, botao|
-  expect(@usuario).to eq(nome)
-  expect(botao).to eq('Adicionar Amigo')
-  @acao_adicionar = true
-end
-
 Então('deve aparecer o cadastro de um amigo para a sua lista') do
   expect(@acao_adicionar).to be_truthy
   amigo = 'NovoAmigo'

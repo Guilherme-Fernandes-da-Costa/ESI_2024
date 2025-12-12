@@ -10,7 +10,7 @@ Dado("que estou na página da lista de compras") do
     visit list_path(@lista)
 end
 
-Dado("que existe o item {string} na lista") do |nome|
+Dado("que exista o item {string} na lista") do |nome|
     @usuario ||= FactoryBot.create(:user)
     @lista   ||= FactoryBot.create(:list, owner: @usuario)
 
