@@ -1,5 +1,3 @@
-require_relative '../../app/services/criar_multiplas_listas'
-
 # cenario 1
 Dado("que eu estou na tela de exibição das listas") do
     visit "/lista"
@@ -18,7 +16,7 @@ Então("será reservado um novo slot para essa lista") do
     expect(page).to have_selector(".lista", count: be >= 1)
 end
 
-E("poderia dar o seu respectivo nome") do
+E("poderei dar o seu respectivo nome") do
     fill_in "Nome da lista", with: "Lista de Compras 2"
     click_button "Salvar"
     expect(page).to have_content("Lista de Compras 2")
