@@ -1,12 +1,7 @@
 # config/routes.rb
 Rails.application.routes.draw do
-<<<<<<< HEAD
-  get 'friendships/create'
-  get 'friendships/destroy'
-=======
   get "friendships/create"
   get "friendships/destroy"
->>>>>>> origin
   root "home#index"
 
   # Rotas de autenticação
@@ -30,16 +25,9 @@ Rails.application.routes.draw do
   end
 
   # Rota para o BDD
-<<<<<<< HEAD
-  get 'lista', to: 'lists#index'
-
-  resources :friendships, only: [:create, :destroy]
-  
-=======
   get "lista", to: "lists#index"
 
   resources :friendships, only: [ :create, :destroy ]
 
->>>>>>> origin
   get "/friends", to: "friendships#index", as: "friends"
 end
