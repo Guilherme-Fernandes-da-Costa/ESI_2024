@@ -1,11 +1,11 @@
 #language: pt
 
 Funcionalidade: Compartilhar Lista
-  Como um membro de uma república
-  Eu quero convidar outras pessoas
-  De forma que todos possam contribuir e ver o que está faltando ou já foi comprado
+	Como um membro de uma república
+	Eu quero convidar outras pessoas
+	De forma que todos possam contribuir e ver o que está faltando ou já foi comprado
 
-  Cenário: Compartilhar lista com outra pessoa
+Cenário: Compartilhar lista com outra pessoa
     Dado que estou na página "Compartilhar Lista" para a lista "Compras da República"
     Quando preencho o nome com "Daniel"
     E preencho o email com "danielye3317@gmail.com"
@@ -14,7 +14,7 @@ Funcionalidade: Compartilhar Lista
     Então devo ver a mensagem "Convite enviado com sucesso"
     E devo ver o nome "Daniel" na lista de pessoas convidadas
 
-  Cenário: Compartilhar lista com e-mail inválido
+Cenário: Compartilhar lista com e-mail inválido
     Dado que estou na página "Compartilhar Lista"
     Quando preencho o nome com "Carlos"
     E preencho o email com "email-invalido"
