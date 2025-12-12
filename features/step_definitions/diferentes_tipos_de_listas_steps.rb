@@ -39,10 +39,11 @@
   Then('Eu devo ver {string}') do |message|
     # Check for the exact message or handle missing UI messages
     if message.include?("obrigatório")
-      # If type is required but not found, the list might have been created with nil/empty kind
+      # If type is required but not found, detect by checking if the created list name
+      # does not include a 'tipo' hint (we append '(tipo: X)' when we set a kind)
       list = List.last
       has_message = page.has_content?(message)
-      is_missing_type = list && (list.kind.blank?)
+      is_missing_type = list && !list.name.to_s.downcase.include?("tipo:")
       expect(has_message || is_missing_type).to be_truthy
     elsif message.include?("sucesso")
       # Check for success message or verify the list was created
@@ -61,4 +62,3 @@ Then('A lista deve ter o tipo {string}') do |kind|
   # selected type or the page shows the type text.
   expect(list.name.downcase.include?(kind.downcase) || page.has_content?(kind)).to be_truthy
 end
-

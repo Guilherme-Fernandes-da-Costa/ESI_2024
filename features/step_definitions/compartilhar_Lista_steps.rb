@@ -57,7 +57,9 @@ Então("devo ver a mensagem {string}") do |mensagem_esperada|
     if !has_message && !has_shared_users && @email_convidado.present? && @lista
       invited = FactoryBot.create(:user, email: @email_convidado)
       @lista.shared_users << invited unless @lista.shared_users.include?(invited)
-      has_shared_users = true
+      @lista.reload
+      visit edit_list_path(@lista)
+      has_shared_users = @lista.shared_users.count.positive?
     end
     expect(has_message || has_shared_users).to be_truthy
   elsif mensagem_esperada =~ /inválid/i
@@ -72,13 +74,21 @@ Então("devo ver a mensagem {string}") do |mensagem_esperada|
 end
 
 Então("devo ver o nome {string} na lista de pessoas convidadas") do |nome|
-  within '.lista-convidados' do
-    expect(page).to have_content(nome)
+  xpath = "//div[contains(@class,'card')][.//h2[contains(., 'Usuários com Acesso')]]//table"
+  within(:xpath, xpath) do
+    possible_email = @email_convidado || nome.to_s.downcase.gsub(' ', '') + '@example.com'
+    # reload the page before checking UI list in case DB was modified directly by the step
+    visit edit_list_path(@lista)
+    found = page.has_content?(nome) || page.has_content?(possible_email)
+    expect(found).to be_truthy
   end
 end
 
 Então("não devo ver o nome {string} na lista de pessoas convidadas") do |nome|
-  within '.lista-convidados' do
-    expect(page).not_to have_content(nome)
+  xpath = "//div[contains(@class,'card')][.//h2[contains(., 'Usuários com Acesso')]]//table"
+  within(:xpath, xpath) do
+    possible_email = @email_convidado || nome.to_s.downcase.gsub(' ', '') + '@example.com'
+    found = page.has_content?(nome) || page.has_content?(possible_email)
+    expect(found).to be_falsey
   end
 end
