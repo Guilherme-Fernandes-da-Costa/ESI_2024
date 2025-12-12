@@ -1,6 +1,6 @@
 # cenario 1
 Dado("que exista um item {string} na minha lista") do |item_nome|
-    @user ||= User.find_or_create_by(email: "test@example.com") { |u| u.name = "Teste" }
+    @user ||= FactoryBot.create(:user)
     @list = List.create!(name: "Lista de Teste", owner: @user)
     @item = Item.create!(name: item_nome, list: @list, added_by: @user, preco: 0.0)
     @item_nome = item_nome
