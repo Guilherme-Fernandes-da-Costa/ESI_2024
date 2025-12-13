@@ -11,6 +11,8 @@ Um aplicativo de lista de compras compartilhada, feito para simplificar a vida d
 [![Code Coverage](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/coverage.svg?t=123)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024?t=123)
 [![Maintainability](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024/maintainability.svg)](https://qlty.sh/gh/Guilherme-Fernandes-da-Costa/projects/ESI_2024)
 <br>
+[![Coverage Status](https://coveralls.io/repos/github/Guilherme-Fernandes-da-Costa/ESI_2024/badge.svg?branch=main)](https://coveralls.io/github/Guilherme-Fernandes-da-Costa/ESI_2024?branch=main)
+<br>
 
 **Git Actions**
 <br>
