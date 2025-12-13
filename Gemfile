@@ -43,8 +43,11 @@ group :development, :test do
   gem "database_cleaner-active_record"
 
   # ---- COBERTURA ----
-  gem "simplecov", require: false
-  gem "coveralls", require: false
+  gem 'simplecov', require: false  # Geração de coverage
+  gem 'simplecov-lcov'  # Formato para Coveralls
+  gem 'coveralls', require: false  # Upload para Coveralls
+  gem 'codeclimate-test-reporter', '~> 1.0.0', require: false  # Upload para Code Climate
+  gem 'jasmine-rails'  # Para testes JS, se não tiver
   gem "shoulda-matchers", "~> 5.0"
 end
 
