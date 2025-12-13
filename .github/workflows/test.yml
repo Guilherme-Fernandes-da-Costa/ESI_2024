@@ -1,4 +1,4 @@
-name: Testes e Qualidade
+name: Testes, Cobertura e Qualidade
 
 on:
   push:
@@ -50,15 +50,29 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
         run: bin/rails zeitwerk:check
 
-      - name: Run tests
+      - name: Run RSpec tests with coverage
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
+          COVERALLS: true  # Ativa Coveralls via ENV
         run: bundle exec rspec
+
+      - name: Run Cucumber tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
+        run: bundle exec cucumber
+
+      - name: Upload coverage to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          bundle exec rake simplecov-lcov coverage/lcov.info || true
+          curl -L https://coveralls.io/api/v1/jobs -F json_file=@coverage/lcov.info
 
   quality:
     runs-on: ubuntu-latest
-    needs: tests
+    needs: tests  # Executa após testes
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -77,3 +91,12 @@ jobs:
 
       - name: Lint (RuboCop)
         run: bin/rubocop -f github
+
+      - name: Upload coverage to Code Climate
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter format-coverage coverage/lcov.info --input-type lcov
+          ./cc-test-reporter upload-coverage

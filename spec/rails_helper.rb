@@ -1,4 +1,14 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+equire 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter '/spec/'  # Ignora testes
+  coverage_dir 'coverage'
+end
+
+if ENV['COVERALLS'] == 'true'
+  require 'coveralls'
+  Coveralls.wear!('rails')
+end
 require 'spec_helper'
 require 'shoulda/matchers'
 ENV['RAILS_ENV'] ||= 'test'
