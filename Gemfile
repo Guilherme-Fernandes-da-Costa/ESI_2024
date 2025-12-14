@@ -10,7 +10,7 @@ gem "sprockets-rails"
 
 # ---- DATABASES -------------------------------------------------
 # SQLite apenas em desenvolvimento local (não no CI)
-gem "sqlite3", "~> 1.4", group: :development
+gem "sqlite3", "~> 2.8", group: :development
 
 
 gem "pg", "~> 1.5", group: [ :production, :test ]
