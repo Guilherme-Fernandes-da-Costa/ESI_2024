@@ -68,7 +68,11 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
           bundle exec rake simplecov-lcov coverage/lcov.info || true
-          curl -L https://coveralls.io/api/v1/jobs -F json_file=@coverage/lcov.info
+          if [ -f coverage/lcov.info ] && [ -n "$COVERALLS_REPO_TOKEN" ]; then
+            curl -L https://coveralls.io/api/v1/jobs -F json_file=@coverage/lcov.info || true
+          else
+            echo "Skipping Coveralls upload; coverage file or token missing"
+          fi
 
   quality:
     runs-on: ubuntu-latest
