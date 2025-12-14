@@ -4,22 +4,22 @@
 # a `simplecov-lcov` rake task, but the simplecov-lcov gem does not ship a
 # Rake task by default, so we add a small, robust implementation here.
 
-require 'json'
-require 'fileutils'
+require "json"
+require "fileutils"
 
-desc 'Generate LCOV report from SimpleCov results: rake simplecov-lcov[coverage/lcov.info]'
-task :'simplecov-lcov', [:output] do |_t, args|
-  output = args[:output] || 'coverage/lcov.info'
+desc "Generate LCOV report from SimpleCov results: rake simplecov-lcov[coverage/lcov.info]"
+task :'simplecov-lcov', [ :output ] do |_t, args|
+  output = args[:output] || "coverage/lcov.info"
 
-  resultset_path = File.join('coverage', '.resultset.json')
+  resultset_path = File.join("coverage", ".resultset.json")
   unless File.exist?(resultset_path)
     warn "[simplecov-lcov] No resultset found at #{resultset_path}; run your tests with SimpleCov first."
     next
   end
 
   begin
-    require 'simplecov'
-    require 'simplecov-lcov'
+    require "simplecov"
+    require "simplecov-lcov"
   rescue LoadError => e
     warn "[simplecov-lcov] Required gem missing: #{e.message}"
     next
@@ -29,10 +29,10 @@ task :'simplecov-lcov', [:output] do |_t, args|
   # Pick the first suite's coverage. This mirrors how many CI setups run a
   # single test suite (RSpec). If multiple suites exist, the first one wins.
   suite = data.values.first
-  coverage_hash = suite && suite['coverage']
+  coverage_hash = suite && suite["coverage"]
 
   unless coverage_hash && !coverage_hash.empty?
-    warn '[simplecov-lcov] No coverage data found in resultset; skipping.'
+    warn "[simplecov-lcov] No coverage data found in resultset; skipping."
     next
   end
 
@@ -47,17 +47,17 @@ task :'simplecov-lcov', [:output] do |_t, args|
     File.write(output, lcov)
     puts "[simplecov-lcov] Wrote LCOV to #{output}"
   else
-    # Some versions of the formatter may write files directly; check for
+      # Some versions of the formatter may write files directly; check for
       # default path 'coverage/lcov' (no extension) as a fallback. If it's a
       # directory with per-file lcov outputs, concatenate them into a single
       # output file.
-      fallback = File.join('coverage', 'lcov')
+      fallback = File.join("coverage", "lcov")
       if File.exist?(fallback)
         if File.directory?(fallback)
-          entries = Dir[File.join(fallback, '*.lcov')].sort
+          entries = Dir[File.join(fallback, "*.lcov")].sort
           if entries.any?
             FileUtils.mkdir_p(File.dirname(output))
-            File.open(output, 'w') do |outf|
+            File.open(output, "w") do |outf|
               entries.each do |f|
                 outf.write(File.read(f))
                 outf.write("\n")
@@ -72,8 +72,7 @@ task :'simplecov-lcov', [:output] do |_t, args|
           puts "[simplecov-lcov] Moved #{fallback} to #{output}"
         end
       else
-        warn '[simplecov-lcov] Formatter produced no output; please check gem compatibility.'
+        warn "[simplecov-lcov] Formatter produced no output; please check gem compatibility."
       end
-end
-
+  end
 end
