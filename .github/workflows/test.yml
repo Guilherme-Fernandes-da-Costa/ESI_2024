@@ -108,3 +108,10 @@ jobs:
           else
             echo "Skipping Code Climate upload; coverage file or CC_TEST_REPORTER_ID missing"
           fi
+
+      - name: Upload coverage to Qlty
+        if: ${{ secrets.QLTY_COVERAGE_TOKEN != '' }}
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: coverage/lcov.info
