@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <style>
   body {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -334,29 +333,3 @@
     itemCount = items.length;
   }
 </script>
-=======
-<h1>Nova Lista</h1>
-
-<%= form_with(model: @list, local: true) do |form| %>
-  <% if @list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@list.errors.count, "erro") %> impediram esta lista de ser salva:</h2>
-      <ul>
-        <% @list.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name, "Nome da Lista" %>
-    <%= form.text_field :name, required: true, placeholder: "Ex: Lista de Compras da Semana" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Criar Lista", class: "btn btn-primary" %>
-    <%= link_to 'Cancelar', lists_path, class: "btn btn-secondary" %>
-  </div>
-<% end %>
->>>>>>> 0d98f6d (Implementa sistema de autenticação)

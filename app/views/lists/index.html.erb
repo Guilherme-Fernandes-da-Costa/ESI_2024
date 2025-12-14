@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <style>
   body {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -369,38 +368,3 @@
     </div>
   <% end %>
 </div>
-=======
-<h1>Minhas Listas de Compras</h1>
-
-<div class="actions">
-  <%= link_to 'Nova Lista', new_list_path, class: 'btn btn-primary' %>
-</div>
-
-<h2>Minhas Listas</h2>
-<% if @owned_lists.any? %>
-  <ul>
-    <% @owned_lists.each do |list| %>
-      <li>
-        <%= link_to list.name, list %>
-        (<%= link_to 'Editar', edit_list_path(list) %>)
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Você ainda não criou nenhuma lista.</p>
-<% end %>
-
-<h2>Listas Compartilhadas Comigo</h2>
-<% if @shared_lists.any? %>
-  <ul>
-    <% @shared_lists.each do |list| %>
-      <li>
-        <%= link_to list.name, list %>
-        (de <%= list.owner.email %>)
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Nenhuma lista compartilhada com você.</p>
-<% end %>
->>>>>>> 0d98f6d (Implementa sistema de autenticação)
