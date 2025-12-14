@@ -163,7 +163,8 @@ class ListsController < ApplicationController
   end
 
   def list_params
-    params.require(:list).permit(:name,
+    params.require(:list).permit(
+      :name,
       items_attributes: [ :id, :name, :quantity, :preco, :tag, :quantidade_comprada, :_destroy ]
     )
   end

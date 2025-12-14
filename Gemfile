@@ -50,11 +50,11 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # ---- COBERTURA ----
-  gem 'simplecov', require: false  # Geração de coverage
-  gem 'simplecov-lcov'  # Formato para Coveralls
-  gem 'coveralls', require: false  # Upload para Coveralls
-  gem 'codeclimate-test-reporter', '~> 1.0.0', require: false  # Upload para Code Climate
-  gem 'jasmine-rails'  # Para testes JS, se não tiver
+  gem "simplecov", require: false  # Geração de coverage
+  gem "simplecov-lcov"  # Formato para Coveralls
+  gem "coveralls", require: false  # Upload para Coveralls
+  gem "codeclimate-test-reporter", "~> 1.0.0", require: false  # Upload para Code Climate
+  gem "jasmine-rails"  # Para testes JS, se não tiver
   gem "shoulda-matchers", "~> 5.0"
 
   # gem 'rails-controller-testing'

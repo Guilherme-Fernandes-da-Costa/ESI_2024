@@ -1,13 +1,34 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-equire 'simplecov'
+require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter '/spec/'  # Ignora testes
   coverage_dir 'coverage'
 end
 
-if ENV['COVERALLS'] == 'true'
+if ENV['COVERALLS'] == 'true' && ENV['COVERALLS_REPO_TOKEN'].to_s.strip != ''
   require 'coveralls'
-  Coveralls.wear!('rails')
+  begin
+    Coveralls.wear!('rails')
+  rescue RuntimeError => e
+    warn "[Coveralls] skipped: #{e.class}: #{e.message}"
+  rescue OpenSSL::SSL::SSLError => e
+    warn "[Coveralls] SSL error during setup: #{e.class}: #{e.message}"
+  end
+
+  # If Coveralls set a formatter, wrap it so submission errors at exit don't
+  # abort or raise during tests (best-effort submission).
+  if defined?(SimpleCov) && SimpleCov.formatter
+    original_formatter = SimpleCov.formatter
+    SimpleCov.formatter = proc do |result|
+      begin
+        original_formatter.format(result)
+      rescue OpenSSL::SSL::SSLError => e
+        warn "[Coveralls] SSL error while submitting coverage: #{e.class}: #{e.message}"
+      rescue StandardError => e
+        warn "[Coveralls] Error while submitting coverage: #{e.class}: #{e.message}"
+      end
+    end
+  end
 end
 require 'spec_helper'
 require 'shoulda/matchers'
