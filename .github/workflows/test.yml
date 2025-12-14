@@ -100,7 +100,11 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter format-coverage coverage/lcov.info --input-type lcov
-          ./cc-test-reporter upload-coverage
+          if [ -f coverage/lcov.info ] && [ -n "$CC_TEST_REPORTER_ID" ]; then
+            curl -f -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter || { echo "Failed to download cc-test-reporter"; exit 0; }
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter format-coverage coverage/lcov.info --input-type lcov || { echo "Failed to format coverage"; exit 0; }
+            ./cc-test-reporter upload-coverage || { echo "Failed to upload coverage"; exit 0; }
+          else
+            echo "Skipping Code Climate upload; coverage file or CC_TEST_REPORTER_ID missing"
+          fi
