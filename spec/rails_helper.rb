@@ -1,5 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-equire 'simplecov'
+require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter '/spec/'  # Ignora testes
   coverage_dir 'coverage'

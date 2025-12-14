@@ -163,14 +163,9 @@ class ListsController < ApplicationController
   end
 
   def list_params
-<<<<<<< HEAD
-    params.require(:list).permit(:name,
+    params.require(:list).permit(
+      :name,
       items_attributes: [ :id, :name, :quantity, :preco, :tag, :quantidade_comprada, :_destroy ]
     )
   end
 end
-=======
-    params.require(:list).permit(:name)  # Note: 'list' não 'item'
-  end
-end
->>>>>>> 0d98f6d (Implementa sistema de autenticação)
