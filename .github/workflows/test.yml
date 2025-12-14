@@ -110,8 +110,10 @@ jobs:
           fi
 
       - name: Upload coverage to Qlty
-        if: ${{ secrets.QLTY_COVERAGE_TOKEN != '' }}
+        env:
+          QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+        if: ${{ env.QLTY_COVERAGE_TOKEN != '' }}
         uses: qltysh/qlty-action/coverage@v2
         with:
-          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          token: ${{ env.QLTY_COVERAGE_TOKEN }}
           files: coverage/lcov.info
